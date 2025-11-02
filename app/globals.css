@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 
 @theme inline {
@@ -16,5 +17,14 @@
   --font-lora: var(--font-lora);
   --font-greatvibes: var(--font-greatvibes);
   --font-caveat: var(--font-caveat);
+  --font-oranienbaum: var(--font-oranienbaum);
+  --font-noto-serif-display: var(--font-noto-serif-display);
+
   --tracking-logo: 0.18em;
+}
+
+input,
+textarea,
+select {
+  font-size: 16px !important;
 }

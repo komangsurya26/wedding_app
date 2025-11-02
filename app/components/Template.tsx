@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaEye } from "react-icons/fa";
-import { TiShoppingCart } from "react-icons/ti";
 
 const templates = [
   {
@@ -43,17 +41,17 @@ const templates = [
 
 export default function Template() {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-20">
         {/* Header */}
         <div className="flex items-center mb-12">
           <div>
             <p className="font-karla text-gray-700">- Our Template</p>
             <div className="mt-5 flex space-x-4">
-              <button className="border px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
+              <button className="border text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
                 Wedding
               </button>
-              <button className="border px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
+              <button className="border text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
                 Metatah
               </button>
             </div>

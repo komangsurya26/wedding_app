@@ -53,7 +53,7 @@ export default function Feature() {
 
       <div className="container mx-auto px-4 lg:px-20">
         {/* Optional header */}
-        <div className="mb-12">
+        <div className="mb-12 text-black">
           <p className="font-karla">- Our Feature</p>
           <h2 className="text-5xl mt-2">
             Fitur unggulan <br />

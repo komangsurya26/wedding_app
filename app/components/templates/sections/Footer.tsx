@@ -1,20 +1,22 @@
 import Image from "next/image";
-import { FaInstagram, FaShopify, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaShopify, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <section className="relative min-h-screen px-12 overflow-hidden">
+    <section className="relative h-screen px-12 overflow-hidden">
       {/* Background Image */}
 
-      <Image
-        src="https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp"
-        alt="Background footer"
-        fill
-        className="object-cover brightness-50"
-        priority
-      />
+      <div className="absolute">
+        <Image
+          src="https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp"
+          alt="Background footer"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+      </div>
 
-      <div className="absolute top-0 left-0 right-0 h-[250px] bg-gradient-to-b from-black via-black/60 to-transparent"></div>
+      {/* <div className="absolute top-0 left-0 right-0 h-[250px] bg-gradient-to-b from-black via-black/60 to-transparent"></div> */}
 
       <div className="relative text-center text-white py-6 flex flex-col justify-end min-h-[100vh]">
         <div>

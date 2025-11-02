@@ -8,6 +8,8 @@ import {
   Great_Vibes,
   Caveat,
   Lato,
+  Oranienbaum,
+  Noto_Serif_Display,
 } from "next/font/google";
 
 import localFont from "next/font/local";
@@ -62,6 +64,15 @@ const myFont9 = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],
 });
+const myFont10 = Oranienbaum({
+  variable: "--font-oranienbaum",
+  weight: "400",
+  subsets: ["latin"],
+});
+const myFont11 = Noto_Serif_Display({
+  variable: "--font-noto-serif-display",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -75,6 +86,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+      </head>
       <body
         className={`
           ${myFont1.variable} 
@@ -86,6 +103,8 @@ export default function RootLayout({
           ${myFont7.variable} 
           ${myFont8.variable} 
           ${myFont9.variable} 
+          ${myFont10.variable}
+          ${myFont11.variable}
           antialiased`}
       >
         <main>{children}</main>
