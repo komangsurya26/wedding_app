@@ -50,10 +50,9 @@ export default function Template1({ config }: { config: any }) {
         <div className="absolute inset-0 bg-black/70"></div>
 
         <div
-          className={`relative z-20 h-full overflow-y-auto`}
-          //   className={`relative z-20 h-full
-          //   ${isOpened && "overflow-y-auto"}
-          // `}
+          className={`relative z-20 h-full
+            ${isOpened && "overflow-y-auto"}
+          `}
         >
           {/* Section 1 */}
           <section className="text-center text-white h-screen flex flex-col items-center justify-between px-6 py-10 ">
