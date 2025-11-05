@@ -1,6 +1,9 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { FaEnvelopeOpen, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
-import { FaRegEnvelopeOpen } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
+
 import Footer from "./sections/Footer";
 import WeddingDay from "./sections/weddingday/WeddingDayT1";
 import WeddingGift from "./sections/WeddingGift";
@@ -10,17 +13,26 @@ import LoveStory from "./sections/LoveStory";
 import Gallery from "./sections/Gallery";
 import RSVP from "./sections/RSVP";
 
+const sectionClassName = "px-8 py-16";
+// const videoIdYoutube = "6FYtKVFik_8";
+const videoIdYoutube = "J1HAyer_I8U";
+// const videoIdYoutube = "B1YrcdtbboE";
+const isRight = false;
+const images = [
+  "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
+  "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
+  "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
+];
+
 export default function Template1({ config }: { config: any }) {
-  const sectionClassName = "px-8 py-16";
-  // const videoIdYoutube = "6FYtKVFik_8";
-  const videoIdYoutube = "J1HAyer_I8U";
-  // const videoIdYoutube = "B1YrcdtbboE";
-  const isRight = false;
-  const images = [
-    "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
-    "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
-    "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
-  ];
+  const [isOpened, setIsOpened] = useState(false);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const handleOpenInvitation = () => {
+    setIsOpened(true);
+    setTimeout(() => {
+      section2Ref.current?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  };
 
   return (
     <main className="h-screen flex justify-center bg-black">
@@ -37,9 +49,14 @@ export default function Template1({ config }: { config: any }) {
         />
         <div className="absolute inset-0 bg-black/70"></div>
 
-        <div className="relative z-20 h-full overflow-y-auto overflow-hidden">
+        <div
+          className={`relative z-20 h-full overflow-y-auto`}
+          //   className={`relative z-20 h-full
+          //   ${isOpened && "overflow-y-auto"}
+          // `}
+        >
           {/* Section 1 */}
-          <section className="h-screen flex flex-col items-center justify-between text-center px-6 py-10 text-white">
+          <section className="text-center text-white h-screen flex flex-col items-center justify-between px-6 py-10 ">
             <div>
               <p className="text-sm tracking-widest mb-2">The Wedding Of</p>
               <h1 className="text-5xl sm:text-7xl md:text-8xl lg:mx-48 font-oranienbaum">
@@ -52,19 +69,29 @@ export default function Template1({ config }: { config: any }) {
                 Kepada Yth. Bapak/Ibu/Saudara/i
               </p>
               <h2 className="text-lg font-medium">Tamu Undangan</h2>
-
-              <button className="mt-4 px-6 py-4 border border-white/60 rounded-lg hover:bg-white/20 transition">
-                <div className="flex items-center gap-3 text-xs">
-                  <FaRegEnvelopeOpen />
-                  <p className="text-white/50">OPEN INVITATION</p>
-                </div>
-              </button>
+              <div
+                className={`transition-opacity duration-400 ${
+                  isOpened ? "opacity-0 pointer-events-none" : "opacity-100"
+                }`}
+              >
+                <button
+                  onClick={handleOpenInvitation}
+                  className="mt-4 px-6 py-4 border border-white/60 animate-pulse rounded-lg hover:bg-white/20 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-3 text-xs">
+                    <FaEnvelopeOpen />
+                    <p className="text-white/50 tracking-wider">
+                      OPEN INVITATION
+                    </p>
+                  </div>
+                </button>
+              </div>
               <p className="text-[10px] text-white mt-4">
                 *Mohon maaf jika terdapat kesalahan penulisan nama & gelar
               </p>
             </div>
           </section>
-          <Greeting image={config.images.couple[1]} />
+          <Greeting image={config.images.couple[1]} ref={section2Ref} />
           <Quote />
           <section className="relative h-screen flex items-end">
             <div className="absolute inset-0 -z-10">
