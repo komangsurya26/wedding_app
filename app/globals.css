@@ -35,7 +35,7 @@ select {
 .quoteLine {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: dash 8s linear forwards;
+  animation: dash 5s linear forwards;
   animation-delay: 2s;
 }
 

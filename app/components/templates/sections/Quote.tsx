@@ -24,9 +24,11 @@ export default function Quote() {
         <div className="space-y-4">
           <p
             className={`text-sm sm:text-base lg:text-lg leading-relaxed text-white font-light ${
-              isVisible &&
-              "animate__animated animate__fadeInLeft animate__slow animate__delay-2s"
+              isVisible && "animate__animated animate__fadeInLeft animate__slow"
             }`}
+            style={{
+              animationDelay: "1s",
+            }}
           >
             "Ya Tuhanku Yang Maha Pengasih, anugrahkanlah kepada pasangan ini
             senantiasa kebahagiaan, kesehatan, tetap bersatu dan tidak pernah
