@@ -6,12 +6,9 @@ export default function Quote() {
   const isVisible = useInViewAnimation(quoteRef, 0.1);
 
   return (
-    <section
-      ref={quoteRef}
-      className="px-8 py-10 h-screen text-left text-white"
-    >
+    <section ref={quoteRef} className="px-8 py-10 text-left text-white">
       <div className="max-w-lg space-y-8">
-        <div className="h-[15vh] md:h-[10vh]"></div>
+        <div className="h-[10vh]"></div>
         <div
           className={`font-noto-serif-display leading-[1.3] font-bold text-white/60 ${
             isVisible && "animate__animated animate__fadeInLeft animate__slow"
