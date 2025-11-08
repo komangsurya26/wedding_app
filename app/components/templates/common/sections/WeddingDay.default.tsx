@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
 type EventItem = {
   id: string | number;
@@ -14,7 +15,7 @@ type EventItem = {
   locationUrl?: string;
 };
 
-export default function WeddingDayT1({
+export default function WeddingDay({
   events,
   images,
 }: {
@@ -35,8 +36,7 @@ export default function WeddingDayT1({
       <AnimatePresence>
         <motion.div
           key={index}
-          className="absolute inset-0 bg-cover bg-center -z-10"
-          style={{ backgroundImage: `url('${images[index]}')` }}
+          className="absolute inset-0 overflow-hidden -z-10"
           initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: 1, scale: 1.4 }}
           exit={{ opacity: 0.8 }}
@@ -44,7 +44,14 @@ export default function WeddingDayT1({
             opacity: { duration: 2, ease: "easeInOut" },
             scale: { duration: 20, ease: "linear" },
           }}
-        />
+        >
+          <Image
+            src={images[index]}
+            alt={`background-couple-${index}`}
+            fill
+            className="object-cover object-center h-full w-full"
+          />
+        </motion.div>
       </AnimatePresence>
       <div className="absolute inset-0 bg-black/30" />
       <div className="relative my-10 gap-2">

@@ -86,7 +86,7 @@ export default function RSVP({
 
   return (
     <section className="p-6 sm:p-8">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto text-white">
         <header className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl font-noto-serif-display italic">
             RSVP

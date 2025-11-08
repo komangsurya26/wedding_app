@@ -17,7 +17,7 @@ export default function LoveStory({ image }: { image: string }) {
       <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-[100vh] bg-gradient-to-b from-neutral-900 via-neutral-800 to-transparent" />
       {/* Content */}
       <div className="relative w-full pt-16 px-6 md:px-12 lg:px-24 max-w-5xl text-center">
-        <h1 className="text-4xl lg:text-5xl font-noto-serif-display italic">
+        <h1 className="text-4xl lg:text-5xl font-noto-serif-display italic text-white">
           LOVE STORY
         </h1>
 

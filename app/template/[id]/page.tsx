@@ -1,10 +1,13 @@
-import Template1 from "@/app/components/templates/Template1";
-// import Template2 from "@/app/components/templates/Template2";
+import Template1 from "@/app/components/templates/template1/main";
+import Template2 from "@/app/components/templates/template2/main";
+
 import { notFound } from "next/navigation";
+import LoadingTemplate from "./LoadingTemplate";
 
 interface TemplateConfig {
   templateId: number;
   videoSrc?: string;
+  videoIdYoutube?: string;
   imageSrc?: string;
   images?: any;
 }
@@ -13,6 +16,7 @@ const TEMPLATE: TemplateConfig[] = [
   {
     templateId: 1,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
+    videoIdYoutube: "6FYtKVFik_8",
     images: {
       bride:
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_7016-scaled.webp",
@@ -67,9 +71,7 @@ const TEMPLATE: TemplateConfig[] = [
 ];
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
 async function Page({ params }: PageProps) {
@@ -79,16 +81,15 @@ async function Page({ params }: PageProps) {
 
   const MAP: Record<string, React.ComponentType<{ config: TemplateConfig }>> = {
     "1": Template1,
-    // "2": Template2,
+    "2": Template2,
   };
 
   const TemplateComponent = MAP[id];
+  if (!TemplateComponent) return notFound();
 
-  if (TemplateComponent) {
-    return <TemplateComponent config={config} />;
-  }
-
-  return notFound();
+  return (
+    <LoadingTemplate TemplateComponent={TemplateComponent} config={config} />
+  );
 }
 
 export default Page;
