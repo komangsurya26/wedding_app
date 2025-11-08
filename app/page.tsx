@@ -7,8 +7,9 @@ import Footer from "./components/Footer";
 
 export async function generateMetadata() {
   const data = {
-    title: "Resepsi Bali Website Undangan",
-    description: "Buat website undangan dengan mudah di resepsi bali",
+    title: "Resepsi Bali - Jasa Pembuatan Website Undangan Digital Bali",
+    description:
+      "Buat undangan digital elegan dengan Resepsi Bali. Desain eksklusif, fitur RSVP, dan tampilan profesional untuk pernikahan Anda.",
     url: "https://komangsuryasedana.web.id",
   };
 
