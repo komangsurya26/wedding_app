@@ -1,3 +1,5 @@
+// ini untuk menajalankan animasi ketika elemen masuk ke dalam viewport.
+
 import { useEffect, useState, RefObject } from "react";
 
 export default function useInViewAnimation<T extends HTMLElement>(

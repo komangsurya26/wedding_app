@@ -20,6 +20,7 @@ export async function generateMetadata() {
     title: data.title,
     description: data.description,
     openGraph: {
+      siteName: "Resepsi Bali",
       title: data.title,
       description: data.description,
       url: data.url,
@@ -32,6 +33,10 @@ export async function generateMetadata() {
         },
       ],
       type: "website",
+    },
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/favicon.png",
     },
     twitter: {
       card: "summary_large_image",
