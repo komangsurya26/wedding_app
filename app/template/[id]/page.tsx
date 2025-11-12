@@ -2,7 +2,6 @@ import Template1 from "@/app/components/templates/template1/main";
 import Template2 from "@/app/components/templates/template2/main";
 
 import { notFound } from "next/navigation";
-import LoadingTemplate from "./LoadingTemplate";
 
 interface TemplateConfig {
   templateId: number;
@@ -31,10 +30,14 @@ const TEMPLATE: TemplateConfig[] = [
       potrait: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
       ],
       landscape: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
       ],
     },
   },
@@ -51,6 +54,14 @@ const TEMPLATE: TemplateConfig[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
       ],
+      potrait: [
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
+      ],
+      landscape: [
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
+      ],
     },
   },
   {
@@ -66,6 +77,14 @@ const TEMPLATE: TemplateConfig[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
       ],
+      potrait: [
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
+      ],
+      landscape: [
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
+        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
+      ],
     },
   },
 ];
@@ -73,6 +92,8 @@ const TEMPLATE: TemplateConfig[] = [
 interface PageProps {
   params: { id: string };
 }
+
+// generate metadata dynamically
 
 async function Page({ params }: PageProps) {
   const { id } = await params;
@@ -87,9 +108,7 @@ async function Page({ params }: PageProps) {
   const TemplateComponent = MAP[id];
   if (!TemplateComponent) return notFound();
 
-  return (
-    <LoadingTemplate TemplateComponent={TemplateComponent} config={config} />
-  );
+  return <TemplateComponent config={config} />;
 }
 
 export default Page;

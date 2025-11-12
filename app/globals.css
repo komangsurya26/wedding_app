@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import 'animate.css';
 
+@import 'lightgallery/css/lightgallery.css';
+@import 'lightgallery/css/lg-zoom.css';
+@import 'lightgallery/css/lg-thumbnail.css';
+
 
 @theme inline {
   --animate-spinSlow: spin 10s linear infinite;

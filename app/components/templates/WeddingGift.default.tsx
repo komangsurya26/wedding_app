@@ -1,41 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { HiOutlineClipboard } from "react-icons/hi";
 import Image from "next/image";
 import copy from "copy-to-clipboard";
 
-export type Account = {
-  bankName: string;
-  accountNumber: string;
-  owner: string;
-  logo?: string;
-};
+//types
+import { WeddingGiftProps } from "@/app/types";
 
-export interface WeddingGiftSectionProps {
-  accounts?: Account[];
-  title?: string;
-  description?: string;
-}
+//icons
+import { HiOutlineClipboard } from "react-icons/hi";
 
-export default function WeddingGift({
-  accounts = [
-    {
-      bankName: "Mandiri",
-      accountNumber: "1750001378826",
-      owner: "Narayana",
-      logo: "/bank/mandiri.png",
-    },
-    {
-      bankName: "BCA",
-      accountNumber: "61157185511",
-      owner: "Kadek Dwijayanti",
-      logo: "/bank/bca.png",
-    },
-  ],
-  title = "WEDDING GIFT",
-  description = "Bagi yang ingin memberikan tanda kasih, dapat mengirimkan melalui rekening di bawah ini:",
-}: WeddingGiftSectionProps) {
+export default function WeddingGift({ accounts }: WeddingGiftProps) {
   const [copied, setCopied] = useState<string | null>(null);
   const [isCopying, setIsCopying] = useState(false);
 
@@ -51,10 +26,11 @@ export default function WeddingGift({
   };
 
   return (
-    <section className="flex flex-col items-center justify-center h-[80vh] p-6 text-center bg-black text-white">
-      <h1 className="text-4xl font-noto-serif-display italic">{title}</h1>
+    <section className="flex flex-col items-center justify-center h-[60vh] p-6 text-center text-white">
+      <h1 className="text-4xl font-noto-serif-display italic">Wedding Gift</h1>
       <p className="mt-2 text-sm text-gray-300 max-w-md mx-auto">
-        {description}
+        Bagi yang ingin memberikan tanda kasih, dapat mengirimkan melalui
+        rekening di bawah ini:
       </p>
 
       <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full max-w-xl">

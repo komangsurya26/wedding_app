@@ -1,27 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { WeddingDayProps } from "@/app/types";
+
+//icons
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 
-type EventItem = {
-  id: string | number;
-  title: string;
-  date: string; // ex: "Minggu, 31 Desember 2025"
-  time: string; // ex: "09.00 WIB - Selesai"
-  venue: string; // ex: "Balai Sarbini Jakarta"
-  locationUrl?: string;
-};
-
-export default function WeddingDay({
-  events,
-  images,
-}: {
-  events: EventItem[];
-  images: string[];
-}) {
+export default function WeddingDay({ images, events }: WeddingDayProps) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -58,7 +46,7 @@ export default function WeddingDay({
         {events.map((e) => (
           <div key={e.id} className="px-12 lg:px-20 py-10">
             <div className="max-w-4xl">
-              <div className="bg-black/55 border border-white/10 rounded-3xl p-10 md:p-12 lg:p-16 shadow-lg">
+              <div className="bg-black/50 border border-white/10 rounded-3xl p-10 md:p-12 lg:p-16 shadow-lg">
                 <h3
                   id={`event-${e.id}-title`}
                   className="font-noto-serif-display text-3xl lg:text-5xl leading-tight italic text-white drop-shadow-sm"

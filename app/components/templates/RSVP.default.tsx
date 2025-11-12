@@ -4,48 +4,23 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { IoMdTime } from "react-icons/io";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
-
-export type Attendance = "Hadir" | "Tidak Hadir";
-
-export type Comment = {
-  name: string;
-  message: string;
-  attendance: Attendance;
-  timeAgo: string;
-};
-
-export interface ConfirmAttendanceProps {
-  image: string;
-  initialComments?: Comment[];
-  onSubmit?: (comment: Comment) => void;
-}
+import { Attendance, Comment, ConfirmAttendanceProps } from "@/app/types";
 
 export default function RSVP({
-  image,
-  initialComments = [],
+  initialComments = [
+    {
+      name: "Andi",
+      message: "Selamat menempuh hidup baru! Semoga bahagia selalu.",
+      attendance: "Hadir",
+      timeAgo: "2 jam yang lalu",
+    },
+  ],
   onSubmit,
 }: ConfirmAttendanceProps) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [attendance, setAttendance] = useState<Attendance>("Hadir");
-  const [comments, setComments] = useState<Comment[]>(
-    initialComments.length
-      ? initialComments
-      : [
-          {
-            name: "Joko",
-            message: "Selamat ya, semoga berkah!",
-            attendance: "Hadir",
-            timeAgo: "2 bulan lalu",
-          },
-          {
-            name: "Sinta",
-            message: "Mohon maaf, ada acara keluarga.",
-            attendance: "Tidak Hadir",
-            timeAgo: "1 bulan lalu",
-          },
-        ]
-  );
+  const [comments, setComments] = useState<Comment[]>(initialComments);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 

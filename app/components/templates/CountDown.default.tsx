@@ -1,9 +1,14 @@
-"use client";
-
 import Image from "next/image";
 import React from "react";
+import CountDownAnimation from "@/app/components/templates/animations/CountDownAnimation";
 
-export default function CountDown({ image }: { image: string }) {
+export default function CountDown({
+  image,
+  date,
+}: {
+  image: string;
+  date: string;
+}) {
   const isRight = false;
 
   return (
@@ -42,36 +47,12 @@ export default function CountDown({ image }: { image: string }) {
             </div>
 
             <div className="pt-8">
-              <div
-                className={`grid grid-cols-4 gap-4 text-white ${
+              <CountDownAnimation
+                targetDate={date}
+                className={
                   isRight ? "justify-items-end" : "justify-items-start"
-                }`}
-              >
-                <div>
-                  <p className="text-[2rem] md:text-[3rem] font-noto-serif-display leading-none">
-                    68
-                  </p>
-                  <p className="mt-2 text-sm text-center md:text-base">Hari</p>
-                </div>
-                <div>
-                  <p className="text-[2rem] md:text-[3rem] font-noto-serif-display leading-none">
-                    14
-                  </p>
-                  <p className="mt-2 text-sm text-center md:text-base">Jam</p>
-                </div>
-                <div>
-                  <p className="text-[2rem] md:text-[3rem] font-noto-serif-display leading-none">
-                    14
-                  </p>
-                  <p className="mt-2 text-sm text-center md:text-base">Menit</p>
-                </div>
-                <div>
-                  <p className="text-[2rem] md:text-[3rem] font-noto-serif-display leading-none">
-                    27
-                  </p>
-                  <p className="mt-2 text-sm text-center md:text-base">Detik</p>
-                </div>
-              </div>
+                }
+              />
 
               <div
                 className={`mt-8 max-w-[15rem] ${
@@ -79,7 +60,7 @@ export default function CountDown({ image }: { image: string }) {
                 }`}
               >
                 <a
-                  href="#"
+                  href=""
                   className="font-bodonimoda inline-block w-full text-center px-6 py-3 border border-white rounded-md text-sm tracking-widest hover:bg-white/10 transition"
                 >
                   SAVE THE DATE
