@@ -17,9 +17,9 @@ export default function Gallery({
   const images = [...portraits, ...landscapes];
 
   return (
-    <section className="p-8 max-w-[1200px] mx-auto">
+    <section className="pt-8 px-2 max-w-[1200px] mx-auto">
       {/* Title */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-2">
         <h1 className="text-3xl lg:text-5xl font-noto-serif-display italic text-white">
           Our Gallery
         </h1>
@@ -29,7 +29,7 @@ export default function Gallery({
       {videoIdYoutube && (
         <div className="mb-2">
           <div
-            className="w-full rounded-md overflow-hidden"
+            className="w-full overflow-hidden"
             style={{ aspectRatio: "16/9" }}
           >
             <iframe
@@ -59,7 +59,7 @@ export default function Gallery({
                   href={src}
                   data-src={src}
                   data-lg-size="1600-1067"
-                  className="block mb-2 break-inside-avoid rounded-md overflow-hidden shadow-sm"
+                  className="block mb-2 break-inside-avoid overflow-hidden shadow-sm"
                   data-sub-html=" <div class='lg-caption'><h4 class='font-semibold mb-1'>Komang & Surya</h4><p class='text-sm opacity-80'>Ketika cinta menjadi satu-satunya cahaya yang menerangi langkah.</p></div>"
                 >
                   <img

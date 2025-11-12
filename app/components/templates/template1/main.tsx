@@ -137,7 +137,6 @@ export default function Template1({ config }: { config: any }) {
               imagePotraits={config.images.potrait}
             />
             <RSVP />
-            {/* panggil komponen WeddingGift biasa (komponen internal tidak perlu bg lagi) */}
             <WeddingGift
               accounts={[
                 {
