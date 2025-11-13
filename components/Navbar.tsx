@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import DashboardButton from "./DashboardButton";
+import LoginButton from "./LoginButton";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -37,7 +37,7 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="flex space-x-6 items-center text-lg font-medium">
-            <DashboardButton />
+            <LoginButton />
           </div>
         </div>
       </div>

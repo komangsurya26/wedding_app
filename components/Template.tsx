@@ -89,7 +89,7 @@ export default function Template() {
                       Preview
                     </Link>
                     <Link
-                      href={template.href}
+                      href={`/dashboard?templateId=${template.id}`}
                       className="border border-gray-400 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
                     >
                       Order

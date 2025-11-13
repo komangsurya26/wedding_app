@@ -1,4 +1,4 @@
-import useInViewAnimation from "@/app/hooks/useInViewAnimation";
+import useInViewAnimation from "@/hooks/use-inview-animation";
 import React, { useRef } from "react";
 
 export default function Quote() {

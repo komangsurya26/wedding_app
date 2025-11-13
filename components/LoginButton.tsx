@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function DashboardButton() {
+export default function LoginButton() {
   const [user, setUser] = useState<any>(null);
   const supabase = createClient();
   useEffect(() => {

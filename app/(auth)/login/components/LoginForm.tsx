@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,13 +17,17 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import SignWithGoogleButton from "@/app/(auth)/login/components/SignWithGoogleButton";
+import SignWithGoogleButton from "./SignWithGoogleButton";
 import { login } from "@/lib/auth-actions";
+import { useSearchParams } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const searchParams = useSearchParams();
+  const nextUrl = searchParams.get("next") || "";
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -49,6 +55,9 @@ export function LoginForm({
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                 </div>
                 <Input id="password" name="password" type="password" required />
+              </Field>
+              <Field>
+                <Input type="hidden" name="next" value={nextUrl} />
               </Field>
               <Field>
                 <Button type="submit" formAction={login}>

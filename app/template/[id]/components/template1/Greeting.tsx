@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useRef } from "react";
-import useInViewAnimation from "@/app/hooks/useInViewAnimation";
+import useInViewAnimation from "@/hooks/use-inview-animation";
 
 export default function Greeting({ image, ref }: { image: string; ref: any }) {
   const greetingRef = useRef<HTMLHeadingElement>(null);

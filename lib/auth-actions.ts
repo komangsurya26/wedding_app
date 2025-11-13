@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function login(formData: FormData) {
     const supabase = createClient();
+    const next = (formData.get("next") as string) || "/";
 
     // type-casting here for convenience
     // in practice, you should validate your inputs
@@ -22,7 +23,7 @@ export async function login(formData: FormData) {
     }
 
     revalidatePath("/", "layout");
-    redirect("/");
+    redirect(next);
 }
 
 export async function signup(formData: FormData) {
@@ -64,11 +65,12 @@ export async function signout() {
     redirect("/logout");
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(nextUrl: string) {
     const supabase = createClient();
     const { data, error } = await (await supabase).auth.signInWithOAuth({
         provider: "google",
         options: {
+            redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback?next=${encodeURIComponent(nextUrl)}`,
             queryParams: {
                 access_type: "offline",
                 prompt: "consent",

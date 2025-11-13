@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 /**
  * Hook untuk animasi progress loading (0 → 100%)
  * dengan easing cubic-out dan durasi tertentu.
