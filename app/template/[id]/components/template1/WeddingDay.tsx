@@ -42,11 +42,11 @@ export default function WeddingDay({ images, events }: WeddingDayProps) {
         </motion.div>
       </AnimatePresence>
       <div className="absolute inset-0 bg-black/30" />
-      <div className="relative my-10 gap-2">
+      <div className="relative my-20 mx-6 sm:mx-18">
         {events.map((e) => (
-          <div key={e.id} className="px-12 lg:px-20 py-10">
+          <div key={e.id} className="py-4">
             <div className="max-w-4xl">
-              <div className="bg-black/50 border border-white/10 rounded-3xl p-10 md:p-12 lg:p-16 shadow-lg">
+              <div className="bg-black/50 border border-white/10 rounded-3xl p-10 shadow-lg">
                 <h3
                   id={`event-${e.id}-title`}
                   className="font-noto-serif-display text-3xl lg:text-5xl leading-tight italic text-white drop-shadow-sm"
@@ -54,7 +54,7 @@ export default function WeddingDay({ images, events }: WeddingDayProps) {
                   {e.title}
                 </h3>
 
-                <div className="mt-6 space-y-4 text-white">
+                <div className="mt-6 text-white">
                   <div className="flex items-center gap-3">
                     <span className="p-2">
                       <FiCalendar className="w-5 h-5" />

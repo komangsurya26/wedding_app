@@ -110,7 +110,7 @@ export default function TemplateMain({ config }: { config: ConfigTemplate }) {
 
             {/* (Wedding Day) */}
             <WeddingDay
-              images={config.images.couple}
+              images={config.images.potrait}
               events={[
                 {
                   id: 1,

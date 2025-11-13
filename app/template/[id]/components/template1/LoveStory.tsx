@@ -3,18 +3,16 @@ import React from "react";
 
 export default function LoveStory({ image }: { image: string }) {
   return (
-    <section className="relative h-[120vh] flex items-start justify-center overflow-hidden">
+    <section className="relative h-[120vh] md:h-[150vh] flex items-start justify-center overflow-hidden">
       {/* Background gradient overlay */}
-      <div className="absolute inset-0 top-20 sm:top-40 h-full">
-        <Image
-          src={image}
-          alt="Couple"
-          fill
-          priority
-          className="object-cover object-center"
-        />
-      </div>
-      <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-[100vh] bg-gradient-to-b from-neutral-900 via-neutral-800 to-transparent" />
+      <Image
+        src={image}
+        alt="Couple"
+        width={800}
+        height={700}
+        className="h-full absolute object-cover object-center"
+      />
+      <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-[80vh] bg-gradient-to-b from-neutral-900 via-neutral-800 to-transparent" />
       {/* Content */}
       <div className="relative w-full pt-16 px-6 md:px-12 lg:px-24 max-w-5xl text-center">
         <h1 className="text-4xl lg:text-5xl font-noto-serif-display italic text-white">
