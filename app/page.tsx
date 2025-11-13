@@ -1,12 +1,11 @@
-import Hero from "@/app/components/Hero";
-import Navbar from "@/app/components/Navbar";
-import Template from "@/app/components/Template";
-import Creation from "@/app/components/Creation";
-import Feature from "@/app/components/Feature";
-import Footer from "@/app/components/Footer";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import Template from "@/components/Template";
+import Creation from "@/components/Creation";
+import Feature from "@/components/Feature";
+import Footer from "@/components/Footer";
 
-
-export default function Home() {
+export default function HomePage() {
   return (
     <main>
       <Navbar />

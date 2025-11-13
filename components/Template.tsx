@@ -48,10 +48,10 @@ export default function Template() {
           <div>
             <p className="font-karla text-gray-700">- Our Template</p>
             <div className="mt-5 flex space-x-4">
-              <button className="border text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
+              <button className="border border-black/20 text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-gray-100 cursor-pointer">
                 Wedding
               </button>
-              <button className="border text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-black hover:text-white cursor-pointer">
+              <button className="border border-black/20 text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-gray-100 cursor-pointer">
                 Metatah
               </button>
             </div>

@@ -3,20 +3,21 @@
 import { useRef, useState } from "react";
 import { FaEnvelopeOpen } from "react-icons/fa";
 
-import Footer from "@/app/components/templates/Footer.default";
-import WeddingGift from "@/app/components/templates/WeddingGift.default";
-import Greeting from "@/app/components/templates/Greeting.default";
-import Quote from "@/app/components/templates/Quote.default";
-import LoveStory from "@/app/components/templates/LoveStory.default";
-import Gallery from "@/app/components/templates/Gallery.default";
-import RSVP from "@/app/components/templates/RSVP.default";
-import WeddingDay from "@/app/components/templates/WeddingDay.default";
-import Groom from "@/app/components/templates/Groom.default";
-import Bride from "@/app/components/templates/Bride.default";
-import CountDown from "@/app/components/templates/CountDown.default";
-import LoadingPercent from "@/app/components/templates/LoadingPercent";
+import Footer from "@/app/template/[id]/components/template1/Footer";
+import WeddingGift from "@/app/template/[id]/components/template1/WeddingGift";
+import Greeting from "@/app/template/[id]/components/template1/Greeting";
+import Quote from "@/app/template/[id]/components/template1/Quote";
+import LoveStory from "@/app/template/[id]/components/template1/LoveStory";
+import Gallery from "@/app/template/[id]/components/template1/Gallery";
+import RSVP from "@/app/template/[id]/components/template1/RSVP";
+import WeddingDay from "@/app/template/[id]/components/template1/WeddingDay";
+import Groom from "@/app/template/[id]/components/template1/Groom";
+import Bride from "@/app/template/[id]/components/template1/Bride";
+import CountDown from "@/app/template/[id]/components/template1/CountDown";
+import LoadingPercent from "@/app/template/[id]/components/template1/LoadingPercent";
+import { ConfigTemplate } from "@/app/types";
 
-export default function Template1({ config }: { config: any }) {
+export default function TemplateMain({ config }: { config: ConfigTemplate }) {
   const [isOpened, setIsOpened] = useState(false);
   const section2Ref = useRef<HTMLDivElement>(null);
   const handleOpenInvitation = () => {

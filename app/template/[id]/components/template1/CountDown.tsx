@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import CountDownAnimation from "@/app/components/templates/animations/CountDownAnimation";
+import CountDownAnimation from "@/app/template/[id]/components/template1/CountDownAnimation";
 
 export default function CountDown({
   image,

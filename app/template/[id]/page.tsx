@@ -1,17 +1,11 @@
-import Template1 from "@/app/components/templates/template1/main";
-import Template2 from "@/app/components/templates/template2/main";
+import { ConfigTemplate } from "@/app/types";
+import Template1 from "@/app/template/[id]/components/template1/TemplateMain";
+// import Template2 from "@/app/template/[id]/components/template2/TemplateMain";
 
 import { notFound } from "next/navigation";
+import { JSX } from "react";
 
-interface TemplateConfig {
-  templateId: number;
-  videoSrc?: string;
-  videoIdYoutube?: string;
-  imageSrc?: string;
-  images?: any;
-}
-
-const TEMPLATE: TemplateConfig[] = [
+const TEMPLATE: ConfigTemplate[] = [
   {
     templateId: 1,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
@@ -44,6 +38,7 @@ const TEMPLATE: TemplateConfig[] = [
   {
     templateId: 2,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
+    videoIdYoutube: "6FYtKVFik_8",
     images: {
       bride:
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
@@ -67,6 +62,7 @@ const TEMPLATE: TemplateConfig[] = [
   {
     templateId: 3,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
+    videoIdYoutube: "6FYtKVFik_8",
     images: {
       bride:
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
@@ -93,16 +89,17 @@ interface PageProps {
   params: { id: string };
 }
 
-// generate metadata dynamically
-
-async function Page({ params }: PageProps) {
+export default async function TemplatePage({ params }: PageProps) {
   const { id } = await params;
   const config = TEMPLATE.find((t) => String(t.templateId) === id);
   if (!config) return notFound();
 
-  const MAP: Record<string, React.ComponentType<{ config: TemplateConfig }>> = {
+  const MAP: Record<
+    string,
+    (props: { config: ConfigTemplate }) => JSX.Element
+  > = {
     "1": Template1,
-    "2": Template2,
+    // "2": Template2,
   };
 
   const TemplateComponent = MAP[id];
@@ -110,5 +107,3 @@ async function Page({ params }: PageProps) {
 
   return <TemplateComponent config={config} />;
 }
-
-export default Page;
