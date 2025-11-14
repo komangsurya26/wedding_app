@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import * as React from "react"
 /**
  * Hook untuk animasi progress loading (0 → 100%)
  * dengan easing cubic-out dan durasi tertentu.
  */
 export function useLoadingProgress(minDuration: number = 5000) {
-  const [progress, setProgress] = useState(0);
-  const rafRef = useRef<number | null>(null);
-  const startRef = useRef<number | null>(null);
+  const [progress, setProgress] = React.useState(0);
+  const rafRef = React.useRef<number | null>(null);
+  const startRef = React.useRef<number | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     function step(ts: number) {
       if (startRef.current == null) startRef.current = ts;
       const elapsed = ts - startRef.current;
@@ -24,7 +24,7 @@ export function useLoadingProgress(minDuration: number = 5000) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       startRef.current = null;
     };
-  }, [minDuration]);
+  }, []);
 
   return progress;
 }

@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["monni.fragrancetheme.com", "tamubali.com", "masdianastudio.com", "drive.google.com", "lh3.googleusercontent.com"],
+    domains: ["localhost", "monni.fragrancetheme.com", "tamubali.com", "masdianastudio.com", "drive.google.com", "lh3.googleusercontent.com"],
   },
 };
 

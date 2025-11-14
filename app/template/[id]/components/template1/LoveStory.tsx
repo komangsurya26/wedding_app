@@ -8,9 +8,9 @@ export default function LoveStory({ image }: { image: string }) {
       <Image
         src={image}
         alt="Couple"
-        width={800}
-        height={700}
-        className="h-full absolute object-cover object-center"
+        fill
+        className="absolute object-cover object-center"
+        priority={false}
       />
       <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-[80vh] bg-gradient-to-b from-neutral-900 via-neutral-800 to-transparent" />
       {/* Content */}

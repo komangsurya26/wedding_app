@@ -1,12 +1,6 @@
 import * as React from "react";
-import { ChevronRight } from "lucide-react";
 
-import { ProfileSwitcher } from "@/app/dashboard/components/ProfileSwitcher";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { ProfileSwitcher } from "../components/ProfileSwitcher";
 import {
   Sidebar,
   SidebarContent,
@@ -19,142 +13,61 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
+import { NavItem } from "./NavItem";
 
 // This is sample data.
 const data = {
   navMain: [
     {
-      title: "Getting Started",
+      title: "Dashboard",
       url: "#",
       items: [
         {
-          title: "Installation",
-          url: "#",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard",
         },
       ],
     },
     {
-      title: "Building Your Application",
+      title: "Undangan",
       url: "#",
       items: [
         {
-          title: "Routing",
-          url: "#",
+          title: "Undangan Saya",
+          url: "/dashboard/invitation",
         },
         {
-          title: "Data Fetching",
-          url: "#",
-          isActive: true,
-        },
-        {
-          title: "Rendering",
-          url: "#",
-        },
-        {
-          title: "Caching",
-          url: "#",
-        },
-        {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
+          title: "Buat Undangan",
+          url: "/dashboard/invitation/create",
         },
       ],
     },
     {
-      title: "API Reference",
+      title: "Order",
       url: "#",
       items: [
         {
-          title: "Components",
-          url: "#",
+          title: "Order Saya",
+          url: "/dashboard/order",
         },
         {
-          title: "File Conventions",
-          url: "#",
-        },
-        {
-          title: "Functions",
-          url: "#",
-        },
-        {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
+          title: "Invoice",
+          url: "/dashboard/invoice",
         },
       ],
     },
     {
-      title: "Architecture",
+      title: "Bantuan",
       url: "#",
       items: [
         {
-          title: "Accessibility",
-          url: "#",
+          title: "Kontak Kami",
+          url: "https://wa.me/6281353285093?text=hallo",
         },
         {
-          title: "Fast Refresh",
-          url: "#",
-        },
-        {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Community",
-      url: "#",
-      items: [
-        {
-          title: "Contribution Guide",
-          url: "#",
+          title: "FAQ",
+          url: "/dashboard/faq",
         },
       ],
     },
@@ -168,42 +81,23 @@ export function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <ProfileSwitcher user={user?.user_metadata} />
+        <ProfileSwitcher user={user} />
       </SidebarHeader>
-      <SidebarContent className="gap-0">
-        {/* We create a collapsible SidebarGroup for each parent. */}
+      <SidebarContent>
+        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
-          <Collapsible
-            key={item.title}
-            title={item.title}
-            defaultOpen
-            className="group/collapsible"
-          >
-            <SidebarGroup>
-              <SidebarGroupLabel
-                asChild
-                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
-              >
-                <CollapsibleTrigger>
-                  {item.title}{" "}
-                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </SidebarGroup>
-          </Collapsible>
+          <SidebarGroup key={item.title}>
+            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <NavItem title={item.title} url={item.url} />
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         ))}
       </SidebarContent>
       <SidebarRail />

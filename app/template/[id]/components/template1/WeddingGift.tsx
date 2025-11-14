@@ -33,7 +33,7 @@ export default function WeddingGift({ accounts }: WeddingGiftProps) {
         rekening di bawah ini:
       </p>
 
-      <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full max-w-xl">
+      <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full">
         {accounts.map((acc) => (
           <div
             key={acc.accountNumber}

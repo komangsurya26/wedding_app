@@ -1,46 +1,13 @@
-"use client";
-
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 import { WeddingDayProps } from "@/app/types";
 
 //icons
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
-export default function WeddingDay({ images, events }: WeddingDayProps) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [images.length]);
-
+export default function WeddingDay({ events }: WeddingDayProps) {
   return (
     <section className="relative overflow-hidden">
-      <AnimatePresence>
-        <motion.div
-          key={index}
-          className="absolute inset-0 overflow-hidden -z-10"
-          initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: 1, scale: 1.4 }}
-          exit={{ opacity: 0.8 }}
-          transition={{
-            opacity: { duration: 2, ease: "easeInOut" },
-            scale: { duration: 20, ease: "linear" },
-          }}
-        >
-          <Image
-            src={images[index]}
-            alt={`background-couple-${index}`}
-            fill
-            className="object-cover object-center h-full w-full"
-          />
-        </motion.div>
-      </AnimatePresence>
       <div className="absolute inset-0 bg-black/30" />
       <div className="relative my-20 mx-6 sm:mx-18">
         {events.map((e) => (

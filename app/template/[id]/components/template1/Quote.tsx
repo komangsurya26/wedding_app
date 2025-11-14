@@ -1,3 +1,5 @@
+"use client";
+
 import useInViewAnimation from "@/hooks/use-inview-animation";
 import React, { useRef } from "react";
 

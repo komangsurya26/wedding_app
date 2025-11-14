@@ -1,6 +1,6 @@
 import { ConfigTemplate } from "@/app/types";
-import Template1 from "@/app/template/[id]/components/template1/TemplateMain";
-// import Template2 from "@/app/template/[id]/components/template2/TemplateMain";
+import Template1 from "./components/template1/TemplateMain";
+import Template2 from "./components/template2/page";
 
 import { notFound } from "next/navigation";
 import { JSX } from "react";
@@ -9,7 +9,8 @@ const TEMPLATE: ConfigTemplate[] = [
   {
     templateId: 1,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
-    videoIdYoutube: "6FYtKVFik_8",
+    videoIdYoutube: "T2fNPf3UIY8",
+    // videoIdYoutube: "6FYtKVFik_8",
     images: {
       bride:
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_7016-scaled.webp",
@@ -18,8 +19,6 @@ const TEMPLATE: ConfigTemplate[] = [
       couple: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
-        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
-        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
       ],
       potrait: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
@@ -99,7 +98,7 @@ export default async function TemplatePage({ params }: PageProps) {
     (props: { config: ConfigTemplate }) => JSX.Element
   > = {
     "1": Template1,
-    // "2": Template2,
+    "2": Template2,
   };
 
   const TemplateComponent = MAP[id];

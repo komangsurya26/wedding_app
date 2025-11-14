@@ -1,7 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { ChevronsUpDown, GalleryVerticalEnd } from "lucide-react";
+import { Check, ChevronsUpDown, GalleryVerticalEnd } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -14,10 +13,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ProfileAvatar } from "./ProfileAvatar";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { signout } from "@/lib/auth-actions";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function ProfileSwitcher({ user }: { user: any }) {
+  const router = useRouter();
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -27,9 +30,25 @@ export function ProfileSwitcher({ user }: { user: any }) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <ProfileAvatar user={user} />
+              {user ? (
+                <Image
+                  src={user.user_metadata?.avatar_url}
+                  alt="Avatar"
+                  width={50}
+                  height={50}
+                  className="size-8 rounded-full object-cover"
+                />
+              ) : (
+                <Skeleton className="h-8 w-8 rounded-full" />
+              )}
               <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-medium">{user?.full_name}</span>
+                {user ? (
+                  <span className="font-medium">
+                    {user.user_metadata?.full_name ?? user.email}
+                  </span>
+                ) : (
+                  <Skeleton className="h-4 w-[150px]" />
+                )}
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -38,14 +57,10 @@ export function ProfileSwitcher({ user }: { user: any }) {
             className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
-            <DropdownMenuItem
-              onClick={() => {
-                redirect("/logout");
-              }}
-            >
+            <DropdownMenuItem onClick={() => router.push("/")}>
               Pengaturan
             </DropdownMenuItem>
-            <DropdownMenuItem>Keluar</DropdownMenuItem>
+            <DropdownMenuItem onClick={signout}>Keluar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

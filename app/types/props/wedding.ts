@@ -16,7 +16,6 @@ type Account = {
 
 export interface WeddingDayProps {
     events: EventItem[];
-    images: string[];
 }
 export interface WeddingGiftProps {
     accounts: Account[];

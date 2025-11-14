@@ -12,7 +12,7 @@ interface Props {
 export default function LoadingPercent({
   shortNameGroom,
   shortNameBride,
-  minDuration = 8000, //8 detik
+  minDuration = 5000, //8 detik
 }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const progress = useLoadingProgress(minDuration);

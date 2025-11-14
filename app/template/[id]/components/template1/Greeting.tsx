@@ -4,13 +4,13 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import useInViewAnimation from "@/hooks/use-inview-animation";
 
-export default function Greeting({ image, ref }: { image: string; ref: any }) {
+export default function Greeting({ image, id }: { image: string; id: string }) {
   const greetingRef = useRef<HTMLHeadingElement>(null);
   const isVisible = useInViewAnimation(greetingRef);
 
   return (
-    <section
-      ref={ref}
+    <div
+      id={id}
       className="relative h-screen flex flex-col items-center justify-start text-center text-white overflow-hidden"
     >
       <div className="absolute inset-0">
@@ -19,6 +19,7 @@ export default function Greeting({ image, ref }: { image: string; ref: any }) {
           alt="Couple Photo"
           fill
           className="object-cover object-center"
+          priority={false}
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute top-0 left-0 right-0 h-[250px] bg-gradient-to-b from-black/60 via-black/50 to-transparent"></div>
@@ -42,10 +43,6 @@ export default function Greeting({ image, ref }: { image: string; ref: any }) {
             Maha Esa, kami bermaksud mengundang Bapak/ Ibu/ Saudara/i pada
             Upacara Manusa Yadnya Pawiwahan putra dan putri kami.
           </p>
-          {/* <div className="w-0.5 h-12 bg-white/50" /> */}
-          {/* <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-light font-oranienbaum tracking-wide drop-shadow-sm">
-            Komang & Surya
-          </h3> */}
           <div className="flex flex-col items-center gap-1">
             <svg
               className="w-15 h-10 text-white/90 animate__animated animate__fadeInDown animate__infinite animate__slow"
@@ -77,6 +74,6 @@ export default function Greeting({ image, ref }: { image: string; ref: any }) {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

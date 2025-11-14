@@ -1,7 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { AppSidebar } from "@/app/dashboard/components/AppSidebar";
+import { AppSidebar } from "./components/AppSidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,32 +13,30 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 
-export default function DashboardLayout({
+import { ReactNode } from "react";
+
+export default async function DaashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
-  const [user, setUser] = useState<any>(null);
   const supabase = createClient();
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, []);
+  const {
+    data: { user },
+  } = await (await supabase).auth.getUser();
 
   return (
     <SidebarProvider>
       <AppSidebar user={user} />
       <SidebarInset>
-        <header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Separator
+            orientation="vertical"
+            className="mr-2 data-[orientation=vertical]:h-4"
+          />
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
