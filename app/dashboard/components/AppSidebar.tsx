@@ -13,25 +13,13 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
 import { NavItem } from "./NavItem";
 
 // This is sample data.
 const data = {
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      items: [
-        {
-          title: "Overview",
-          url: "/dashboard",
-        },
-      ],
-    },
-    {
       title: "Undangan",
-      url: "#",
       items: [
         {
           title: "Undangan Saya",
@@ -45,7 +33,6 @@ const data = {
     },
     {
       title: "Order",
-      url: "#",
       items: [
         {
           title: "Order Saya",
@@ -59,7 +46,6 @@ const data = {
     },
     {
       title: "Bantuan",
-      url: "#",
       items: [
         {
           title: "Kontak Kami",
@@ -84,7 +70,15 @@ export function AppSidebar({
         <ProfileSwitcher user={user} />
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <NavItem title="Dashboard" url="/dashboard" />
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>

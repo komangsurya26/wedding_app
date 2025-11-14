@@ -1,12 +1,4 @@
 import { AppSidebar } from "./components/AppSidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -16,6 +8,7 @@ import {
 import { createClient } from "@/utils/supabase/server";
 
 import { ReactNode } from "react";
+import BreadcrumbDynamic from "./components/BreadcrumbDynamic";
 
 export default async function DaashboardLayout({
   children,
@@ -37,19 +30,7 @@ export default async function DaashboardLayout({
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
-                  Building Your Application
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <BreadcrumbDynamic />
         </header>
         <div className="flex flex-1 p-4">{children}</div>
       </SidebarInset>

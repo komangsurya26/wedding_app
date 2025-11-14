@@ -16,29 +16,62 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
+
 import Link from "next/link";
 import SignWithGoogleButton from "./SignWithGoogleButton";
-import { login } from "@/lib/auth-actions";
-import { useSearchParams } from "next/navigation";
+
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const nextUrl = searchParams.get("next") || "";
+  const nextUrl = searchParams.get("next") || "/";
+
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.target as HTMLFormElement;
+    const email = (form.email as HTMLInputElement).value;
+    const password = (form.password as HTMLInputElement).value;
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast.error("Email atau password salah");
+      setLoading(false);
+      return;
+    }
+
+    // success
+    toast.success("Login berhasil!");
+    router.push(nextUrl);
+  }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Masuk Ke Resepsi Bali Dashboard</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Masukan email dan password atau login dengan google di bawah
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleLogin}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -53,6 +86,16 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <Button
+                    type="button"
+                    variant={"link"}
+                    onClick={() => {
+                      toast.warning("Fitur Segera Hadir");
+                    }}
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Lupa password?
+                  </Button>
                 </div>
                 <Input id="password" name="password" type="password" required />
               </Field>
@@ -60,14 +103,14 @@ export function LoginForm({
                 <Input type="hidden" name="next" value={nextUrl} />
               </Field>
               <Field>
-                <Button type="submit" formAction={login}>
-                  Login
+                <Button type="submit" disabled={loading}>
+                  {loading ? <Spinner /> : "Masuk"}
                 </Button>
                 <SignWithGoogleButton />
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account?{" "}
+                  Tidak Punya Akun ?{" "}
                   <Link href="/signup" className="underline">
-                    Sign up
+                    Daftar
                   </Link>
                 </FieldDescription>
               </Field>

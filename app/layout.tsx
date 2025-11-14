@@ -15,6 +15,7 @@ import {
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const myFont1 = Cormorant_Garamond({
   variable: "--font-cormorantgaramond",
@@ -123,6 +124,7 @@ export default function RootLayout({
           antialiased`}
       >
         <main>{children}</main>
+        <Toaster position="top-center" />
       </body>
     </html>
   );

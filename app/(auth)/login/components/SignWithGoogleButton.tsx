@@ -19,7 +19,7 @@ export default function SignWithGoogleButton() {
       }}
     >
       <FaGoogle className="mr-2" />
-      Login with Google
+      Masuk dengan Google
     </Button>
   );
 }

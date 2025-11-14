@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Dashboard — Resepsi Bali",
+};
+
 export default function DashboardPage() {
   return (
     <div className="border border-black/15 rounded-2xl h-full w-full">
