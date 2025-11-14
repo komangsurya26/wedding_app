@@ -27,13 +27,11 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 
 export function LoginForm({
+  next,
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: { next?: string } & React.ComponentProps<"div">) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const nextUrl = searchParams.get("next") || "/";
-
   const [loading, setLoading] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
@@ -58,7 +56,7 @@ export function LoginForm({
 
     // success
     toast.success("Login berhasil!");
-    router.push(nextUrl);
+    router.push(next || "/");
   }
 
   return (
@@ -98,9 +96,6 @@ export function LoginForm({
                   </Button>
                 </div>
                 <Input id="password" name="password" type="password" required />
-              </Field>
-              <Field>
-                <Input type="hidden" name="next" value={nextUrl} />
               </Field>
               <Field>
                 <Button type="submit" disabled={loading}>
