@@ -17,7 +17,10 @@ import SignWithGoogleButton from "../../login/components/SignWithGoogleButton";
 import Link from "next/link";
 import { signup } from "@/lib/auth-actions";
 
-export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+export function SignupForm({
+  next,
+  ...props
+}: { next: string } & React.ComponentProps<typeof Card>) {
   return (
     <Card {...props}>
       <CardHeader>
@@ -82,7 +85,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 <Button type="submit" formAction={signup}>
                   Create Account
                 </Button>
-                <SignWithGoogleButton />
+                <SignWithGoogleButton nextUrl={next} />
                 <FieldDescription className="px-6 text-center">
                   Already have an account?
                   <Link href="/login" className="underline ml-1">

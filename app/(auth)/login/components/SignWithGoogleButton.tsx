@@ -2,14 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { signInWithGoogle } from "@/lib/auth-actions";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
 
-export default function SignWithGoogleButton() {
-  const searchParams = useSearchParams();
-  const nextUrl = searchParams.get("next") || "";
-
+export default function SignWithGoogleButton({ nextUrl }: { nextUrl: string }) {
   return (
     <Button
       variant="outline"

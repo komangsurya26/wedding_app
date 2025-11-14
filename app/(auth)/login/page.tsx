@@ -5,18 +5,13 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const nextUrl = (await searchParams).next;
-  const next =
-    typeof nextUrl === "string"
-      ? nextUrl
-      : Array.isArray(nextUrl)
-      ? nextUrl[0]
-      : undefined;
+  const rawNext = (await searchParams).next;
+  const nextUrl = Array.isArray(rawNext) ? rawNext[0] : rawNext ?? "/";
 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm next={next} />
+        <LoginForm next={nextUrl} />
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export function LoginForm({
   next,
   className,
   ...props
-}: { next?: string } & React.ComponentProps<"div">) {
+}: { next: string } & React.ComponentProps<"div">) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -56,7 +56,7 @@ export function LoginForm({
 
     // success
     toast.success("Login berhasil!");
-    router.push(next || "/");
+    router.push(next);
   }
 
   return (
@@ -101,7 +101,7 @@ export function LoginForm({
                 <Button type="submit" disabled={loading}>
                   {loading ? <Spinner /> : "Masuk"}
                 </Button>
-                <SignWithGoogleButton />
+                <SignWithGoogleButton nextUrl={next} />
                 <FieldDescription className="text-center">
                   Tidak Punya Akun ?{" "}
                   <Link href="/signup" className="underline">
