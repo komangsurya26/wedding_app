@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronsUpDown, GalleryVerticalEnd } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
-import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
 export function ProfileSwitcher({ user }: { user: any }) {
@@ -32,13 +32,21 @@ export function ProfileSwitcher({ user }: { user: any }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               {user ? (
-                <Image
-                  src={user.user_metadata?.avatar_url}
-                  alt="Avatar"
-                  width={50}
-                  height={50}
-                  className="size-8 rounded-full object-cover"
-                />
+                user.user_metadata?.avatar_url ? (
+                  <Avatar className="size-8">
+                    <AvatarImage
+                      src={user?.user_metadata?.avatar_url}
+                      alt="@user"
+                    />
+                  </Avatar>
+                ) : (
+                  <Avatar>
+                    <AvatarFallback>
+                      {user?.user_metadata?.full_name?.[0]?.toUpperCase() ??
+                        "?"}
+                    </AvatarFallback>
+                  </Avatar>
+                )
               ) : (
                 <Skeleton className="h-8 w-8 rounded-full" />
               )}
