@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 export function ProfileSwitcher({ user }: { user: any }) {
   const router = useRouter();
@@ -57,8 +58,11 @@ export function ProfileSwitcher({ user }: { user: any }) {
             className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
-            <DropdownMenuItem onClick={() => router.push("/")}>
-              Pengaturan
+            <DropdownMenuItem>
+              <Link href={"/"}>Halaman Utama</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={"/dashboard/settings"}>Pengaturan</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={signout}>Keluar</DropdownMenuItem>
           </DropdownMenuContent>
