@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 
 export function ProfileSwitcher({ user }: { user: any }) {
   const router = useRouter();

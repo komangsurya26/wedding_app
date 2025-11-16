@@ -12,8 +12,10 @@ import {
 import { PlusCircle, Sparkles, SquarePen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function InvitationCard({ mode, invitations }: InvitationProps) {
+  const router = useRouter();
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-2">
       {invitations.map((data, idx) => (
@@ -63,41 +65,44 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
             </div>
             <div className="flex items-center justify-end">
               {mode === "create" ? (
-                <Link href={`/checkout?templateId=${data.templateId}`}>
-                  <Button
-                    size="sm"
-                    className="text-xs px-2 py-1 h-8 flex items-center gap-2"
-                  >
-                    <PlusCircle className="h-4 w-4" />
-                    Gunakan Template
-                  </Button>
-                </Link>
+                <Button
+                  size="sm"
+                  className="text-xs px-2 py-1 h-8 flex items-center gap-2"
+                  onClick={() => {
+                    router.push(`/checkout?templateId=${data.templateId}`);
+                  }}
+                >
+                  <PlusCircle className="h-4 w-4" />
+                  Gunakan Template
+                </Button>
               ) : (
                 <>
                   {!data.expired ? (
-                    <Link
-                      href={`/dashboard/invitation/edit?invitationId=${data.invitationId}`}
+                    <Button
+                      size="sm"
+                      className="text-xs px-2 py-1 h-8 flex items-center gap-2"
+                      onClick={() => {
+                        router.push(
+                          `/dashboard/invitation/edit?invitationId=${data.invitationId}`
+                        );
+                      }}
                     >
-                      <Button
-                        size="sm"
-                        className="text-xs px-2 py-1 h-8 flex items-center gap-2"
-                      >
-                        <SquarePen className="h-4 w-4" />
-                        Edit undangan
-                      </Button>
-                    </Link>
+                      <SquarePen className="h-4 w-4" />
+                      Edit undangan
+                    </Button>
                   ) : (
-                    <Link
-                      href={`/checkout/upgrade?invitationId=${data.invitationId}`}
+                    <Button
+                      size="sm"
+                      className="text-xs px-2 py-1 h-8 flex items-center gap-2"
+                      onClick={() => {
+                        router.push(
+                          `/checkout/upgrade?invitationId=${data.invitationId}`
+                        );
+                      }}
                     >
-                      <Button
-                        size="sm"
-                        className="text-xs px-2 py-1 h-8 flex items-center gap-2"
-                      >
-                        <Sparkles className="h-4 w-4" />
-                        Upgrade Undangan
-                      </Button>
-                    </Link>
+                      <Sparkles className="h-4 w-4" />
+                      Upgrade Undangan
+                    </Button>
                   )}
                 </>
               )}
