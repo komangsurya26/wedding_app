@@ -17,22 +17,12 @@ export default function LoginButton() {
     fetchUser();
   }, []);
 
-  if (user) {
-    return (
-      <Link
-        href="/dashboard"
-        className="rounded-full border border-gray-800 px-3.5 py-1 text-black hover:bg-white/15 transition"
-      >
-        Dashboard
-      </Link>
-    );
-  }
   return (
     <Link
-      href="/login"
-      className="rounded-full border border-gray-800 px-3.5 py-1 text-black hover:bg-white/15 transition"
+      href={user ? "/dashboard" : "/login"}
+      className="rounded-full border border-gray-800 px-3.5 py-1 text-black hover:bg-white/15 transition cursor-pointer z-50"
     >
-      Masuk / Daftar
+      {user ? "Dashboard" : "Masuk / Daftar"}
     </Link>
   );
 }

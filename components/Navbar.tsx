@@ -36,9 +36,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="flex space-x-6 items-center text-lg font-medium">
-            <LoginButton />
-          </div>
+          <LoginButton />
         </div>
       </div>
     </nav>
