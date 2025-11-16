@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-export function ExitAnimation() {
+export function TemplateMain() {
   const [isVisible, setIsVisible] = useState(true);
 
   return (

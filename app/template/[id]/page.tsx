@@ -1,5 +1,6 @@
 import { ConfigTemplate } from "@/app/types";
 import { TemplateMain as Template1 } from "./components/template1/TemplateMain";
+import { TemplateMain as Template2 } from "./components/template2/TemplateMain";
 
 import { notFound, redirect } from "next/navigation";
 import { JSX } from "react";
@@ -99,7 +100,7 @@ export default async function TemplatePage({ params }: Props) {
     (props: { config: ConfigTemplate }) => JSX.Element
   > = {
     "1": Template1,
-    // "2": Template2,
+    "2": Template2,
   };
 
   const TemplateComponent = MAP[id];
