@@ -2,7 +2,7 @@
 
 import { FaEnvelopeOpen } from "react-icons/fa";
 
-export default function Hero({
+export function Hero({
   scrollTargetId,
   isOpened,
   setIsOpened,

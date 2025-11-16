@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function Footer({ images }: { images: string[] }) {
+export function Footer({ images }: { images: string[] }) {
   const router = useRouter();
   const [index, setIndex] = useState(0);
 

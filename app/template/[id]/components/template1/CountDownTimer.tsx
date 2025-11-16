@@ -3,8 +3,15 @@
 import React from "react";
 import Countdown, { zeroPad } from "react-countdown";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 
-export default function CountDownTimer({ date }: { date: string }) {
+export default function CountDownTimer({
+  image,
+  date,
+}: {
+  image: string;
+  date: string;
+}) {
   const isRight = false;
 
   const AnimatedNumber = ({ value }: { value: number }) => (
@@ -54,8 +61,18 @@ export default function CountDownTimer({ date }: { date: string }) {
     );
   };
   return (
-    <>
-      {/* Content */}
+    <div className="relative h-[120vh] flex items-end">
+      <Image
+        src={image}
+        alt="Couple"
+        fill
+        className="absolute object-cover object-center"
+        priority={false}
+      />
+
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 top-[50vh] bg-gradient-to-t from-black/90 via-black/70 to-transparent"></div>
+
       <div
         className={`relative w-full p-8 ${isRight ? "text-end" : "text-start"}`}
       >
@@ -78,7 +95,7 @@ export default function CountDownTimer({ date }: { date: string }) {
 
             <div className="pt-8">
               {/* Countdown Timer */}
-              <Countdown date={new Date(date)} renderer={renderer} />
+              <Countdown date={date} renderer={renderer} />
 
               {/* Button */}
               <div
@@ -97,6 +114,6 @@ export default function CountDownTimer({ date }: { date: string }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

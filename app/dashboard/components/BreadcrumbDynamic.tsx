@@ -11,7 +11,7 @@ import {
 import React from "react";
 import Link from "next/link";
 
-export default function BreadcrumbDynamic() {
+export function BreadcrumbDynamic() {
   const pathname = usePathname() ?? "/";
   const segments = pathname.split("/").filter((segment) => segment !== "");
   const breadcrumbs = segments.map((segment, index) => {
@@ -33,7 +33,7 @@ export default function BreadcrumbDynamic() {
               {item.isLast ? (
                 <BreadcrumbPage>{item.title}</BreadcrumbPage>
               ) : (
-                <BreadcrumbPage className="text-black/50">
+                <BreadcrumbPage className="text-foreground/60 hover:text-foreground/50">
                   <Link href={item.href}>{item.title}</Link>
                 </BreadcrumbPage>
               )}

@@ -3,7 +3,7 @@ import LightGallery from "lightgallery/react";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 
-export default function Gallery({
+export function Gallery({
   videoIdYoutube,
   imagePotraits,
   imageLandscapes,
@@ -36,7 +36,6 @@ export default function Gallery({
               src={`https://www.youtube.com/embed/${videoIdYoutube}?mute=1&autoplay=1&loop=1&playlist=${videoIdYoutube}&controls=0&modestbranding=1&rel=0&playsinline=1`}
               title="YouTube video player"
               allow="autoplay; encrypted-media; fullscreen"
-              allowFullScreen
               className="w-full h-full block"
               style={{ border: "0" }}
             />
@@ -59,7 +58,7 @@ export default function Gallery({
                   href={src}
                   data-src={src}
                   data-lg-size="1600-1067"
-                  className="block mb-2 break-inside-avoid overflow-hidden shadow-sm"
+                  className="block mb-2 avoid-break overflow-hidden shadow-sm"
                   data-sub-html=" <div class='lg-caption'><h4 class='font-semibold mb-1'>Komang & Surya</h4><p class='text-sm opacity-80'>Ketika cinta menjadi satu-satunya cahaya yang menerangi langkah.</p></div>"
                 >
                   <img

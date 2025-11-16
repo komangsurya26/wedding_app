@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
 
-export default function Bride({
+export function Bride({
   image,
   name,
   father,

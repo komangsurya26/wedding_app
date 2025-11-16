@@ -22,7 +22,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import SignWithGoogleButton from "./SignWithGoogleButton";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 

@@ -15,6 +15,7 @@ export const config = {
      * Feel free to modify this pattern to include more paths.
      */
     "/dashboard", "/dashboard/:path*",
-    "/login"
+    "/login",
+    "/checkout/upgrade"
   ],
 }

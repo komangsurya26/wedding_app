@@ -3,7 +3,7 @@
 import useInViewAnimation from "@/hooks/use-inview-animation";
 import React, { useRef } from "react";
 
-export default function Quote() {
+export function Quote() {
   const quoteRef = useRef<HTMLHeadingElement>(null);
   const isVisible = useInViewAnimation(quoteRef, 0.1);
 

@@ -1,9 +1,28 @@
 import React from "react";
+import { Invitation as InvitationTypes } from "@/app/types";
+import { Invitation } from "./components/Invitation";
 
-export const metadata = {
-  title: "Dashboard — Resepsi Bali",
-};
+const invitations: InvitationTypes[] = [
+  {
+    invitationId: 1,
+    name: "Komang dan Surya",
+    description: "Jumat, 14 Desember 2025",
+    type: "wedding",
+    image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-50.webp",
+    expired: false,
+    urlInvitation: "http://localhost:3000/",
+  },
+  {
+    invitationId: 2,
+    name: "Sedana dan Putri",
+    description: "Jumat, 14 Desember 2025",
+    image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-65.jpg",
+    type: "metatah",
+    expired: true,
+    urlInvitation: "http://localhost:3000/",
+  },
+];
 
 export default function InvitationPage() {
-  return <div>InvitationPage</div>;
+  return <Invitation invitations={invitations} />;
 }

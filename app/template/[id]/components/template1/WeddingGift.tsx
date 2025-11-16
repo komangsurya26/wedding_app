@@ -10,7 +10,7 @@ import { WeddingGiftProps } from "@/app/types";
 //icons
 import { HiOutlineClipboard } from "react-icons/hi";
 
-export default function WeddingGift({ accounts }: WeddingGiftProps) {
+export function WeddingGift({ accounts }: WeddingGiftProps) {
   const [copied, setCopied] = useState<string | null>(null);
   const [isCopying, setIsCopying] = useState(false);
 
@@ -37,16 +37,18 @@ export default function WeddingGift({ accounts }: WeddingGiftProps) {
         {accounts.map((acc) => (
           <div
             key={acc.accountNumber}
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/20 border border-white/10"
+            className="flex items-center gap-4 p-4 rounded-xl bg-white/20 border border-white/10 overflow-x-auto"
           >
             {acc.logo ? (
-              <Image
-                src={acc.logo}
-                alt={acc.bankName}
-                width={50}
-                height={40}
-                className="object-contain"
-              />
+              <div className="w-12 h-12 rounded-lg">
+                <Image
+                  src={acc.logo}
+                  alt={acc.bankName}
+                  width={60}
+                  height={40}
+                  className="object-cover object-center w-full h-full"
+                />
+              </div>
             ) : (
               <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-white/10 font-semibold">
                 {acc.bankName.slice(0, 2).toUpperCase()}

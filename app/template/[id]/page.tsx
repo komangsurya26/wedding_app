@@ -1,8 +1,7 @@
 import { ConfigTemplate } from "@/app/types";
-import Template1 from "./components/template1/TemplateMain";
-import Template2 from "./components/template2/page";
+import { TemplateMain as Template1 } from "./components/template1/TemplateMain";
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { JSX } from "react";
 
 const TEMPLATE: ConfigTemplate[] = [
@@ -84,25 +83,29 @@ const TEMPLATE: ConfigTemplate[] = [
   },
 ];
 
-interface PageProps {
+interface Props {
   params: { id: string };
 }
 
-export default async function TemplatePage({ params }: PageProps) {
+export default async function TemplatePage({ params }: Props) {
   const { id } = await params;
   const config = TEMPLATE.find((t) => String(t.templateId) === id);
-  if (!config) return notFound();
+  if (!config) {
+    redirect("/");
+  }
 
   const MAP: Record<
     string,
     (props: { config: ConfigTemplate }) => JSX.Element
   > = {
     "1": Template1,
-    "2": Template2,
+    // "2": Template2,
   };
 
   const TemplateComponent = MAP[id];
-  if (!TemplateComponent) return notFound();
+  if (!TemplateComponent) {
+    redirect("/");
+  }
 
   return <TemplateComponent config={config} />;
 }

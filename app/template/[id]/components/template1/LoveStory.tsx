@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function LoveStory({ image }: { image: string }) {
+export function LoveStory({ image }: { image: string }) {
   return (
     <section className="relative h-[120vh] md:h-[150vh] flex items-start justify-center overflow-hidden">
       {/* Background gradient overlay */}

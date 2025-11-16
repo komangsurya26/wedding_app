@@ -66,11 +66,11 @@ export function ProfileSwitcher({ user }: { user: any }) {
             className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
-            <DropdownMenuItem>
-              <Link href={"/"}>Halaman Utama</Link>
+            <DropdownMenuItem asChild>
+              <Link href="/">Halaman Utama</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href={"/dashboard/settings"}>Pengaturan</Link>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/settings">Pengaturan</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={signout}>Keluar</DropdownMenuItem>
           </DropdownMenuContent>

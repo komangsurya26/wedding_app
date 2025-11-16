@@ -191,7 +191,15 @@ select {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.avoid-break {
+  break-inside: avoid;
+  /* Safari support */
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
 }

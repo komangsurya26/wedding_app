@@ -1,4 +1,5 @@
 import { AppSidebar } from "./components/AppSidebar";
+import { BreadcrumbDynamic } from "./components/BreadcrumbDynamic";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -8,7 +9,10 @@ import {
 import { createClient } from "@/utils/supabase/server";
 
 import { ReactNode } from "react";
-import BreadcrumbDynamic from "./components/BreadcrumbDynamic";
+
+export const metadata = {
+  title: "Dashboard — Resepsi Bali",
+};
 
 export default async function DaashboardLayout({
   children,
@@ -23,7 +27,7 @@ export default async function DaashboardLayout({
   return (
     <SidebarProvider>
       <AppSidebar user={user} />
-      <SidebarInset>
+      <SidebarInset className="h-screen">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator
@@ -32,7 +36,7 @@ export default async function DaashboardLayout({
           />
           <BreadcrumbDynamic />
         </header>
-        <div className="flex flex-1 p-4">{children}</div>
+        <div className="flex flex-1 p-4 min-h-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

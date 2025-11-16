@@ -6,7 +6,7 @@ import { IoMdTime } from "react-icons/io";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
 import { Attendance, Comment, ConfirmAttendanceProps } from "@/app/types";
 
-export default function RSVP({
+export function RSVP({
   initialComments = [
     {
       name: "Andi",

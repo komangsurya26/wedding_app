@@ -9,7 +9,7 @@ interface Props {
   shortNameBride: string;
 }
 
-export default function LoadingPercent({
+export function LoadingPercent({
   shortNameGroom,
   shortNameBride,
   minDuration = 5000, //8 detik

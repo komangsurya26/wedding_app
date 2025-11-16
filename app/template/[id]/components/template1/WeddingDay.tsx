@@ -5,7 +5,7 @@ import { WeddingDayProps } from "@/app/types";
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
-export default function WeddingDay({ events }: WeddingDayProps) {
+export function WeddingDay({ events }: WeddingDayProps) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-black/30" />
@@ -16,7 +16,7 @@ export default function WeddingDay({ events }: WeddingDayProps) {
               <div className="bg-black/50 border border-white/10 rounded-3xl p-10 shadow-lg">
                 <h3
                   id={`event-${e.id}-title`}
-                  className="font-noto-serif-display text-3xl lg:text-5xl leading-tight italic text-white drop-shadow-sm"
+                  className="font-noto-serif-display text-2xl sm:text-3xl lg:text-5xl leading-tight italic text-white drop-shadow-sm"
                 >
                   {e.title}
                 </h3>
@@ -26,21 +26,21 @@ export default function WeddingDay({ events }: WeddingDayProps) {
                     <span className="p-2">
                       <FiCalendar className="w-5 h-5" />
                     </span>
-                    <span className="text-base md:text-lg">{e.date}</span>
+                    <span className="text-[15px] sm:text-lg">{e.date}</span>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <span className="p-2">
                       <FiClock className="w-5 h-5" />
                     </span>
-                    <span className="text-base md:text-lg">{e.time}</span>
+                    <span className="text-[15px] sm:text-lg">{e.time}</span>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <span className="p-2">
                       <HiBuildingOffice2 className="w-5 h-5" />
                     </span>
-                    <span className="text-base md:text-lg">{e.venue}</span>
+                    <span className="text-[15px] sm:text-lg">{e.venue}</span>
                   </div>
                 </div>
 

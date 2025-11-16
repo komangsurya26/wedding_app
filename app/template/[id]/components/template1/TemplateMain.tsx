@@ -3,29 +3,29 @@
 import { useState } from "react";
 import { ConfigTemplate } from "@/app/types";
 
-import Footer from "./Footer";
-import WeddingGift from "./WeddingGift";
-import Greeting from "./Greeting";
-import Quote from "./Quote";
-import LoveStory from "./LoveStory";
-import Gallery from "./Gallery";
-import RSVP from "./RSVP";
-import WeddingDay from "./WeddingDay";
-import Groom from "./Groom";
-import Bride from "./Bride";
-import CountDown from "./CountDown";
-import Hero from "./Hero";
-import LoadingPercent from "./LoadingPercent";
-import BgYoutube from "./BgYoutube";
+import { Footer } from "./Footer";
+import { WeddingGift } from "./WeddingGift";
+import { Greeting } from "./Greeting";
+import { Quote } from "./Quote";
+import { LoveStory } from "./LoveStory";
+import { Gallery } from "./Gallery";
+import { RSVP } from "./RSVP";
+import { WeddingDay } from "./WeddingDay";
+import { Groom } from "./Groom";
+import { Bride } from "./Bride";
+import { Hero } from "./Hero";
+import { LoadingPercent } from "./LoadingPercent";
+import { BgYoutube } from "./BgYoutube";
+import CountDownTimer from "./CountDownTimer";
 
-export default function TemplateMain({ config }: { config: ConfigTemplate }) {
+export function TemplateMain({ config }: { config: ConfigTemplate }) {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <>
       <LoadingPercent shortNameGroom="Komang" shortNameBride="Surya" />
       <main className="h-screen flex justify-center bg-black">
-        <div className="relative h-full w-full lg:w-1/2 overflow-hidden">
+        <div className="relative h-full w-full lg:w-1/2 overflow-hidden overflow-x-hidden">
           <BgYoutube videoIdYoutube={config.videoIdYoutube} />
           <div className={`relative h-full ${isOpened && "overflow-y-auto"}`}>
             <Hero
@@ -51,7 +51,7 @@ export default function TemplateMain({ config }: { config: ConfigTemplate }) {
               mother="Ni Nengah Karmini"
               instagram="komangsurya_26"
             />
-            <CountDown
+            <CountDownTimer
               image={config.images.couple[1]}
               date="2025-11-20T16:02:00"
             />
