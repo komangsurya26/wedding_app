@@ -10,7 +10,7 @@ const invitations: InvitationTypes[] = [
     type: "wedding",
     image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-50.webp",
     expired: false,
-    urlInvitation: "http://localhost:3000/",
+    urlInvitation: "http://192.168.1.5:3000",
   },
   {
     invitationId: 2,
@@ -19,7 +19,7 @@ const invitations: InvitationTypes[] = [
     image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-65.jpg",
     type: "metatah",
     expired: true,
-    urlInvitation: "http://localhost:3000/",
+    urlInvitation: "http://192.168.1.5:3000",
   },
 ];
 

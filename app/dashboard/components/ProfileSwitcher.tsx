@@ -12,6 +12,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
@@ -20,6 +21,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function ProfileSwitcher({ user }: { user: any }) {
   const router = useRouter();
+  const { setOpenMobile } = useSidebar();
+
+  const navigate = async (path: string) => {
+    setOpenMobile(false);
+    await new Promise((r) => setTimeout(r, 800)); // ini penting agar open mobile benar" ke close , untuk reset dom
+    router.push(path);
+  };
 
   return (
     <SidebarMenu>
@@ -65,11 +73,17 @@ export function ProfileSwitcher({ user }: { user: any }) {
             className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
-            <DropdownMenuItem onSelect={() => router.push("/")}>
+            <DropdownMenuItem
+              onClick={(e) => {
+                navigate("/");
+              }}
+            >
               Halaman Utama
             </DropdownMenuItem>
             <DropdownMenuItem
-              onSelect={() => router.push("/dashboard/settings")}
+              onClick={() => {
+                navigate("/dashboard/settings");
+              }}
             >
               Pengaturan
             </DropdownMenuItem>

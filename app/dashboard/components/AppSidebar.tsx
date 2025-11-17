@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 import { ProfileSwitcher } from "../components/ProfileSwitcher";
@@ -12,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { NavItem } from "./NavItem";
 
@@ -64,17 +67,24 @@ export function AppSidebar({
   user,
   ...props
 }: { user: any } & React.ComponentProps<typeof Sidebar>) {
+  const { setOpenMobile } = useSidebar();
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <ProfileSwitcher user={user} />
+        <ProfileSwitcher
+          user={user}        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <NavItem title="Dashboard" url="/dashboard" />
+                <NavItem
+                  title="Dashboard"
+                  url="/dashboard"
+                  closeSidebar={() => setOpenMobile(false)}
+                />
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -86,7 +96,11 @@ export function AppSidebar({
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <NavItem title={item.title} url={item.url} />
+                    <NavItem
+                      title={item.title}
+                      url={item.url}
+                      closeSidebar={() => setOpenMobile(false)}
+                    />
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>

@@ -34,9 +34,9 @@ export default function Navbar() {
               Resepsibali
             </Link>
           </div>
-
-          {/* Desktop Menu */}
-          <LoginButton />
+          <div className="flex space-x-6 items-center text-lg font-medium">
+            <LoginButton />
+          </div>
         </div>
       </div>
     </nav>
