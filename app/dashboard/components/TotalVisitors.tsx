@@ -38,37 +38,44 @@ export function TotalVisitors({ type }: { type: "month" | "year" }) {
   const chartData = type === "month" ? monthData : yearData;
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={chartData}>
-        <Tooltip
-          cursor={{ fill: "rgba(0,0,0,0.05)" }}
-          wrapperClassName="text-black rounded-md bg-white"
-          formatter={(value) => [`${Math.round(Number(value))}`, "Pengunjung"]}
-        />
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={11}
-          tickLine={false}
-          axisLine={false}
-          interval={type === "month" ? 3 : 0} // supaya tidak terlalu padat
-        />
+    <div className="overflow-x-auto">
+      <div className="w-[600px] sm:w-full h-[350px]">
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={chartData}>
+            <Tooltip
+              cursor={{ fill: "rgba(0,0,0,0.05)" }}
+              wrapperClassName="text-black rounded-md bg-white"
+              formatter={(value) => [
+                `${Math.round(Number(value))}`,
+                "Pengunjung",
+              ]}
+            />
+            <XAxis
+              dataKey="name"
+              stroke="#888888"
+              fontSize={11}
+              tickLine={false}
+              axisLine={false}
+              interval={type === "month" ? 3 : 0} // supaya tidak terlalu padat
+            />
 
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-        />
+            <YAxis
+              stroke="#888888"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `${value}`}
+            />
 
-        <Bar
-          dataKey="total"
-          fill="currentColor"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
-        />
-      </BarChart>
-    </ResponsiveContainer>
+            <Bar
+              dataKey="total"
+              fill="currentColor"
+              radius={[4, 4, 0, 0]}
+              className="fill-primary"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 }

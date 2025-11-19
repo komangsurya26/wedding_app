@@ -1,0 +1,106 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { toast } from "sonner";
+
+export function ImageUploadField({
+  index,
+  uploader,
+  invitationId,
+}: {
+  index: number;
+  uploader: ReturnType<
+    typeof import("@/hooks/use-image-uploader").useImageUploader
+  >;
+  invitationId?: string;
+}) {
+  const p = uploader.photos[index];
+  return (
+    <div className="border rounded p-3 flex flex-col items-center">
+      <input
+        ref={(el) => uploader.bindInput(el, index)}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const input = e.target as HTMLInputElement;
+          const f = input.files?.[0];
+          if (!f) return;
+
+          const allowed = ["image/jpeg", "image/png", "image/webp"];
+
+          if (!allowed.includes(f.type)) {
+            toast.warning("Format file harus JPG, PNG, atau WebP.");
+            input.value = "";
+            return;
+          }
+
+          if (f.size > 1 * 1024 * 1024) {
+            toast.warning("Ukuran file maksimal 1 MB");
+            input.value = "";
+            return;
+          }
+
+          if (p?.public_id)
+            uploader.replaceFile(f, index, invitationId).catch(() => {
+              toast.error("Ganti foto gagal, silakan coba lagi.");
+            });
+          else
+            uploader.uploadFileSigned(f, index, invitationId).catch(() => {
+              toast.error("Upload foto gagal, silakan coba lagi.");
+            });
+        }}
+      />
+      <div className="w-full h-40 flex items-center justify-center bg-gray-50 rounded overflow-hidden">
+        {p?.preview ? (
+          <Image
+            src={p.preview}
+            alt={`preview-${index}`}
+            width={600}
+            height={500}
+            className="object-contain w-full h-full"
+          />
+        ) : p?.url ? (
+          <Image
+            src={p.url}
+            alt={`photo-${index}`}
+            width={600}
+            height={500}
+            className="object-contain w-full h-full"
+          />
+        ) : (
+          <div className="text-center text-sm text-gray-500">
+            Belum ada foto
+          </div>
+        )}
+      </div>
+      <div className="w-full mt-3 flex flex-col gap-2 sm:flex-row">
+        <Button
+          type="button"
+          onClick={() => uploader.trigger(index)}
+          disabled={p?.uploading || p?.removing}
+        >
+          {p?.url || p?.preview ? "Ganti Foto" : "Upload Foto"}
+        </Button>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => uploader.remove(index)}
+          disabled={p?.uploading || p?.removing || (!p?.url && !p?.preview)}
+        >
+          Hapus
+        </Button>
+      </div>
+      <div className="w-full text-xs mt-2">
+        {p?.uploading && <div>Uploading...</div>}
+        {!p?.uploading && p?.url && (
+          <div className="break-all">
+            <a className="underline" target="_blank" href={p.url}>
+              {p.url}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

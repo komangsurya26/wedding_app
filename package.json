@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.81.1",
     "animate.css": "^4.1.1",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.8.0",
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",
     "framer-motion": "^12.23.24",

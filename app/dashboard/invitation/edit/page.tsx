@@ -45,9 +45,11 @@ export default async function InvitationEditPage({
   if (!rawInvitId) return redirect("/dashboard/invitation");
   const invitationId = Array.isArray(rawInvitId) ? rawInvitId[0] : rawInvitId;
 
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
+
   return (
     <div className="h-full w-full">
-      <InvitationEditorMenu invitationId={invitationId} />
+      <InvitationEditorMenu invitationId={invitationId} cloudName={cloudName} />
     </div>
   );
 }

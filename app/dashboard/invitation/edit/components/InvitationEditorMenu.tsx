@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendarDays, Code, Gift, Images, Volume2 } from "lucide-react";
 import { FaFemale, FaMale } from "react-icons/fa";
-import dynamic from "next/dynamic";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { GroomEdit } from "./GroomEdit";
+import { FotoEdit } from "./FotoEdit";
+import { useImageUploader } from "@/hooks/use-image-uploader";
+import { toast } from "sonner";
 
 /**
  * CONFIG: semua item terpusat di sini.
@@ -24,51 +25,48 @@ const ICONS_CONFIG = [
     key: "groom",
     icon: <FaMale size={30} />,
     label: "Mempelai Pria",
-    component: GroomEdit,
   },
   {
     key: "bride",
     icon: <FaFemale size={30} />,
     label: "Mempelai Wanita",
-    component: GroomEdit,
   },
   {
     key: "event",
     icon: <CalendarDays size={30} />,
     label: "Acara",
-    component: GroomEdit,
   },
   {
     key: "photos",
     icon: <Images size={30} />,
     label: "Foto",
-    component: GroomEdit,
   },
   {
     key: "gifts",
     icon: <Gift size={30} />,
     label: "Kado Digital",
-    component: GroomEdit,
   },
   {
     key: "audio",
     icon: <Volume2 size={30} />,
     label: "Audio",
-    component: GroomEdit,
   },
   {
     key: "meta",
     icon: <Code size={30} />,
     label: "Meta",
-    component: GroomEdit,
   },
 ];
 
 export function InvitationEditorMenu({
   invitationId,
+  cloudName,
 }: {
   invitationId: string;
+  cloudName: string;
 }) {
+  const uploader = useImageUploader({ cloudName });
+
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string | null>(null);
 
@@ -76,6 +74,18 @@ export function InvitationEditorMenu({
     setActiveKey(key);
     setOpen(true);
   };
+
+  function handleOpenChange(next: boolean) {
+    if (!next) {
+      if (uploader.hasUnsaved?.()) {
+        toast.warning(
+          "Anda punya perubahan yang belum disimpan. Tekan Save untuk menyimpan"
+        );
+        return;
+      }
+    }
+    setOpen(next);
+  }
 
   const activeItem = ICONS_CONFIG.find((c) => c.key === activeKey);
 
@@ -98,7 +108,7 @@ export function InvitationEditorMenu({
         ))}
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>{activeItem?.label ?? "Detail"}</DialogTitle>
@@ -107,11 +117,19 @@ export function InvitationEditorMenu({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="mt-4">
+          <div className="overflow-y-auto max-h-[70vh]">
             {activeItem && (
-              <Suspense>
-                <activeItem.component invitationId={invitationId} />
-              </Suspense>
+              <>
+                {activeItem.key === "groom" && (
+                  <GroomEdit invitationId={invitationId} type="groom" />
+                )}
+                {activeItem.key === "bride" && (
+                  <GroomEdit invitationId={invitationId} type="bride" />
+                )}
+                {activeItem.key === "photos" && (
+                  <FotoEdit invitationId={invitationId} uploader={uploader} />
+                )}
+              </>
             )}
           </div>
         </DialogContent>
