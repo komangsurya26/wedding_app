@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
         const res = await cloudinary.uploader.destroy(public_id, { resource_type: 'image' })
         return NextResponse.json({ result: res })
     } catch (err) {
-        console.error(err)
         return NextResponse.json({ error: 'Delete failed' }, { status: 500 })
     }
 }

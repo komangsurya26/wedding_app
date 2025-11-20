@@ -18,7 +18,6 @@ export async function GET(req: Request) {
 
         return NextResponse.json({ signature, timestamp, api_key: process.env.CLOUDINARY_API_KEY })
     } catch (err) {
-        console.error(err)
         return NextResponse.json({ error: 'Sign failed' }, { status: 500 })
     }
 }

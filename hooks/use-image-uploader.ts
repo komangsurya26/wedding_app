@@ -32,17 +32,8 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
         return res.json()
     }
 
-    function validateSize(file: File, maxMB = 1) {
-        const maxBytes = maxMB * 1024 * 1024;
-        if (file.size > maxBytes) {
-            throw new Error(`File terlalu besar. Maksimal ${maxMB} MB`);
-        }
-    }
-
 
     async function uploadFileSigned(file: File, index: number, invitationId?: string) {
-        // 1 MB size limit
-        validateSize(file, 1);
 
         setPhotos((prev) => { const next = [...prev]; next[index] = { ...next[index], uploading: true }; return next })
 
@@ -73,7 +64,6 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
 
 
     async function replaceFile(file: File, index: number, invitationId?: string) {
-        validateSize(file, 1);
         try {
             setPhotos(prev => {
                 const next = [...prev];

@@ -5,51 +5,60 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
-    const supabase = createClient();
-    const next = (formData.get("next") as string) || "/"; //untuk nextUrl search params
-
-    const data = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-    };
-
-    const { error } = await (await supabase).auth.signInWithPassword(data);
-
-    if (error) {
-        redirect("/error");
+export async function login(data: { email: string; password: string }) {
+    try {
+        const supabase = createClient();
+        const { error } = await (await supabase).auth.signInWithPassword({
+            email: data.email,
+            password: data.password,
+        });
+        if (error) {
+            return { success: false, message: "Email atau password salah" };
+        }
+        return { success: true, message: "Login berhasil" };
+    } catch (error) {
+        return {
+            success: false,
+            message: "Terjadi kesalahan server. Coba beberapa saat lagi.",
+        };
     }
-
-    revalidatePath("/", "layout");
-    redirect(next);
 }
 
-export async function signup(formData: FormData) {
-    const supabase = createClient();
+export async function signup(data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}) {
+    try {
+        const supabase = createClient();
+        const firstName = data.firstName;
+        const lastName = data.lastName;
 
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
-    const firstName = formData.get("first-name") as string;
-    const lastName = formData.get("last-name") as string;
-    const data = {
-        email: formData.get("email") as string,
-        password: formData.get("password") as string,
-        options: {
-            data: {
-                full_name: `${firstName + " " + lastName}`,
-                email: formData.get("email") as string,
-            },
-        },
-    };
+        const { error } = await (await supabase).auth.signUp(
+            {
+                email: data.email,
+                password: data.password,
+                options: {
+                    data: {
+                        full_name: `${firstName + " " + lastName}`,
+                        email: data.email,
+                    },
+                },
+            }
+        );
 
-    const { error } = await (await supabase).auth.signUp(data);
+        if (error) {
+            return { success: false, message: "Gagal daftar" };
+        }
 
-    if (error) {
-        redirect("/error");
+        return { success: true, message: "Daftar berhasil" };
+    } catch (error) {
+        return {
+            success: false,
+            message: "Terjadi kesalahan server. Coba beberapa saat lagi.",
+        };
     }
-
-    revalidatePath("/", "layout");
-    redirect("/");
 }
 
 export async function signout() {

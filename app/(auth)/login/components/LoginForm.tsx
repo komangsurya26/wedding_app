@@ -9,12 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
@@ -23,8 +17,30 @@ import Link from "next/link";
 import SignWithGoogleButton from "./SignWithGoogleButton";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { login } from "@/lib/auth-actions";
+
+const LoginSchema = z.object({
+  email: z.email({
+    pattern: z.regexes.html5Email,
+    message: "Email tidak valid",
+  }),
+  password: z.string(),
+});
+
+type LoginFormValues = z.infer<typeof LoginSchema>;
 
 export function LoginForm({
   next,
@@ -32,31 +48,28 @@ export function LoginForm({
   ...props
 }: { next: string } & React.ComponentProps<"div">) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: { email: "", password: "" },
+    mode: "onTouched",
+  });
 
-    const form = e.target as HTMLFormElement;
-    const email = (form.email as HTMLInputElement).value;
-    const password = (form.password as HTMLInputElement).value;
-
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      toast.error("Email atau password salah");
-      setLoading(false);
-      return;
+  async function onSubmit(values: LoginFormValues) {
+    try {
+      const res = await login({
+        email: values.email,
+        password: values.password,
+      });
+      if (!res.success) {
+        toast.error(res.message || "Login gagal");
+        return;
+      }
+      toast.success("Login berhasil!");
+      router.push(next);
+    } catch (error) {
+      toast.error("Terjadi kesalahan jaringan. Coba lagi.");
     }
-
-    // success
-    toast.success("Login berhasil!");
-    router.push(next);
   }
 
   return (
@@ -69,48 +82,72 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="space-y-4">
+                <FormField
+                  control={form.control}
                   name="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="email">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="example@gmail.com"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </Field>
-              <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Button
-                    type="button"
-                    variant={"link"}
-                    onClick={() => {
-                      toast.warning("Fitur Segera Hadir");
-                    }}
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Lupa password?
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center justify-between">
+                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <Button
+                          type="button"
+                          variant={"link"}
+                          onClick={() => {
+                            toast.warning("Fitur Segera Hadir");
+                          }}
+                          className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                        >
+                          Lupa password?
+                        </Button>
+                      </div>
+                      <FormControl>
+                        <Input
+                          id="password"
+                          type="password"
+                          placeholder="Masukkan password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormItem className="pt-4">
+                  <Button type="submit" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting ? <Spinner />  : "Masuk"}
                   </Button>
-                </div>
-                <Input id="password" name="password" type="password" required />
-              </Field>
-              <Field>
-                <Button type="submit" disabled={loading}>
-                  {loading ? <Spinner /> : "Masuk"}
-                </Button>
-                <SignWithGoogleButton nextUrl={next} />
-                <FieldDescription className="text-center">
-                  Tidak Punya Akun ?{" "}
-                  <Link href="/signup" className="underline">
-                    Daftar
-                  </Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
+                  <SignWithGoogleButton nextUrl={next} />
+                  <FormDescription className="text-center">
+                    Tidak Punya Akun ?{" "}
+                    <Link href="/signup" className="underline">
+                      Daftar
+                    </Link>
+                  </FormDescription>
+                </FormItem>
+              </div>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

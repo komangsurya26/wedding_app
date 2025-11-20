@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,96 +8,191 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { FieldDescription } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SignWithGoogleButton from "../../login/components/SignWithGoogleButton";
 import Link from "next/link";
 import { signup } from "@/lib/auth-actions";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const RegisterSchema = z
+  .object({
+    firstName: z.string().min(1, "Nama depan wajib diisi"),
+    lastName: z.string().min(1, "Nama belakang wajib diisi"),
+    email: z.email({
+      pattern: z.regexes.html5Email,
+      message: "Email tidak valid",
+    }),
+    password: z.string().min(8, "Password minimal 8 karakter"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password dan konfirmasi password tidak sesuai",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormValues = z.infer<typeof RegisterSchema>;
 
 export function SignupForm({
   next,
   ...props
 }: { next: string } & React.ComponentProps<typeof Card>) {
+  const router = useRouter();
+
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(RegisterSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onTouched",
+  });
+
+  async function onSubmit(values: RegisterFormValues) {
+    try {
+      const res = await signup({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+      });
+      if (!res.success) {
+        toast.error(res.message || "Daftar gagal");
+        return;
+      }
+      toast.success("Pendaftaran berhasil!");
+      router.push(next);
+    } catch (error) {
+      toast.error("Terjadi kesalahan jaringan. Coba lagi.");
+    }
+  }
+
   return (
     <Card {...props}>
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
+        <CardTitle>Daftar Akun</CardTitle>
         <CardDescription>
-          Enter your information below to create your account
+          Masukan form atau login dengan google di bawah
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">First Name</FieldLabel>
-              <Input
-                id="first-name"
-                name="first-name"
-                type="text"
-                placeholder="Komang"
-                required
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-4">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="first-name">Nama Depan</FormLabel>
+                    <FormControl>
+                      <Input id="first-name" placeholder="Komang" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="name">Last Name</FieldLabel>
-              <Input
-                id="last-name"
-                name="last-name"
-                type="text"
-                placeholder="Surya"
-                required
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="last-name">Nama Belakang</FormLabel>
+                    <FormControl>
+                      <Input id="last-name" placeholder="Surya" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                id="email"
-                type="email"
+              <FormField
+                control={form.control}
                 name="email"
-                placeholder="m@example.com"
-                required
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="example@mail.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              <FieldDescription>
-                We&apos;ll use this to contact you. We will not share your email
-                with anyone else.
-              </FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input id="password" type="password" name="password" required />
-              <FieldDescription>
-                Must be at least 8 characters long.
-              </FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                Confirm Password
-              </FieldLabel>
-              <Input id="confirm-password" type="password" required />
-              <FieldDescription>Please confirm your password.</FieldDescription>
-            </Field>
-            <FieldGroup>
-              <Field>
-                <Button type="submit" formAction={signup}>
-                  Create Account
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder=""
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="confirm-password">
+                      Konfirmasi Password
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="confirm-password"
+                        type="password"
+                        placeholder=""
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormItem className="pt-4">
+                <Button type="submit" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? "Daftar Akun..." : "Daftar"}
                 </Button>
                 <SignWithGoogleButton nextUrl={next} />
-                <FieldDescription className="px-6 text-center">
-                  Already have an account?
-                  <Link href="/login" className="underline ml-1">
-                    Log in
-                  </Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </FieldGroup>
-        </form>
+                <div className="text-center">
+                  <FieldDescription>
+                    Sudah punya akun?{" "}
+                    <Link href="/login" className="underline ml-1">
+                      Masuk
+                    </Link>
+                  </FieldDescription>
+                </div>
+              </FormItem>
+            </div>
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );

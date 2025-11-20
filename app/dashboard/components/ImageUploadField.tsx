@@ -15,6 +15,36 @@ export function ImageUploadField({
   invitationId?: string;
 }) {
   const p = uploader.photos[index];
+
+  async function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const input = e.target;
+    const f = input.files?.[0];
+    if (!f) return;
+
+    const allowed = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowed.includes(f.type)) {
+      toast.warning("Format file harus JPG, PNG, atau WebP.");
+      input.value = "";
+      return;
+    }
+
+    if (f.size > 1 * 1024 * 1024) {
+      toast.warning("Ukuran file maksimal 1 MB");
+      input.value = "";
+      return;
+    }
+
+    if (p?.public_id)
+      uploader.replaceFile(f, index, invitationId).catch(() => {
+        toast.error("Ganti foto gagal, silakan coba lagi.");
+      });
+    else
+      uploader.uploadFileSigned(f, index, invitationId).catch(() => {
+        toast.error("Upload foto gagal, silakan coba lagi.");
+      });
+  }
+
   return (
     <div className="border rounded p-3 flex flex-col items-center">
       <input
@@ -22,34 +52,7 @@ export function ImageUploadField({
         type="file"
         accept="image/*"
         className="hidden"
-        onChange={(e) => {
-          const input = e.target as HTMLInputElement;
-          const f = input.files?.[0];
-          if (!f) return;
-
-          const allowed = ["image/jpeg", "image/png", "image/webp"];
-
-          if (!allowed.includes(f.type)) {
-            toast.warning("Format file harus JPG, PNG, atau WebP.");
-            input.value = "";
-            return;
-          }
-
-          if (f.size > 1 * 1024 * 1024) {
-            toast.warning("Ukuran file maksimal 1 MB");
-            input.value = "";
-            return;
-          }
-
-          if (p?.public_id)
-            uploader.replaceFile(f, index, invitationId).catch(() => {
-              toast.error("Ganti foto gagal, silakan coba lagi.");
-            });
-          else
-            uploader.uploadFileSigned(f, index, invitationId).catch(() => {
-              toast.error("Upload foto gagal, silakan coba lagi.");
-            });
-        }}
+        onChange={handleInputChange}
       />
       <div className="w-full h-40 flex items-center justify-center bg-gray-50 rounded overflow-hidden">
         {p?.preview ? (

@@ -1,73 +1,118 @@
 "use client";
 
 import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
-export function GroomEdit({
-  invitationId,
-  type = "groom", // groom | bride
-}: {
+type Props = {
   invitationId: string;
-  type: string;
-}) {
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  type?: "groom" | "bride" | string;
+  onSuccess?: () => void; // optional callback untuk menutup dialog / refresh parent
+};
+
+const GroomSchema = z.object({
+  groomName: z.string().min(1, "Nama wajib diisi"),
+  fatherName: z.string().optional().or(z.literal("")),
+  motherName: z.string().optional().or(z.literal("")),
+});
+
+type FormValues = z.infer<typeof GroomSchema>;
+
+export function GroomEdit({ invitationId, type = "groom", onSuccess }: Props) {
+  const defaultGroom =
+    type === "groom" ? "I Putu Romeo, S.T., M.T." : "Ni Putu Juliet, S.M";
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(GroomSchema),
+    defaultValues: {
+      groomName: "",
+      fatherName: "",
+      motherName: "",
+    },
+    mode: "onTouched",
+  });
+
+  async function onSubmit(values: FormValues) {
     const payload = {
       invitationId,
-      groomName:
-        (document.getElementById("groomName") as HTMLInputElement)?.value ||
-        null,
-      fatherName:
-        (document.getElementById("fatherName") as HTMLInputElement)?.value ||
-        null,
-      motherName:
-        (document.getElementById("motherName") as HTMLInputElement)?.value ||
-        null,
+      groomName: values.groomName || null,
+      fatherName: values.fatherName || null,
+      motherName: values.motherName || null,
     };
-    await fetch("/api/invitations/update-groom", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    return;
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="space-y-3">
-        <label className="block">
-          <span className="text-sm">Nama Lengkap</span>
-          <input
-            id="groomName"
-            className="w-full rounded border px-3 py-2 mt-1"
-            placeholder={
-              type === "groom"
-                ? "I Putu Romeo, S.T., M.T."
-                : "Ni Putu Juliet, S.M"
-            }
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="groomName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="groomName">Nama Lengkap</FormLabel>
+                <FormControl>
+                  <Input id="groomName" placeholder={defaultGroom} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-        <label className="block">
-          <span className="text-sm">Nama Bapak</span>
-          <input
-            id="fatherName"
-            className="w-full rounded border px-3 py-2 mt-1"
-            placeholder="I Wayan Jaya"
+          <FormField
+            control={form.control}
+            name="fatherName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="fatherName">Nama Bapak</FormLabel>
+                <FormControl>
+                  <Input
+                    id="fatherName"
+                    placeholder="I Wayan Jaya"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-        <label className="block">
-          <span className="text-sm">Nama Ibu</span>
-          <input
-            id="motherName"
-            className="w-full rounded border px-3 py-2 mt-1"
-            placeholder="Ni Nengah Ayu"
+          <FormField
+            control={form.control}
+            name="motherName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="motherName">Nama Ibu</FormLabel>
+                <FormControl>
+                  <Input
+                    id="motherName"
+                    placeholder="Ni Nengah Ayu"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </label>
-
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </div>
-    </form>
+          <DialogFooter>
+            <Button type="submit" disabled={form.formState.isSubmitting}>
+              {form.formState.isSubmitting ? "Menyimpan..." : "Save changes"}
+            </Button>
+          </DialogFooter>
+        </div>
+      </form>
+    </Form>
   );
 }
