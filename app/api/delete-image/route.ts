@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
         const { public_id } = body
         if (!public_id) return NextResponse.json({ error: 'public_id required' }, { status: 400 })
 
-
         const res = await cloudinary.uploader.destroy(public_id, { resource_type: 'image' })
         return NextResponse.json({ result: res })
     } catch (err) {

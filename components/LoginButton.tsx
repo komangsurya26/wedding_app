@@ -4,19 +4,7 @@ import { createClient } from "@/utils/supabase/client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function LoginButton() {
-  const [user, setUser] = useState<any>(null);
-  const supabase = createClient();
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    fetchUser();
-  }, []);
-
+export default function LoginButton({ user }: { user: any }) {
   return (
     <Link
       href={user ? "/dashboard" : "/login"}
