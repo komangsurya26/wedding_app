@@ -17,6 +17,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { NavItem } from "./NavItem";
+import { UserProps } from "@/app/types";
 
 // This is sample data.
 const data = {
@@ -66,14 +67,13 @@ const data = {
 export function AppSidebar({
   user,
   ...props
-}: { user: any } & React.ComponentProps<typeof Sidebar>) {
+}: { user: UserProps } & React.ComponentProps<typeof Sidebar>) {
   const { setOpenMobile } = useSidebar();
 
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <ProfileSwitcher
-          user={user}        />
+        <ProfileSwitcher user={user} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

@@ -19,16 +19,17 @@ import { signout } from "@/lib/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { UserProps } from "@/app/types";
 
-export function ProfileSwitcher({ user }: { user: any }) {
+export function ProfileSwitcher({ user }: { user: UserProps }) {
   const router = useRouter();
-  const { setOpenMobile } = useSidebar();
-
-  const navigate = async (path: string) => {
-    setOpenMobile(false);
-    await new Promise((r) => setTimeout(r, 800)); // ini penting agar open mobile benar" ke close , untuk reset dom
-    router.push(path);
-  };
+  
+  // const { setOpenMobile } = useSidebar();
+  // const navigate = async (path: string) => {
+  //   setOpenMobile(false);
+  //   await new Promise((r) => setTimeout(r, 800)); // ini penting agar open mobile benar" ke close , untuk reset dom
+  //   router.push(path);
+  // };
 
   return (
     <SidebarMenu>
@@ -40,18 +41,14 @@ export function ProfileSwitcher({ user }: { user: any }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               {user ? (
-                user.user_metadata?.avatar_url ? (
+                user.avatar_url ? (
                   <Avatar className="size-8">
-                    <AvatarImage
-                      src={user?.user_metadata?.avatar_url}
-                      alt="@user"
-                    />
+                    <AvatarImage src={user.avatar_url} alt="@user" />
                   </Avatar>
                 ) : (
                   <Avatar>
                     <AvatarFallback>
-                      {user?.user_metadata?.full_name?.[0]?.toUpperCase() ??
-                        "?"}
+                      {user.full_name?.[0]?.toUpperCase() ?? "?"}
                     </AvatarFallback>
                   </Avatar>
                 )
@@ -61,7 +58,7 @@ export function ProfileSwitcher({ user }: { user: any }) {
               <div className="flex flex-col gap-0.5 leading-none">
                 {user ? (
                   <span className="font-medium">
-                    {user.user_metadata?.full_name ?? user.email}
+                    {user.full_name ?? user.email}
                   </span>
                 ) : (
                   <Skeleton className="h-4 w-[150px]" />
@@ -74,13 +71,6 @@ export function ProfileSwitcher({ user }: { user: any }) {
             className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
-            <DropdownMenuItem
-              onClick={(e) => {
-                navigate("/");
-              }}
-            >
-              Halaman Utama
-            </DropdownMenuItem>
             <Link href="/dashboard/settings">
               <DropdownMenuItem>Pengaturan</DropdownMenuItem>
             </Link>

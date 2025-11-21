@@ -9,36 +9,42 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getUser } from "@/lib/auth-actions";
+import { getProfile } from "@/lib/auth-actions";
+import { UserProps } from "@/app/types";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 export function Sidebar({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<any>(undefined);
+  const [user, setUser] = useState<UserProps>({} as UserProps);
 
   useEffect(() => {
-    let mounted = true;
     const fetchUser = async () => {
-      const { user } = await getUser();
-      if (mounted) {
-        setUser(user);
+      const { profile } = await getProfile();
+      if (profile) {
+        setUser(profile);
       }
     };
     fetchUser();
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   return (
     <SidebarProvider>
       <AppSidebar user={user} />
       <SidebarInset className="h-screen">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          />
-          <BreadcrumbDynamic />
+        <header className="flex justify-between h-16 shrink-0 border-b px-4">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <BreadcrumbDynamic />
+          </div>
+          <div className="flex items-center gap-2">
+            <Link href={"/"}>
+              <Home />
+            </Link>
+          </div>
         </header>
         <div className="flex flex-1 p-4 min-h-0">{children}</div>
       </SidebarInset>
