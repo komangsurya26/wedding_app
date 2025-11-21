@@ -2,7 +2,7 @@ export type Images = {
     bride: string;
     groom: string;
     couple: string[];
-    potrait: string[];
+    portrait: string[];
     landscape: string[];
 }
 

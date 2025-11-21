@@ -79,7 +79,7 @@ export function TemplateMain({ config }: { config: ConfigTemplate }) {
             <Gallery
               videoIdYoutube={config.videoIdYoutube}
               imageLandscapes={config.images.landscape}
-              imagePotraits={config.images.potrait}
+              imagePotraits={config.images.portrait}
             />
             <RSVP />
             <WeddingGift
@@ -98,7 +98,7 @@ export function TemplateMain({ config }: { config: ConfigTemplate }) {
                 },
               ]}
             />
-            <Footer images={config.images.potrait} />
+            <Footer images={config.images.portrait} />
           </div>
         </div>
       </main>

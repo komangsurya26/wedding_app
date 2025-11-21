@@ -2,7 +2,7 @@ import { ConfigTemplate } from "@/app/types";
 import { TemplateMain as Template1 } from "./components/template1/TemplateMain";
 import { TemplateMain as Template2 } from "./components/template2/TemplateMain";
 
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { JSX } from "react";
 
 const TEMPLATE: ConfigTemplate[] = [
@@ -20,7 +20,7 @@ const TEMPLATE: ConfigTemplate[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
       ],
-      potrait: [
+      portrait: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6849-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_7023-scaled.webp",
@@ -48,7 +48,7 @@ const TEMPLATE: ConfigTemplate[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
       ],
-      potrait: [
+      portrait: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
       ],
@@ -72,7 +72,7 @@ const TEMPLATE: ConfigTemplate[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6667-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
       ],
-      potrait: [
+      portrait: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
       ],
