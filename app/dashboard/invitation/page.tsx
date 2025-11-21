@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Invitation as InvitationTypes } from "@/app/types";
 import { Invitation } from "./components/Invitation";
@@ -17,7 +19,7 @@ const invitations: InvitationTypes[] = [
     name: "Sedana dan Putri",
     description: "Jumat, 14 Desember 2025",
     image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-65.jpg",
-    type: "metatah",
+    type: "wedding",
     expired: true,
     urlInvitation: "http://192.168.1.5:3000",
   },

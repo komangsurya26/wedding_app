@@ -1,7 +1,6 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 
 export default function LoginButton({ user }: { user: any }) {

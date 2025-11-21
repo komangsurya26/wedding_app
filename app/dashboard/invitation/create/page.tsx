@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Invitation as InvitationTypes } from "@/app/types";
 import { Invitation } from "../components/Invitation";

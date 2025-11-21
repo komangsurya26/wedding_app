@@ -1,6 +1,5 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { Card, CardContent } from "@/components/ui/card";
 import { CalendarDays, Code, Gift, Images, Volume2 } from "lucide-react";
 import { FaFemale, FaMale } from "react-icons/fa";
 import { InvitationEditorMenu } from "./components/InvitationEditorMenu";

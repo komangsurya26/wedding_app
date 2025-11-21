@@ -71,6 +71,15 @@ export async function signout() {
 
     redirect("/");
 }
+export async function getUser() {
+    const supabase = createClient();
+    const {
+        data: { user },
+    } = await (await supabase).auth.getUser();
+
+    return { user }
+};
+
 
 export async function signInWithGoogle(nextUrl: string) {
     const supabase = createClient();

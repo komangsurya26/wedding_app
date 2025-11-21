@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { signout } from "@/lib/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export function ProfileSwitcher({ user }: { user: any }) {
   const router = useRouter();
@@ -80,13 +81,9 @@ export function ProfileSwitcher({ user }: { user: any }) {
             >
               Halaman Utama
             </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                navigate("/dashboard/settings");
-              }}
-            >
-              Pengaturan
-            </DropdownMenuItem>
+            <Link href="/dashboard/settings">
+              <DropdownMenuItem>Pengaturan</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem onClick={signout}>Keluar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function NavItem({
   title,
@@ -13,21 +13,20 @@ export function NavItem({
   url: string;
   closeSidebar: () => void;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname === url;
 
   return (
     <>
-      <SidebarMenuButton
-        isActive={isActive}
-        onClick={async () => {
-          closeSidebar();
-          await new Promise((r) => setTimeout(r, 80));
-          router.push(url);
-        }}
-      >
-        {title}
+      <SidebarMenuButton asChild isActive={isActive}>
+        <Link
+          href={url}
+          onClick={() => {
+            closeSidebar();
+          }}
+        >
+          {title}
+        </Link>
       </SidebarMenuButton>
     </>
   );
