@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/src/utils/supabase/server";
+import { useUser } from "../providers/UserProvider";
 
 export async function login(data: { email: string; password: string }) {
     try {
@@ -61,13 +62,15 @@ export async function signup(data: {
 }
 
 export async function signout() {
+    const { refresh } = useUser()
     const supabase = createClient();
     const { error } = await (await supabase).auth.signOut();
     if (error) {
-        console.log(error);
+        await refresh()
         redirect("/error");
     }
 
+    await refresh()
     redirect("/");
 }
 
