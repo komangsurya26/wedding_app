@@ -30,7 +30,12 @@ export function ProfileSwitcher() {
   //   router.push(path);
   // };
 
-  const { user } = useUser();
+  const { user, refresh } = useUser();
+
+  async function handleSignOut() {
+    await signout();
+    await refresh();
+  }
 
   return (
     <SidebarMenu>
@@ -75,7 +80,7 @@ export function ProfileSwitcher() {
             <Link href="/dashboard/settings">
               <DropdownMenuItem>Pengaturan</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={signout}>Keluar</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSignOut}>Keluar</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

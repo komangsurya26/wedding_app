@@ -62,16 +62,8 @@ export async function signup(data: {
 }
 
 export async function signout() {
-    const { refresh } = useUser()
     const supabase = createClient();
-    const { error } = await (await supabase).auth.signOut();
-    if (error) {
-        await refresh()
-        redirect("/error");
-    }
-
-    await refresh()
-    redirect("/");
+    await (await supabase).auth.signOut();
 }
 
 
