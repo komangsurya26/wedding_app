@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useUser } from "@/src/providers/UserProvider";
 
 const RegisterSchema = z
   .object({
@@ -50,6 +51,7 @@ export function SignupForm({
   ...props
 }: { next: string } & React.ComponentProps<typeof Card>) {
   const router = useRouter();
+  const { refresh } = useUser();
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(RegisterSchema),
@@ -76,6 +78,7 @@ export function SignupForm({
         return;
       }
       toast.success("Pendaftaran berhasil!");
+      await refresh();
       router.push(next);
     } catch (error) {
       toast.error("Terjadi kesalahan jaringan. Coba lagi.");

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useUser } from "@/src/providers/UserProvider";
 
 export default function LoginButton() {
-  const user = useUser();
+  const { user } = useUser();
   return (
     <Link
       href={user ? "/dashboard" : "/login"}
