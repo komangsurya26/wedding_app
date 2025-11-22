@@ -22,7 +22,7 @@ import Link from "next/link";
 import { useUser } from "@/src/providers/UserProvider";
 
 export function ProfileSwitcher() {
-  // const router = useRouter();
+  const router = useRouter();
   // const { setOpenMobile } = useSidebar();
   // const navigate = async (path: string) => {
   //   setOpenMobile(false);
@@ -35,6 +35,7 @@ export function ProfileSwitcher() {
   async function handleSignOut() {
     await signout();
     await refresh();
+    router.push("/");
   }
 
   return (

@@ -23,7 +23,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch("/api/me", { credentials: "include" });
+        const res = await fetch("/api/auth/me", { credentials: "include" });
         if (!res.ok) {
           setUser(null);
           return;
@@ -42,7 +42,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   async function refresh() {
     setLoading(true);
     try {
-      const res = await fetch("/api/me", { credentials: "include" });
+      const res = await fetch("/api/auth/me", { credentials: "include" });
       if (!res.ok) {
         setUser(null);
         return;
