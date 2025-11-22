@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -16,97 +15,191 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-type Props = {
-  invitationId: string;
-  type?: "groom" | "bride" | string;
-  onSuccess?: () => void; // optional callback untuk menutup dialog / refresh parent
-};
+import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
+import { GroomEditProps } from "@/src/types";
+import { createGroomBride } from "@/src/lib/groombride";
+import { toast } from "sonner";
 
 const GroomSchema = z.object({
-  groomName: z.string().min(1, "Nama wajib diisi"),
-  fatherName: z.string().optional().or(z.literal("")),
-  motherName: z.string().optional().or(z.literal("")),
+  fullName: z.string().min(1, "Nama wajib diisi"),
+  shortName: z.string().min(1, "Nama wajib diisi"),
+  childOrder: z.string().optional().or(z.literal("")),
+  instagram: z.string().optional().or(z.literal("")),
+  father: z.string().optional().or(z.literal("")),
+  mother: z.string().optional().or(z.literal("")),
 });
 
 type FormValues = z.infer<typeof GroomSchema>;
 
-export function GroomEdit({ invitationId, type = "groom", onSuccess }: Props) {
-  const defaultGroom =
+export function GroomEdit({
+  invitationId,
+  type = "groom",
+  uploader,
+}: GroomEditProps) {
+  const defaultFullName =
     type === "groom" ? "I Putu Romeo, S.T., M.T." : "Ni Putu Juliet, S.M";
+  const defaultShortName = type === "groom" ? "Romeo" : "Juliet";
 
   const form = useForm<FormValues>({
     resolver: zodResolver(GroomSchema),
     defaultValues: {
-      groomName: "",
-      fatherName: "",
-      motherName: "",
+      fullName: "",
+      shortName: "",
+      childOrder: "",
+      instagram: "",
+      father: "",
+      mother: "",
     },
     mode: "onTouched",
   });
 
   async function onSubmit(values: FormValues) {
-    const payload = {
-      invitationId,
-      groomName: values.groomName || null,
-      fatherName: values.fatherName || null,
-      motherName: values.motherName || null,
-    };
-    return;
+    try {
+      const payload = {
+        type,
+        invitationId,
+        fullName: values.fullName,
+        shortName: values.shortName,
+        childOrder: values.childOrder ?? "",
+        father: values.father ?? "",
+        mother: values.mother ?? "",
+        instagram: values.instagram ?? "",
+        // photos: uploader.photos.map((p) => ({
+        //   url: p.url,
+        //   public_id: p.public_id,
+        // })),
+      };
+      await createGroomBride(payload);
+      toast.success("Input Data Sukses");
+    } catch (error) {
+      toast.error("Gagal Input Data");
+    }
   }
+
+  useEffect(() => {
+    uploader.initSlots(2);
+    return () => uploader.setPhotos([]);
+  }, []);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4">
-          <FormField
-            control={form.control}
-            name="groomName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="groomName">Nama Lengkap</FormLabel>
-                <FormControl>
-                  <Input id="groomName" placeholder={defaultGroom} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="fatherName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="fatherName">Nama Bapak</FormLabel>
-                <FormControl>
-                  <Input
-                    id="fatherName"
-                    placeholder="I Wayan Jaya"
-                    {...field}
+        <div className="flex flex-col max-h-[55vh]">
+          <div className="flex-1 overflow-y-auto pr-3 pb-5 pt-2">
+            <div className="space-y-4">
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="fullName">Nama Lengkap</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="fullName"
+                        placeholder={defaultFullName}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="shortName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="shortName">Nama Panggilan</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="shortName"
+                        placeholder={defaultShortName}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="childOrder"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="childOrder">Anak ke berapa</FormLabel>
+                    <FormControl>
+                      <Input id="childOrder" placeholder="Pertama" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="father"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="father">Nama Bapak</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="father"
+                        placeholder="I Wayan Jaya"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="mother"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="mother">Nama Ibu</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="mother"
+                        placeholder="Ni Nengah Ayu"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="instagram"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="instagram">
+                      Instagram (Tanpa @)
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="instagram"
+                        placeholder="komangsurya_26"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-2 gap-4">
+                {uploader.photos.map((_, i) => (
+                  <ImageUploadField
+                    key={i}
+                    index={i}
+                    uploader={uploader}
+                    invitationId={invitationId}
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="motherName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="motherName">Nama Ibu</FormLabel>
-                <FormControl>
-                  <Input
-                    id="motherName"
-                    placeholder="Ni Nengah Ayu"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <DialogFooter>
+                ))}
+              </div>
+            </div>
+          </div>
+          <DialogFooter className="pr-3 pt-3">
             <Button type="submit" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Menyimpan..." : "Save changes"}
             </Button>

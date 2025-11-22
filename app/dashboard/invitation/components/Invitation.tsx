@@ -1,6 +1,6 @@
 "use client";
 
-import { InvitationProps } from "@/app/types";
+import { InvitationProps } from "@/src/types";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

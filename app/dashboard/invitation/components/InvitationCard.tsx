@@ -1,6 +1,6 @@
 "use client";
 
-import { InvitationProps } from "@/app/types";
+import { InvitationProps } from "@/src/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

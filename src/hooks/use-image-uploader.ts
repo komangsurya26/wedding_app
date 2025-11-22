@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { deleteImage, getSignature } from '../lib/cloudinary'
 
 type PhotoState = {
     file?: File | null
@@ -11,7 +12,7 @@ type PhotoState = {
 }
 
 
-export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', deleteUrl = '/api/delete-image' }: { cloudName: string; signUrl?: string; deleteUrl?: string }) {
+export function useImageUploader({ cloudName }: { cloudName: string; }) {
     const [photos, setPhotos] = useState<PhotoState[]>([])
 
     const inputRefs = useRef<Record<number, HTMLInputElement | null>>({})
@@ -25,26 +26,16 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
     }
 
 
-    async function getSignature(invitationId?: string) {
-        const url = invitationId ? `${signUrl}?invitationId=${encodeURIComponent(invitationId)}` : signUrl
-        const res = await fetch(url)
-        if (!res.ok) throw new Error('Could not get signature')
-        return res.json()
-    }
-
-
-    async function uploadFileSigned(file: File, index: number, invitationId?: string) {
+    async function uploadFileSigned(file: File, index: number, invitationId: number) {
 
         setPhotos((prev) => { const next = [...prev]; next[index] = { ...next[index], uploading: true }; return next })
-
 
         // get signature
         const sig = await getSignature(invitationId)
 
-
         const form = new FormData()
         form.append('file', file)
-        form.append('api_key', sig.api_key)
+        form.append('api_key', `${sig.api_key}`)
         form.append('timestamp', String(sig.timestamp))
         form.append('signature', sig.signature)
         form.append('folder', `invitations/${invitationId || 'general'}`)
@@ -63,7 +54,7 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
     }
 
 
-    async function replaceFile(file: File, index: number, invitationId?: string) {
+    async function replaceFile(file: File, index: number, invitationId: number) {
         try {
             setPhotos(prev => {
                 const next = [...prev];
@@ -73,7 +64,8 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
             const existing = photos[index]
 
             if (existing?.public_id) {
-                await fetch(deleteUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ public_id: existing.public_id }) })
+                const publicId = existing.public_id
+                await deleteImage(publicId)
             }
 
             setPhotos((prev) => {
@@ -106,7 +98,8 @@ export function useImageUploader({ cloudName, signUrl = '/api/cloudinary-sign', 
             const existing = photos[index]
 
             if (existing?.public_id) {
-                await fetch(deleteUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ public_id: existing.public_id }) })
+                const publicId = existing.public_id
+                await deleteImage(publicId)
             }
 
             setPhotos((prev) => {

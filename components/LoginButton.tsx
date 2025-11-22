@@ -2,8 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
+import { useUser } from "@/src/providers/UserProvider";
 
-export default function LoginButton({ user }: { user: any }) {
+export default function LoginButton() {
+  const user = useUser();
   return (
     <Link
       href={user ? "/dashboard" : "/login"}

@@ -15,21 +15,22 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { signout } from "@/lib/auth-actions";
+import { signout } from "@/src/lib/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { UserProps } from "@/app/types";
+import { useUser } from "@/src/providers/UserProvider";
 
-export function ProfileSwitcher({ user }: { user: UserProps }) {
-  const router = useRouter();
-  
+export function ProfileSwitcher() {
+  // const router = useRouter();
   // const { setOpenMobile } = useSidebar();
   // const navigate = async (path: string) => {
   //   setOpenMobile(false);
   //   await new Promise((r) => setTimeout(r, 800)); // ini penting agar open mobile benar" ke close , untuk reset dom
   //   router.push(path);
   // };
+
+  const user = useUser();
 
   return (
     <SidebarMenu>

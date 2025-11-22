@@ -10,9 +10,9 @@ export function ImageUploadField({
 }: {
   index: number;
   uploader: ReturnType<
-    typeof import("@/hooks/use-image-uploader").useImageUploader
+    typeof import("@/src/hooks/use-image-uploader").useImageUploader
   >;
-  invitationId?: string;
+  invitationId: number;
 }) {
   const p = uploader.photos[index];
 
@@ -93,15 +93,12 @@ export function ImageUploadField({
         >
           Hapus
         </Button>
-      </div>
-      <div className="w-full text-xs mt-2">
-        {p?.uploading && <div>Uploading...</div>}
         {!p?.uploading && p?.url && (
-          <div className="break-all">
-            <a className="underline" target="_blank" href={p.url}>
-              {p.url}
+          <Button variant={"outline"} asChild>
+            <a href={p?.url} target="_blank" rel="noopener noreferrer">
+              Lihat
             </a>
-          </div>
+          </Button>
         )}
       </div>
     </div>

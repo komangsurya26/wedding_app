@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { AppSidebar } from "./AppSidebar";
 import { BreadcrumbDynamic } from "./BreadcrumbDynamic";
 import { Separator } from "@/components/ui/separator";
@@ -9,27 +9,14 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getProfile } from "@/lib/auth-actions";
-import { UserProps } from "@/app/types";
 import { Home } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@/src/providers/UserProvider";
 
 export function Sidebar({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserProps>({} as UserProps);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { profile } = await getProfile();
-      if (profile) {
-        setUser(profile);
-      }
-    };
-    fetchUser();
-  }, []);
-
   return (
     <SidebarProvider>
-      <AppSidebar user={user} />
+      <AppSidebar />
       <SidebarInset className="h-screen">
         <header className="flex justify-between h-16 shrink-0 border-b px-4">
           <div className="flex items-center gap-2">

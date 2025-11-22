@@ -1,39 +1,6 @@
 import React from "react";
 import { redirect } from "next/navigation";
-import { CalendarDays, Code, Gift, Images, Volume2 } from "lucide-react";
-import { FaFemale, FaMale } from "react-icons/fa";
 import { InvitationEditorMenu } from "./components/InvitationEditorMenu";
-
-const icons = [
-  {
-    icon: <FaMale size={30} />,
-    description: "Mempelai Pria",
-  },
-  {
-    icon: <FaFemale size={30} />,
-    description: "Mempelai Wanita",
-  },
-  {
-    icon: <CalendarDays size={30} />,
-    description: "Acara",
-  },
-  {
-    icon: <Images size={30} />,
-    description: "Foto",
-  },
-  {
-    icon: <Gift size={30} />,
-    description: "Kado Digital",
-  },
-  {
-    icon: <Volume2 size={30} />,
-    description: "Audio",
-  },
-  {
-    icon: <Code size={30} />,
-    description: "Meta",
-  },
-];
 
 export default async function InvitationEditPage({
   searchParams,
@@ -42,9 +9,10 @@ export default async function InvitationEditPage({
 }) {
   const rawInvitId = (await searchParams).invitationId;
   if (!rawInvitId) return redirect("/dashboard/invitation");
-  const invitationId = Array.isArray(rawInvitId) ? rawInvitId[0] : rawInvitId;
+  const invitationStr = Array.isArray(rawInvitId) ? rawInvitId[0] : rawInvitId;
+  const invitationId = Number(invitationStr);
 
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME as string;
 
   return (
     <div className="h-full w-full">

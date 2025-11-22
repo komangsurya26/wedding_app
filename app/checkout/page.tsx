@@ -27,5 +27,7 @@ export default async function CheckoutPage({
     ? rawTemplateId[0]
     : rawTemplateId;
 
-  return <div>Template ID: {templateId}</div>;
+  return <div>
+    
+  </div>;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLoadingProgress } from "@/hooks/use-loading-progress";
+import { useLoadingProgress } from "@/src/hooks/use-loading-progress";
 
 interface Props {
   minDuration?: number;

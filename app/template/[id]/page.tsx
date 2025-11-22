@@ -1,4 +1,4 @@
-import { ConfigTemplate } from "@/app/types";
+import { ConfigTemplate } from "@/src/types";
 import { TemplateMain as Template1 } from "./components/template1/TemplateMain";
 import { TemplateMain as Template2 } from "./components/template2/TemplateMain";
 

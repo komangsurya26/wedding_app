@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ConfigTemplate } from "@/app/types";
+import { ConfigTemplate } from "@/src/types";
 
 import { Footer } from "./Footer";
 import { WeddingGift } from "./WeddingGift";

@@ -13,13 +13,9 @@ import {
 } from "@/components/ui/dialog";
 import { GroomEdit } from "./GroomEdit";
 import { FotoEdit } from "./FotoEdit";
-import { useImageUploader } from "@/hooks/use-image-uploader";
+import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
 
-/**
- * CONFIG: semua item terpusat di sini.
- * Untuk komponen besar : gunakan dynamic import agar lazy loaded.
- */
 const ICONS_CONFIG = [
   {
     key: "groom",
@@ -62,7 +58,7 @@ export function InvitationEditorMenu({
   invitationId,
   cloudName,
 }: {
-  invitationId: string;
+  invitationId: number;
   cloudName: string;
 }) {
   const uploader = useImageUploader({ cloudName });
@@ -77,6 +73,12 @@ export function InvitationEditorMenu({
 
   function handleOpenChange(next: boolean) {
     if (!next) {
+      if (uploader.photos.some((p: any) => p?.uploading)) {
+        toast.warning(
+          "Upload sedang berjalan. Tunggu sampai selesai sebelum menutup."
+        );
+        return;
+      }
       if (uploader.hasUnsaved?.()) {
         toast.warning(
           "Anda punya perubahan yang belum disimpan. Tekan Save untuk menyimpan"
@@ -117,14 +119,22 @@ export function InvitationEditorMenu({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="overflow-y-auto max-h-[70vh]">
+          <div className="">
             {activeItem && (
               <>
                 {activeItem.key === "groom" && (
-                  <GroomEdit invitationId={invitationId} type="groom" />
+                  <GroomEdit
+                    invitationId={invitationId}
+                    type="groom"
+                    uploader={uploader}
+                  />
                 )}
                 {activeItem.key === "bride" && (
-                  <GroomEdit invitationId={invitationId} type="bride" />
+                  <GroomEdit
+                    invitationId={invitationId}
+                    type="bride"
+                    uploader={uploader}
+                  />
                 )}
                 {activeItem.key === "photos" && (
                   <FotoEdit invitationId={invitationId} uploader={uploader} />

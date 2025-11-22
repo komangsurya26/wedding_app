@@ -1,5 +1,5 @@
 import React from "react";
-import { WeddingDayProps } from "@/app/types";
+import { WeddingDayProps } from "@/src/types";
 
 //icons
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";

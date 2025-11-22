@@ -1,6 +1,6 @@
 "use client";
 
-import useInViewAnimation from "@/hooks/use-inview-animation";
+import useInViewAnimation from "@/src/hooks/use-inview-animation";
 import React, { useRef } from "react";
 
 export function Quote() {

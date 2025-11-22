@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,7 +30,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { login } from "@/lib/auth-actions";
+import { login } from "@/src/lib/auth-actions";
 
 const LoginSchema = z.object({
   email: z.email({
@@ -135,7 +135,7 @@ export function LoginForm({
                 />
                 <FormItem className="pt-4">
                   <Button type="submit" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? <Spinner />  : "Masuk"}
+                    {form.formState.isSubmitting ? <Spinner /> : "Masuk"}
                   </Button>
                   <SignWithGoogleButton nextUrl={next} />
                   <FormDescription className="text-center">

@@ -1,4 +1,4 @@
-import { GroomProps } from "@/app/types";
+import { GroomProps } from "@/src/types";
 import Image from "next/image";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";

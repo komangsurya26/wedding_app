@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import LoginButton from "./LoginButton";
 
-export default function Navbar({ user }: { user: any }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   // Scroll detection
@@ -35,7 +35,7 @@ export default function Navbar({ user }: { user: any }) {
             </Link>
           </div>
           <div className="flex space-x-6 items-center text-lg font-medium">
-            <LoginButton user={user} />
+            <LoginButton  />
           </div>
         </div>
       </div>
