@@ -70,21 +70,6 @@ export async function signout() {
 
     redirect("/");
 }
-export async function getProfile() {
-    const supabase = createClient();
-
-    const {
-        data: { user },
-    } = await (await supabase).auth.getUser();
-
-    const { data: profile } = await (await supabase)
-        .from("profiles")
-        .select("*")
-        .eq("id", user?.id)
-        .single();
-
-    return { profile }
-};
 
 
 export async function signInWithGoogle(nextUrl: string) {

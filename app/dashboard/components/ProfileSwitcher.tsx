@@ -30,7 +30,7 @@ export function ProfileSwitcher() {
   //   router.push(path);
   // };
 
-  const user = useUser();
+  const { user } = useUser();
 
   return (
     <SidebarMenu>

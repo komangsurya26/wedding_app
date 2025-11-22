@@ -1,17 +1,42 @@
 "use client";
 
 import { UserProps } from "@/src/types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const UserContext = createContext<UserProps>({} as UserProps);
-
-interface UserProviderProps {
-  children: React.ReactNode;
-  user: UserProps;
+interface IUserContext {
+  user: UserProps | null;
+  loading: boolean;
 }
 
-export function UserProvider({ children, user }: UserProviderProps) {
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+const UserContext = createContext<IUserContext>({
+  user: null,
+  loading: true,
+});
+
+export function UserProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<UserProps>({} as UserProps);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      const res = await fetch("/api/auth/me", { credentials: "include" });
+      if (!res.ok) {
+        setUser({} as UserProps);
+        setLoading(false);
+        return;
+      }
+      const data = await res.json();
+      setUser(data.user ?? null);
+      setLoading(false);
+    };
+
+    load();
+  }, []);
+  return (
+    <UserContext.Provider value={{ user, loading }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export const useUser = () => useContext(UserContext);

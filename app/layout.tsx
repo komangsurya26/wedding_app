@@ -6,7 +6,6 @@ import { metadata as siteMetadata } from "./metadata";
 
 import { UserProvider } from "@/src/providers/UserProvider";
 import { Toaster } from "@/components/ui/sonner";
-import { getProfile } from "@/src/lib/auth-actions";
 
 export { siteMetadata as metadata };
 
@@ -15,7 +14,6 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const { profile } = await getProfile();
   return (
     <html lang="en">
       <head>
@@ -25,7 +23,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${fontVariables} antialiased`}>
-        <UserProvider user={profile}>
+        <UserProvider>
           <main>{children}</main>
         </UserProvider>
         <Toaster position="top-center" />
