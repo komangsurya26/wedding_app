@@ -15,24 +15,24 @@ export function TotalVisitors({ type }: { type: "month" | "year" }) {
 
   // Data per tahun (Jan–Dec)
   const yearData = [
-    { name: "Jan", total: Math.random() * 4000 + 1000 },
-    { name: "Feb", total: Math.random() * 4000 + 1000 },
-    { name: "Mar", total: Math.random() * 4000 + 1000 },
-    { name: "Apr", total: Math.random() * 4000 + 1000 },
-    { name: "May", total: Math.random() * 4000 + 1000 },
-    { name: "Jun", total: Math.random() * 4000 + 1000 },
-    { name: "Jul", total: Math.random() * 4000 + 1000 },
-    { name: "Aug", total: Math.random() * 4000 + 1000 },
-    { name: "Sep", total: Math.random() * 4000 + 1000 },
-    { name: "Oct", total: Math.random() * 4000 + 1000 },
-    { name: "Nov", total: Math.random() * 4000 + 1000 },
-    { name: "Dec", total: Math.random() * 4000 + 1000 },
+    { name: "Jan", total: 1000 },
+    { name: "Feb", total: 4000 },
+    { name: "Mar", total: 3000 },
+    { name: "Apr", total: 2000 },
+    { name: "May", total: 1500 },
+    { name: "Jun", total: 1800 },
+    { name: "Jul", total: 1900 },
+    { name: "Aug", total: 1700 },
+    { name: "Sep", total: 1600 },
+    { name: "Oct", total: 1200 },
+    { name: "Nov", total: 7000 },
+    { name: "Dec", total: 9000 },
   ];
 
   // Data per bulan (Jun 1 – Jun 30)
   const monthData = Array.from({ length: 30 }, (_, i) => ({
     name: `${monthName} ${i + 1}`,
-    total: Math.random() * 200 + 50,
+    total: 10 + i * 2,
   }));
 
   const chartData = type === "month" ? monthData : yearData;

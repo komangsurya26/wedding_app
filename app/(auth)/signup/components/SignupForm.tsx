@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card";
-import { FieldDescription } from "@/app/components/ui/field";
-import { Input } from "@/app/components/ui/input";
+} from "@/components/ui/card";
+import { FieldDescription } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import SignWithGoogleButton from "../../login/components/SignWithGoogleButton";
 import Link from "next/link";
 import { signup } from "@/src/lib/auth-actions";
@@ -24,7 +24,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/app/components/ui/form";
+} from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterSchema = z

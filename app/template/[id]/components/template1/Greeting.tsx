@@ -32,7 +32,7 @@ export function Greeting({ image, id }: { image: string; id: string }) {
               isVisible && "animate__animated animate__fadeInDown animate__slow"
             }`}
           >
-            "Om Swastiastu"
+            &quot;Om Swastiastu&quot;
           </h2>
           <p
             className={`text-[clamp(0.9rem,2vw,1.125rem)] text-white/80 font-serif font-extralight leading-snug md:leading-tight tracking-tight ${

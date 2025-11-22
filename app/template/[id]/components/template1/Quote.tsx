@@ -29,10 +29,10 @@ export function Quote() {
               animationDelay: "1s",
             }}
           >
-            "Ya Tuhanku Yang Maha Pengasih, anugrahkanlah kepada pasangan ini
+            &ldquo; Ya Tuhanku Yang Maha Pengasih, anugrahkanlah kepada pasangan ini
             senantiasa kebahagiaan, kesehatan, tetap bersatu dan tidak pernah
             terpisahkan, panjang umur dan tinggal di rumah yang penuh
-            kegembiraan bersama seluruh keturunannya"
+            kegembiraan bersama seluruh keturunannya &rdquo;
           </p>
 
           <div className="flex items-center pt-3">

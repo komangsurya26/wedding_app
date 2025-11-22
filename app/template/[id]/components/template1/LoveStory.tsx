@@ -27,7 +27,7 @@ export function LoveStory({ image }: { image: string }) {
           </p>
 
           <p>
-            With God's grace,
+            With God&apos;s grace,
             <br />
             we begin our journey as husband and wife,
           </p>
