@@ -38,60 +38,54 @@ export function FotoEdit({
         })),
       };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   return (
     <Tabs defaultValue="portrait">
-      <div className="pb-3">
-        <TabsList>
-          <TabsTrigger value="portrait">
-            Portrait ({portraitPhotos.length})
-          </TabsTrigger>
-          <TabsTrigger value="landscape">
-            Landscape ({landscapePhotos.length})
-          </TabsTrigger>
-        </TabsList>
-      </div>
+      <TabsList>
+        <TabsTrigger value="portrait">
+          Portrait ({portraitPhotos.length})
+        </TabsTrigger>
+        <TabsTrigger value="landscape">
+          Landscape ({landscapePhotos.length})
+        </TabsTrigger>
+      </TabsList>
 
       {/* Potraits Tab */}
-      <div className="overflow-y-auto max-h-[55vh]">
-        <TabsContent value="portrait" className="pr-3">
-          <div className="grid grid-cols-2 gap-4">
-            {portraitPhotos.map((p, idx) => {
-              const originalIndex = uploader.photos.indexOf(p);
-              return (
-                <ImageUploadField
-                  key={originalIndex}
-                  index={originalIndex}
-                  uploader={uploader}
-                  invitationId={invitationId}
-                />
-              );
-            })}
-          </div>
-        </TabsContent>
-      </div>
+      <TabsContent value="portrait" className="pr-3 pt-2 overflow-y-auto max-h-[55vh]">
+        <div className="grid grid-cols-2 gap-4">
+          {portraitPhotos.map((p, idx) => {
+            const originalIndex = uploader.photos.indexOf(p);
+            return (
+              <ImageUploadField
+                key={originalIndex}
+                index={originalIndex}
+                uploader={uploader}
+                invitationId={invitationId}
+              />
+            );
+          })}
+        </div>
+      </TabsContent>
 
       {/* Landscape Tab */}
-      <div className="overflow-y-auto max-h-[55vh]">
-        <TabsContent value="landscape" className="pr-3">
-          <div className="grid grid-cols-2 gap-4">
-            {landscapePhotos.map((p, idx) => {
-              const originalIndex = uploader.photos.indexOf(p);
-              return (
-                <ImageUploadField
-                  key={originalIndex}
-                  index={originalIndex}
-                  uploader={uploader}
-                  invitationId={invitationId}
-                />
-              );
-            })}
-          </div>
-        </TabsContent>
-      </div>
+      <TabsContent value="landscape" className="pr-3 pt-2 overflow-y-auto max-h-[55vh]">
+        <div className="grid grid-cols-2 gap-4">
+          {landscapePhotos.map((p, idx) => {
+            const originalIndex = uploader.photos.indexOf(p);
+            return (
+              <ImageUploadField
+                key={originalIndex}
+                index={originalIndex}
+                uploader={uploader}
+                invitationId={invitationId}
+              />
+            );
+          })}
+        </div>
+      </TabsContent>
 
       {/* Footer */}
       <TabsContent value="portrait">

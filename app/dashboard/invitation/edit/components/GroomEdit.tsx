@@ -19,33 +19,44 @@ import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
 import { GroomEditProps } from "@/src/types";
 import { createGroomBride } from "@/src/lib/groombride";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const GroomSchema = z.object({
   fullName: z.string().min(1, "Nama wajib diisi"),
   shortName: z.string().min(1, "Nama wajib diisi"),
-  childOrder: z.string().optional().or(z.literal("")),
-  instagram: z.string().optional().or(z.literal("")),
-  father: z.string().optional().or(z.literal("")),
-  mother: z.string().optional().or(z.literal("")),
+  childOrder: z.string().optional(),
+  instagram: z.string().optional(),
+  father: z.string().optional(),
+  mother: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof GroomSchema>;
+
 
 export function GroomEdit({
   invitationId,
   type = "groom",
   uploader,
+  onClose,
 }: GroomEditProps) {
-  const defaultFullName =
-    type === "groom" ? "I Putu Romeo, S.T., M.T." : "Ni Putu Juliet, S.M";
+  const groomName = "I Putu Romeo, S.T., M.T.";
+  const brideName = "Ni Putu Juliet, S.M";
+  const defaultFullName = type === "groom" ? groomName : brideName;
   const defaultShortName = type === "groom" ? "Romeo" : "Juliet";
-
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(GroomSchema),
     defaultValues: {
       fullName: "",
       shortName: "",
-      childOrder: "",
+      childOrder: "none",
       instagram: "",
       father: "",
       mother: "",
@@ -60,17 +71,19 @@ export function GroomEdit({
         invitationId,
         fullName: values.fullName,
         shortName: values.shortName,
-        childOrder: values.childOrder ?? "",
-        father: values.father ?? "",
-        mother: values.mother ?? "",
-        instagram: values.instagram ?? "",
-        // photos: uploader.photos.map((p) => ({
-        //   url: p.url,
-        //   public_id: p.public_id,
-        // })),
+        childOrder: values.childOrder,
+        father: values.father,
+        mother: values.mother,
+        instagram: values.instagram,
+        photos: uploader.photos.map((p) => ({
+          image_url: p.url ?? "",
+          public_id: p.public_id ?? "",
+        })),
       };
+
       await createGroomBride(payload);
       toast.success("Input Data Sukses");
+      onClose?.();
     } catch (error) {
       toast.error("Gagal Input Data");
     }
@@ -128,7 +141,30 @@ export function GroomEdit({
                   <FormItem>
                     <FormLabel htmlFor="childOrder">Anak ke berapa</FormLabel>
                     <FormControl>
-                      <Input id="childOrder" placeholder="Pertama" {...field} />
+                      <Select onValueChange={field.onChange}>
+                        <SelectTrigger className="w-full text-base font-light">
+                          <SelectValue placeholder="Pilih anak ke berapa" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="none">
+                              Tidak Diketahui
+                            </SelectItem>
+                            <SelectItem value="Pertama">Pertama</SelectItem>
+                            <SelectItem value="Kedua">Kedua</SelectItem>
+                            <SelectItem value="Ketiga">Ketiga</SelectItem>
+                            <SelectItem value="Keempat">Keempat</SelectItem>
+                            <SelectItem value="Kelima">Kelima</SelectItem>
+                            <SelectItem value="Keenam">Keenam</SelectItem>
+                            <SelectItem value="Ketujuh">Ketujuh</SelectItem>
+                            <SelectItem value="Kedelapan">Kedelapan</SelectItem>
+                            <SelectItem value="Kesembilan">
+                              Kesembilan
+                            </SelectItem>
+                            <SelectItem value="Kesepuluh">Kesepuluh</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

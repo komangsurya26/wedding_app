@@ -15,6 +15,7 @@ import { GroomEdit } from "./GroomEdit";
 import { FotoEdit } from "./FotoEdit";
 import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
+import { EventEdit } from "./EventEdit";
 
 const ICONS_CONFIG = [
   {
@@ -101,7 +102,7 @@ export function InvitationEditorMenu({
             onClick={() => handleClick(item.key)}
           >
             <CardContent>
-              <div className="h-[12vh] flex flex-col gap-3 items-center justify-center">
+              <div className="h-[12vh] flex flex-col gap-3 items-center text-center justify-center">
                 {item.icon}
                 <span className="text-sm">{item.label}</span>
               </div>
@@ -127,6 +128,7 @@ export function InvitationEditorMenu({
                     invitationId={invitationId}
                     type="groom"
                     uploader={uploader}
+                    onClose={() => setOpen(false)}
                   />
                 )}
                 {activeItem.key === "bride" && (
@@ -134,6 +136,13 @@ export function InvitationEditorMenu({
                     invitationId={invitationId}
                     type="bride"
                     uploader={uploader}
+                    onClose={() => setOpen(false)}
+                  />
+                )}
+                {activeItem.key === "event" && (
+                  <EventEdit
+                    invitationId={invitationId}
+                    onClose={() => setOpen(false)}
                   />
                 )}
                 {activeItem.key === "photos" && (

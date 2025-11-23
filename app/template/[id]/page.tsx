@@ -9,8 +9,9 @@ const TEMPLATE: ConfigTemplate[] = [
   {
     templateId: 1,
     videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
-    videoIdYoutube: "T2fNPf3UIY8",
-    // videoIdYoutube: "6FYtKVFik_8",
+    // videoIdYoutube: "T2fNPf3UIY8",
+    videoIdYoutube: "6FYtKVFik_8",
+    // videoIdYoutube: "1O_WkzSzxzU",
     images: {
       bride:
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_7016-scaled.webp",

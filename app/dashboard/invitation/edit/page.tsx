@@ -1,18 +1,18 @@
+"use client";
+
 import React from "react";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { InvitationEditorMenu } from "./components/InvitationEditorMenu";
 
-export default async function InvitationEditPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const rawInvitId = (await searchParams).invitationId;
-  if (!rawInvitId) return redirect("/dashboard/invitation");
-  const invitationStr = Array.isArray(rawInvitId) ? rawInvitId[0] : rawInvitId;
-  const invitationId = Number(invitationStr);
+export default function InvitationEditPage() {
+  const searchParams = useSearchParams();
 
-  const cloudName = process.env.CLOUDINARY_CLOUD_NAME as string;
+  const invitationIdStr = searchParams.get("invitationId");
+  if (!invitationIdStr) return redirect("/dashboard/invitation");
+
+  const invitationId = Number(invitationIdStr);
+
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
 
   return (
     <div className="h-full w-full">

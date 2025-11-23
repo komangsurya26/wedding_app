@@ -22,8 +22,8 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
         <Card className="w-full h-full relative" key={idx}>
           {/* Corner Badge */}
           {data.expired && (
-            <div className="absolute -right-2 -top-2">
-              <Badge variant={"outline"} className="bg-amber-300 text-black">
+            <div className="absolute -right-0 -top-0">
+              <Badge variant={"outline"} className="bg-amber-300 text-black h-7">
                 Kadaluarsa
               </Badge>
             </div>

@@ -13,6 +13,11 @@ const schema = z.object({
     mother: z.string(),
 });
 
+type PhotoGroomBrides = {
+    image_url: string
+    public_id: string
+}
+
 
 export async function createGroomBride({
     type,
@@ -22,7 +27,8 @@ export async function createGroomBride({
     childOrder,
     father,
     mother,
-    instagram
+    instagram,
+    photos
 }: {
     type: string
     invitationId: number
@@ -32,6 +38,7 @@ export async function createGroomBride({
     father?: string
     mother?: string
     instagram?: string
+    photos?: PhotoGroomBrides[]
 }) {
     try {
         const supabase = await createClient()
@@ -51,16 +58,38 @@ export async function createGroomBride({
             mother,
         });
 
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from(type === "groom" ? "grooms" : "brides")
-            .insert(parsed)
+            .upsert(parsed, { onConflict: "invitation_id" })
             .select()
             .single();
+        if (error) throw error
 
-        if (error) {
-            throw error
+
+        if (photos && photos.length > 0) {
+            const { error: deleteError } = await supabase
+                .from(type === "groom" ? "photo_grooms" : "photo_brides")
+                .delete()
+                .eq("invitation_id", invitationId);
+
+            if (deleteError) throw deleteError;
+
+            const payload = photos
+                .filter((p) => p.image_url)
+                .map((p) => ({
+                    invitation_id: invitationId,
+                    image_url: p.image_url,
+                    public_id: p.public_id,
+                }));
+
+            const { error: photoError } = await supabase
+                .from(type === "groom" ? "photo_grooms" : "photo_brides")
+                .insert(payload)
+                .select();
+            if (photoError) throw photoError;
         }
     } catch (err) {
         throw err;
     }
 }
+

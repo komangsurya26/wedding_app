@@ -49,7 +49,7 @@ export async function signup(data: {
         );
 
         if (error) {
-            return { success: false, message: "Gagal daftar" };
+            return { success: false, message: "Pendaftaran gagal atau email sudah terpakai" };
         }
 
         return { success: true, message: "Daftar berhasil" };
