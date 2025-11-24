@@ -91,14 +91,14 @@ export function FotoEdit({
       <TabsContent value="portrait">
         <DialogFooter className="pt-3 pr-3">
           <Button type="button" onClick={() => handleSubmit("portrait")}>
-            Save changes
+            Save
           </Button>
         </DialogFooter>
       </TabsContent>
       <TabsContent value="landscape">
         <DialogFooter className="pt-3 pr-3">
           <Button type="button" onClick={() => handleSubmit("landscape")}>
-            Save changes
+            Save
           </Button>
         </DialogFooter>
       </TabsContent>

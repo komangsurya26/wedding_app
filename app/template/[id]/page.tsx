@@ -25,13 +25,11 @@ const TEMPLATE: ConfigTemplate[] = [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6849-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_7023-scaled.webp",
-        "https://tamubali.com/wp-content/uploads/2024/09/ERY_7016-scaled.webp",
       ],
       landscape: [
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6518-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6970-scaled.webp",
         "https://tamubali.com/wp-content/uploads/2024/09/ERY_6912-cetak-scaled.webp",
-        "https://tamubali.com/wp-content/uploads/2024/09/ERY_6810-scaled.webp",
       ],
     },
   },

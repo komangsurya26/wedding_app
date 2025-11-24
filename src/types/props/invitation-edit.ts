@@ -4,5 +4,5 @@ export type GroomEditProps = {
     uploader: ReturnType<
         typeof import("@/src/hooks/use-image-uploader").useImageUploader
     >;
-    onClose?: () => void
+    onClose: () => void
 };

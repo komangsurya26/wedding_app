@@ -42,9 +42,9 @@ export function GroomEdit({
   const form = useForm<GroomSchemaType>({
     resolver: zodResolver(GroomSchema),
     defaultValues: {
-      fullName: "",
-      shortName: "",
-      childOrder: "none",
+      full_name: "",
+      short_name: "",
+      child_order: "none",
       instagram: "",
       father: "",
       mother: "",
@@ -56,13 +56,8 @@ export function GroomEdit({
     try {
       const payload = {
         type,
-        invitationId,
-        fullName: values.fullName,
-        shortName: values.shortName,
-        childOrder: values.childOrder,
-        father: values.father,
-        mother: values.mother,
-        instagram: values.instagram,
+        invitation_id: invitationId,
+        ...values,
         photos: uploader.photos.map((p) => ({
           image_url: p.url ?? "",
           public_id: p.public_id ?? "",
@@ -71,7 +66,7 @@ export function GroomEdit({
 
       await createGroomBride(payload);
       toast.success("Input Data Sukses");
-      onClose?.();
+      onClose();
     } catch (error) {
       toast.error("Gagal Input Data");
     }
@@ -90,13 +85,13 @@ export function GroomEdit({
             <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="fullName"
+                name="full_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="fullName">Nama Lengkap</FormLabel>
+                    <FormLabel htmlFor="full_name">Nama Lengkap</FormLabel>
                     <FormControl>
                       <Input
-                        id="fullName"
+                        id="full_name"
                         placeholder={defaultFullName}
                         {...field}
                       />
@@ -107,13 +102,13 @@ export function GroomEdit({
               />
               <FormField
                 control={form.control}
-                name="shortName"
+                name="short_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="shortName">Nama Panggilan</FormLabel>
+                    <FormLabel htmlFor="short_name">Nama Panggilan</FormLabel>
                     <FormControl>
                       <Input
-                        id="shortName"
+                        id="short_name"
                         placeholder={defaultShortName}
                         {...field}
                       />
@@ -124,10 +119,10 @@ export function GroomEdit({
               />
               <FormField
                 control={form.control}
-                name="childOrder"
+                name="child_order"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="childOrder">Anak ke berapa</FormLabel>
+                    <FormLabel htmlFor="child_order">Anak ke berapa</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange}>
                         <SelectTrigger className="w-full text-base font-light">
@@ -225,7 +220,7 @@ export function GroomEdit({
           </div>
           <DialogFooter className="pr-3 pt-3">
             <Button type="submit" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? "Menyimpan..." : "Save changes"}
+              {form.formState.isSubmitting ? "Menyimpan..." : "Save"}
             </Button>
           </DialogFooter>
         </div>

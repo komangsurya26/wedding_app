@@ -86,13 +86,13 @@ export default function Template() {
                       href={template.href}
                       className="bg-brown text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brown/80 transition cursor-pointer"
                     >
-                      Preview
+                      Lihat
                     </Link>
                     <Link
-                      href={`/dashboard?templateId=${template.id}`}
+                      href={`/dashboard/invitation/create?search=${template.id}`}
                       className="border border-gray-400 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
                     >
-                      Order
+                      Coba Gratis
                     </Link>
                   </div>
                 </div>

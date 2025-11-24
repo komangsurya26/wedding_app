@@ -1,40 +1,28 @@
 "use server";
 
-import { z } from "zod";
 import { createClient } from "../utils/supabase/server";
-
-const schema = z.object({
-    invitation_id: z.number(),
-    full_name: z.string(),
-    short_name: z.string(),
-    child_order: z.string(),
-    instagram: z.string(),
-    father: z.string(),
-    mother: z.string(),
-});
 
 type PhotoGroomBrides = {
     image_url: string
     public_id: string
 }
 
-
 export async function createGroomBride({
     type,
-    invitationId,
-    fullName,
-    shortName,
-    childOrder,
+    invitation_id,
+    full_name,
+    short_name,
+    child_order,
     father,
     mother,
     instagram,
     photos
 }: {
     type: string
-    invitationId: number
-    fullName: string
-    shortName: string
-    childOrder?: string
+    invitation_id: number
+    full_name: string
+    short_name: string
+    child_order?: string
     father?: string
     mother?: string
     instagram?: string
@@ -43,12 +31,7 @@ export async function createGroomBride({
     try {
         const supabase = await createClient()
 
-        const invitation_id = invitationId
-        const full_name = fullName
-        const short_name = shortName
-        const child_order = childOrder
-
-        const parsed = schema.parse({
+        const payload = {
             invitation_id,
             full_name,
             short_name,
@@ -56,11 +39,11 @@ export async function createGroomBride({
             instagram,
             father,
             mother,
-        });
+        };
 
         const { error } = await supabase
             .from(type === "groom" ? "grooms" : "brides")
-            .upsert(parsed, { onConflict: "invitation_id" })
+            .upsert(payload, { onConflict: "invitation_id" })
             .select()
             .single();
         if (error) throw error
@@ -70,14 +53,14 @@ export async function createGroomBride({
             const { error: deleteError } = await supabase
                 .from(type === "groom" ? "photo_grooms" : "photo_brides")
                 .delete()
-                .eq("invitation_id", invitationId);
+                .eq("invitation_id", invitation_id);
 
             if (deleteError) throw deleteError;
 
             const payload = photos
                 .filter((p) => p.image_url)
                 .map((p) => ({
-                    invitation_id: invitationId,
+                    invitation_id: invitation_id,
                     image_url: p.image_url,
                     public_id: p.public_id,
                 }));

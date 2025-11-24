@@ -33,11 +33,10 @@ export function Gallery({
             style={{ aspectRatio: "16/9" }}
           >
             <iframe
-              src={`https://www.youtube.com/embed/${videoIdYoutube}?mute=1&autoplay=1&loop=1&playlist=${videoIdYoutube}&controls=0&modestbranding=1&rel=0&playsinline=1`}
+              src={`https://www.youtube.com/embed/${videoIdYoutube}?mute=1&controls=0&rel=0`}
               title="YouTube video player"
-              allow="autoplay; encrypted-media; fullscreen"
+              allow="encrypted-media; fullscreen"
               className="w-full h-full block"
-              style={{ border: "0" }}
             />
           </div>
         </div>

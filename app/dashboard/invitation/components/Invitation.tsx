@@ -6,9 +6,13 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { ChangeEvent, useState } from "react";
 import { InvitationCard } from "./InvitationCard";
+import { useSearchParams } from "next/navigation";
 
 export function Invitation({ mode = "my", invitations }: InvitationProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
+  const [searchTerm, setSearchTerm] = useState(search ?? "");
 
   const weddingInvs = invitations
     .filter((i) => i.type === "wedding")
