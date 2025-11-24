@@ -1,29 +1,26 @@
-"use client";
+import React, { Suspense } from "react";
+import { InvitationEdit } from "./components/InvitationEdit";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import React, { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { InvitationEditorMenu } from "./components/InvitationEditorMenu";
+function Fallback() {
+  return (
+    <div className="w-full h-full">
+      <div className="grid grid-cols-4 gap-3">
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
+      </div>
+    </div>
+  );
+}
 
 export default function InvitationEditPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
-
-  const invitationIdStr = searchParams.get("invitationId");
-
-  useEffect(() => {
-    if (!invitationIdStr) {
-      router.push("/dashboard/invitation");
-    }
-  }, [invitationIdStr, router]);
-
-  if (!invitationIdStr) return null;
-
-  const invitationId = Number(invitationIdStr);
   return (
-    <div className="h-full w-full">
-      <InvitationEditorMenu invitationId={invitationId} cloudName={cloudName} />
-    </div>
+    <Suspense fallback={<Fallback />}>
+      <InvitationEdit />
+    </Suspense>
   );
 }

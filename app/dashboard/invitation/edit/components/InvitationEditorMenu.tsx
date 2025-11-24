@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { CalendarDays, Code, Gift, Images, Volume2 } from "lucide-react";
-import { FaFemale, FaMale } from "react-icons/fa";
+
 import {
   Dialog,
   DialogContent,
@@ -16,46 +15,9 @@ import { FotoEdit } from "./FotoEdit";
 import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
 import { EventEdit } from "./EventEdit";
+import { ICONS_CONFIG } from "./icons-config";
 
-const ICONS_CONFIG = [
-  {
-    key: "groom",
-    icon: <FaMale size={30} />,
-    label: "Mempelai Pria",
-  },
-  {
-    key: "bride",
-    icon: <FaFemale size={30} />,
-    label: "Mempelai Wanita",
-  },
-  {
-    key: "event",
-    icon: <CalendarDays size={30} />,
-    label: "Acara",
-  },
-  {
-    key: "photos",
-    icon: <Images size={30} />,
-    label: "Foto",
-  },
-  {
-    key: "gifts",
-    icon: <Gift size={30} />,
-    label: "Kado Digital",
-  },
-  {
-    key: "audio",
-    icon: <Volume2 size={30} />,
-    label: "Audio",
-  },
-  {
-    key: "meta",
-    icon: <Code size={30} />,
-    label: "Meta",
-  },
-];
-
-export function InvitationEditorMenu({
+export function InvitationEditMenu({
   invitationId,
   cloudName,
 }: {

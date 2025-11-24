@@ -3,10 +3,14 @@
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
+import { GroomEditProps } from "@/src/types";
+import { createGroomBride } from "@/src/lib/groombride";
+import { GroomSchema, GroomSchemaType } from "@/src/schemas/groom.schema";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -15,10 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
-import { GroomEditProps } from "@/src/types";
-import { createGroomBride } from "@/src/lib/groombride";
-import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -27,18 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const GroomSchema = z.object({
-  fullName: z.string().min(1, "Nama wajib diisi"),
-  shortName: z.string().min(1, "Nama wajib diisi"),
-  childOrder: z.string().optional(),
-  instagram: z.string().optional(),
-  father: z.string().optional(),
-  mother: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof GroomSchema>;
-
 
 export function GroomEdit({
   invitationId,
@@ -50,8 +38,8 @@ export function GroomEdit({
   const brideName = "Ni Putu Juliet, S.M";
   const defaultFullName = type === "groom" ? groomName : brideName;
   const defaultShortName = type === "groom" ? "Romeo" : "Juliet";
-  
-  const form = useForm<FormValues>({
+
+  const form = useForm<GroomSchemaType>({
     resolver: zodResolver(GroomSchema),
     defaultValues: {
       fullName: "",
@@ -64,7 +52,7 @@ export function GroomEdit({
     mode: "onTouched",
   });
 
-  async function onSubmit(values: FormValues) {
+  async function onSubmit(values: GroomSchemaType) {
     try {
       const payload = {
         type,
