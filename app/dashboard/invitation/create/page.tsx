@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense } from "react";
 import { Invitation as InvitationTypes } from "@/src/types";
 import { Invitation } from "../components/Invitation";

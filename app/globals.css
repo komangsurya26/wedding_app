@@ -1,9 +1,5 @@
 @import "tailwindcss";
 @import 'animate.css';
-
-@import 'lightgallery/css/lightgallery.css';
-@import 'lightgallery/css/lg-zoom.css';
-@import 'lightgallery/css/lg-thumbnail.css';
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
