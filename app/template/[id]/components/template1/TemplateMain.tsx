@@ -18,12 +18,16 @@ import { LoadingPercent } from "./LoadingPercent";
 import { BgYoutube } from "./BgYoutube";
 import CountDownTimer from "./CountDownTimer";
 
-export function TemplateMain({ config }: { config: ConfigTemplate }) {
+export default function TemplateMain({ config }: { config: ConfigTemplate }) {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
     <>
-      <LoadingPercent shortNameGroom="Komang" shortNameBride="Surya" />
+      <LoadingPercent
+        shortNameGroom="Komang"
+        shortNameBride="Surya"
+        minDuration={5000}
+      />
       <main className="h-screen flex justify-center bg-black">
         <div className="relative h-full w-full lg:w-1/2 overflow-hidden overflow-x-hidden">
           <BgYoutube videoIdYoutube={config.videoIdYoutube} />

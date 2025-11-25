@@ -59,7 +59,7 @@ export function Gallery({
           <div className="grid space-y-3">
             <a href={portraits[0]} data-src={portraits[0]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[0]}
                 width={232}
                 height={290}
@@ -69,7 +69,7 @@ export function Gallery({
 
             <a href={landscapes[0]} data-src={landscapes[0]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[0]}
                 width={232}
                 height={290}
@@ -79,7 +79,7 @@ export function Gallery({
 
             <a href={portraits[1]} data-src={portraits[1]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[1]}
                 width={232}
                 height={174}
@@ -89,7 +89,7 @@ export function Gallery({
 
             <a href={landscapes[1]} data-src={landscapes[1]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[1]}
                 width={232}
                 height={174}
@@ -102,7 +102,7 @@ export function Gallery({
           <div className="grid space-y-3">
             <a href={landscapes[2]} data-src={landscapes[2]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[2]}
                 width={232}
                 height={290}
@@ -112,7 +112,7 @@ export function Gallery({
 
             <a href={portraits[2]} data-src={portraits[2]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[2]}
                 width={232}
                 height={290}
@@ -122,7 +122,7 @@ export function Gallery({
 
             <a href={landscapes[3]} data-src={landscapes[3]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[3]}
                 width={232}
                 height={174}
@@ -132,7 +132,7 @@ export function Gallery({
 
             <a href={portraits[3]} data-src={portraits[3]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[3]}
                 width={232}
                 height={174}
@@ -145,7 +145,7 @@ export function Gallery({
           <div className="grid space-y-3">
             <a href={portraits[4]} data-src={portraits[4]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[4]}
                 width={232}
                 height={290}
@@ -155,7 +155,7 @@ export function Gallery({
 
             <a href={landscapes[4]} data-src={landscapes[4]}>
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[4]}
                 width={232}
                 height={290}
@@ -163,9 +163,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={portraits[5] ?? portraits[0]} data-src={portraits[5] ?? portraits[0]}>
+            <a
+              href={portraits[5] ?? portraits[0]}
+              data-src={portraits[5] ?? portraits[0]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[5] ?? portraits[0]}
                 width={232}
                 height={174}
@@ -173,9 +176,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={landscapes[5] ?? landscapes[0]} data-src={landscapes[5] ?? landscapes[0]}>
+            <a
+              href={landscapes[5] ?? landscapes[0]}
+              data-src={landscapes[5] ?? landscapes[0]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[5] ?? landscapes[0]}
                 width={232}
                 height={174}
@@ -186,9 +192,12 @@ export function Gallery({
 
           {/* COLUMN 4 */}
           <div className="grid space-y-3">
-            <a href={landscapes[6] ?? landscapes[1]} data-src={landscapes[6] ?? landscapes[1]}>
+            <a
+              href={landscapes[6] ?? landscapes[1]}
+              data-src={landscapes[6] ?? landscapes[1]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[6] ?? landscapes[1]}
                 width={232}
                 height={290}
@@ -196,9 +205,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={portraits[6] ?? portraits[1]} data-src={portraits[6] ?? portraits[1]}>
+            <a
+              href={portraits[6] ?? portraits[1]}
+              data-src={portraits[6] ?? portraits[1]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[6] ?? portraits[1]}
                 width={232}
                 height={290}
@@ -206,9 +218,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={landscapes[7] ?? landscapes[2]} data-src={landscapes[7] ?? landscapes[2]}>
+            <a
+              href={landscapes[7] ?? landscapes[2]}
+              data-src={landscapes[7] ?? landscapes[2]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[7] ?? landscapes[2]}
                 width={232}
                 height={174}
@@ -216,9 +231,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={portraits[7] ?? portraits[2]} data-src={portraits[7] ?? portraits[2]}>
+            <a
+              href={portraits[7] ?? portraits[2]}
+              data-src={portraits[7] ?? portraits[2]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[7] ?? portraits[2]}
                 width={232}
                 height={174}
@@ -229,9 +247,12 @@ export function Gallery({
 
           {/* COLUMN 5 */}
           <div className="grid space-y-3">
-            <a href={portraits[8] ?? portraits[3]} data-src={portraits[8] ?? portraits[3]}>
+            <a
+              href={portraits[8] ?? portraits[3]}
+              data-src={portraits[8] ?? portraits[3]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[8] ?? portraits[3]}
                 width={232}
                 height={290}
@@ -239,9 +260,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={landscapes[8] ?? landscapes[3]} data-src={landscapes[8] ?? landscapes[3]}>
+            <a
+              href={landscapes[8] ?? landscapes[3]}
+              data-src={landscapes[8] ?? landscapes[3]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[8] ?? landscapes[3]}
                 width={232}
                 height={290}
@@ -252,9 +276,12 @@ export function Gallery({
 
           {/* COLUMN 6 */}
           <div className="grid space-y-3">
-            <a href={landscapes[9] ?? landscapes[4]} data-src={landscapes[9] ?? landscapes[4]}>
+            <a
+              href={landscapes[9] ?? landscapes[4]}
+              data-src={landscapes[9] ?? landscapes[4]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={landscapes[9] ?? landscapes[4]}
                 width={232}
                 height={290}
@@ -262,9 +289,12 @@ export function Gallery({
               />
             </a>
 
-            <a href={portraits[9] ?? portraits[4]} data-src={portraits[9] ?? portraits[4]}>
+            <a
+              href={portraits[9] ?? portraits[4]}
+              data-src={portraits[9] ?? portraits[4]}
+            >
               <Image
-                className="w-full rounded shadow"
+                className="w-full h-full object-cover rounded shadow"
                 src={portraits[9] ?? portraits[4]}
                 width={232}
                 height={290}

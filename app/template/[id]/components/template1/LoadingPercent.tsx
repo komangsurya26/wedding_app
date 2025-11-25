@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLoadingProgress } from "@/src/hooks/use-loading-progress";
 
 interface Props {
-  minDuration?: number;
+  minDuration: number;
   shortNameGroom: string;
   shortNameBride: string;
 }
@@ -12,7 +12,7 @@ interface Props {
 export function LoadingPercent({
   shortNameGroom,
   shortNameBride,
-  minDuration = 5000, //8 detik
+  minDuration,
 }: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const progress = useLoadingProgress(minDuration);
