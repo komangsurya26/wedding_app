@@ -4,11 +4,6 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createEvent } from "@/src/lib/event-invitation";
-import {
-  EventsArraySchema,
-  EventArraySchemaType,
-} from "@/src/schemas/event.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -20,25 +15,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  GiftsArraySchema,
+  GiftsArraySchemaType,
+} from "@/src/schemas/gift.schema";
+import { createGift } from "@/src/lib/gift-invitation";
 
-export function EventEdit({
+export function GiftEdit({
   invitationId,
   onClose,
 }: {
   invitationId: number;
   onClose: () => void;
 }) {
-  const form = useForm<EventArraySchemaType>({
-    resolver: zodResolver(EventsArraySchema),
+  const form = useForm<GiftsArraySchemaType>({
+    resolver: zodResolver(GiftsArraySchema),
     defaultValues: {
-      events: [
+      gifts: [
         {
-          title: "",
-          date: "",
-          start_time: "",
-          end_time: "",
-          venue: "",
-          location_url: "",
+          bank_name: "",
+          account_number: "",
+          owner: "",
+          logo: "",
         },
       ],
     },
@@ -47,21 +45,21 @@ export function EventEdit({
 
   const { control, handleSubmit, formState } = form;
   const { fields, append, remove } = useFieldArray<
-    EventArraySchemaType,
-    "events"
+    GiftsArraySchemaType,
+    "gifts"
   >({
     control,
-    name: "events",
+    name: "gifts",
   });
 
-  async function onSubmit(values: EventArraySchemaType) {
+  async function onSubmit(values: GiftsArraySchemaType) {
     try {
-      const payload = values.events.map((event) => ({
+      const payload = values.gifts.map((gift) => ({
         invitation_id: invitationId,
-        ...event,
+        ...gift,
       }));
 
-      await createEvent(payload);
+      await createGift(payload);
 
       toast.success("Input Data Sukses");
 
@@ -83,7 +81,7 @@ export function EventEdit({
               >
                 {/* Header / nomor form */}
                 <div className="flex items-center justify-between mb-3">
-                  <div className="font-medium">Acara #{index + 1}</div>
+                  <div className="font-medium">Gift #{index + 1}</div>
 
                   {/* Tombol hapus hanya untuk form ke-2 (index === 1) */}
                   {index > 0 && (
@@ -102,16 +100,16 @@ export function EventEdit({
                 <div className="space-y-3">
                   <FormField
                     control={control}
-                    name={`events.${index}.title`}
+                    name={`gifts.${index}.bank_name`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor={`events-${index}-title`}>
-                          Judul
+                        <FormLabel htmlFor={`gifts-${index}-bank_name`}>
+                          Nama Bank
                         </FormLabel>
                         <FormControl>
                           <Input
-                            id={`events-${index}-title`}
-                            placeholder="Resepsi"
+                            id={`gifts-${index}-bank_name`}
+                            placeholder="BCA"
                             {...field}
                           />
                         </FormControl>
@@ -122,16 +120,16 @@ export function EventEdit({
 
                   <FormField
                     control={control}
-                    name={`events.${index}.date`}
+                    name={`gifts.${index}.account_number`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor={`events-${index}-date`}>
-                          Tanggal
+                        <FormLabel htmlFor={`gifts-${index}-account_number`}>
+                          Nomer Rekening
                         </FormLabel>
                         <FormControl>
                           <Input
-                            id={`events-${index}-date`}
-                            type="date"
+                            id={`gifts-${index}-account_number`}
+                            type="number"
                             {...field}
                           />
                         </FormControl>
@@ -143,18 +141,14 @@ export function EventEdit({
                   <div className="flex gap-3">
                     <FormField
                       control={control}
-                      name={`events.${index}.start_time`}
+                      name={`gifts.${index}.owner`}
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel htmlFor={`events-${index}-start_time`}>
-                            Waktu Mulai
+                          <FormLabel htmlFor={`gifts-${index}-owner`}>
+                            Atas Nama Rekening
                           </FormLabel>
                           <FormControl>
-                            <Input
-                              id={`events-${index}-start_time`}
-                              type="time"
-                              {...field}
-                            />
+                            <Input id={`gifts-${index}-owner`} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -162,64 +156,20 @@ export function EventEdit({
                     />
                     <FormField
                       control={control}
-                      name={`events.${index}.end_time`}
+                      name={`gifts.${index}.logo`}
                       render={({ field }) => (
                         <FormItem className="flex-1">
-                          <FormLabel htmlFor={`events-${index}-end_time`}>
-                            Waktu Selesai
+                          <FormLabel htmlFor={`gifts-${index}-logo`}>
+                            Logo
                           </FormLabel>
                           <FormControl>
-                            <Input
-                              id={`events-${index}-end_time`}
-                              type="time"
-                              {...field}
-                            />
+                            <Input id={`gifts-${index}-logo`} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
                   </div>
-
-                  <FormField
-                    control={control}
-                    name={`events.${index}.venue`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-venue`}>
-                          Lokasi
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-venue`}
-                            placeholder="Gang Mawar No 7, Jln Tua Buduk, Mengwi, Badung"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={control}
-                    name={`events.${index}.location_url`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-location_url`}>
-                          Lokasi Url (Google Maps)
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-location_url`}
-                            placeholder="https://maps.app.goo.gl/..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
                 </div>
               </div>
             ))}
@@ -231,17 +181,15 @@ export function EventEdit({
                 type="button"
                 onClick={() =>
                   append({
-                    title: "",
-                    date: "",
-                    start_time: "",
-                    end_time: "",
-                    venue: "",
-                    location_url: "",
+                    account_number: "",
+                    owner: "",
+                    bank_name: "",
+                    logo: "",
                   })
                 }
                 disabled={formState.isSubmitting}
               >
-                Tambah Acara
+                Tambah Gift
               </Button>
             </div>
 

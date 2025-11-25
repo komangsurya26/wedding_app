@@ -23,7 +23,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
           {/* Corner Badge */}
           {data.expired && (
             <div className="absolute -right-0 -top-0">
-              <Badge variant={"outline"} className="bg-amber-300 text-black h-7">
+              <Badge variant={"outline"} className="rounded-sm bg-amber-300 text-black h-7">
                 Kadaluarsa
               </Badge>
             </div>
@@ -80,7 +80,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                   {!data.expired ? (
                     <Button
                       size="sm"
-                      className="text-xs px-2 py-1 h-8 flex items-center gap-2"
+                      className="text-sm px-2 py-1 h-8 flex items-center gap-2"
                       onClick={() => {
                         router.push(
                           `/dashboard/invitation/edit?invitationId=${data.invitationId}`
@@ -93,7 +93,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                   ) : (
                     <Button
                       size="sm"
-                      className="text-xs px-2 py-1 h-8 flex items-center gap-2"
+                      className="text-sm px-2 py-1 h-8 flex items-center gap-2"
                       onClick={() => {
                         router.push(
                           `/checkout/upgrade?invitationId=${data.invitationId}`
@@ -101,7 +101,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                       }}
                     >
                       <Sparkles className="h-4 w-4" />
-                      Upgrade Undangan
+                      Upgrade undangan
                     </Button>
                   )}
                 </>

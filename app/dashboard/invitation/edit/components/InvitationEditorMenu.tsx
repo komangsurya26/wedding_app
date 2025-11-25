@@ -16,6 +16,7 @@ import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
 import { EventEdit } from "./EventEdit";
 import { ICONS_CONFIG } from "./icons-config";
+import { GiftEdit } from "./GiftEdit";
 
 export function InvitationEditMenu({
   invitationId,
@@ -108,7 +109,17 @@ export function InvitationEditMenu({
                   />
                 )}
                 {activeItem.key === "photos" && (
-                  <FotoEdit invitationId={invitationId} uploader={uploader} />
+                  <FotoEdit
+                    invitationId={invitationId}
+                    uploader={uploader}
+                    onClose={() => setOpen(false)}
+                  />
+                )}
+                {activeItem.key === "gifts" && (
+                  <GiftEdit
+                    invitationId={invitationId}
+                    onClose={() => setOpen(false)}
+                  />
                 )}
               </>
             )}

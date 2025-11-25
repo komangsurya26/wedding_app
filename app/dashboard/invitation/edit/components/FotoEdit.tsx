@@ -1,21 +1,28 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { toast } from "sonner";
+import { createPhotos } from "@/src/lib/photos";
+import { Spinner } from "@/components/ui/spinner";
 
 export function FotoEdit({
   invitationId,
   uploader,
+  onClose,
 }: {
   invitationId: number;
   uploader: ReturnType<
     typeof import("@/src/hooks/use-image-uploader").useImageUploader
   >;
+  onClose: () => void;
 }) {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     uploader.initSlots(20);
     return () => uploader.setPhotos([]);
@@ -27,18 +34,25 @@ export function FotoEdit({
 
   async function handleSubmit(orientation: "portrait" | "landscape") {
     try {
+      setLoading(true);
       const photos =
         orientation === "portrait" ? portraitPhotos : landscapePhotos;
 
       const payload = {
         orientation,
+        invitation_id: invitationId,
         photos: photos.map((p) => ({
-          url: p.url ?? null,
-          public_id: p.public_id ?? null,
+          image_url: p.url ?? "",
+          public_id: p.public_id ?? "",
         })),
       };
+      await createPhotos(payload);
+      setLoading(false);
+      toast.success("Input Data Sukses");
+      onClose();
     } catch (error) {
-      // console.log(error);
+      setLoading(false);
+      toast.error("Gagal Input Data");
     }
   }
 
@@ -54,7 +68,10 @@ export function FotoEdit({
       </TabsList>
 
       {/* Potraits Tab */}
-      <TabsContent value="portrait" className="pr-3 pt-2 overflow-y-auto max-h-[55vh]">
+      <TabsContent
+        value="portrait"
+        className="pr-3 pt-2 overflow-y-auto max-h-[55vh]"
+      >
         <div className="grid grid-cols-2 gap-4">
           {portraitPhotos.map((p, idx) => {
             const originalIndex = uploader.photos.indexOf(p);
@@ -71,7 +88,10 @@ export function FotoEdit({
       </TabsContent>
 
       {/* Landscape Tab */}
-      <TabsContent value="landscape" className="pr-3 pt-2 overflow-y-auto max-h-[55vh]">
+      <TabsContent
+        value="landscape"
+        className="pr-3 pt-2 overflow-y-auto max-h-[55vh]"
+      >
         <div className="grid grid-cols-2 gap-4">
           {landscapePhotos.map((p, idx) => {
             const originalIndex = uploader.photos.indexOf(p);
@@ -90,15 +110,29 @@ export function FotoEdit({
       {/* Footer */}
       <TabsContent value="portrait">
         <DialogFooter className="pt-3 pr-3">
-          <Button type="button" onClick={() => handleSubmit("portrait")}>
-            Save
+          <Button
+            type="button"
+            onClick={() => handleSubmit("portrait")}
+            disabled={loading}
+          >
+            <div className="flex items-center gap-2">
+              Save Potrait
+              {loading && <Spinner className="size-4" />}
+            </div>
           </Button>
         </DialogFooter>
       </TabsContent>
       <TabsContent value="landscape">
         <DialogFooter className="pt-3 pr-3">
-          <Button type="button" onClick={() => handleSubmit("landscape")}>
-            Save
+          <Button
+            type="button"
+            onClick={() => handleSubmit("landscape")}
+            disabled={loading}
+          >
+            <div className="flex items-center gap-2">
+              Save Landscape
+              {loading && <Spinner className="size-4" />}
+            </div>
           </Button>
         </DialogFooter>
       </TabsContent>
