@@ -63,11 +63,11 @@ export function EventEdit({
 
       await createEvent(payload);
 
-      toast.success("Input Data Sukses");
+      toast.success("Acara berhasil disimpan");
 
       onClose();
     } catch (error) {
-      toast.error("Gagal Input Data");
+      toast.error("Acara gagal disimpan");
     }
   }
 
@@ -81,11 +81,8 @@ export function EventEdit({
                 key={field.id}
                 className="p-4 border rounded-md shadow-sm relative"
               >
-                {/* Header / nomor form */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="font-medium">Acara #{index + 1}</div>
-
-                  {/* Tombol hapus hanya untuk form ke-2 (index === 1) */}
                   {index > 0 && (
                     <Button
                       type="button"

@@ -18,10 +18,11 @@ export default function CountDownTimer({
     <AnimatePresence mode="popLayout">
       <motion.span
         key={value}
-        initial={{ opacity: 0, y: -6 }}
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 6 }}
-        transition={{ duration: 0.2 }}
+        exit={{ opacity: 0, y: 30 }}
+        transition={{ duration: 0.45 }}
+        className="block"
       >
         {zeroPad(value)}
       </motion.span>

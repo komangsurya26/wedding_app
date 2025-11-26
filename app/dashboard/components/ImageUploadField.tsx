@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export function ImageUploadField({
   index,
@@ -84,6 +85,7 @@ export function ImageUploadField({
           disabled={p?.uploading || p?.removing}
         >
           {p?.url || p?.preview ? "Ganti Foto" : "Upload Foto"}
+          {p?.uploading && <Spinner className="size-4" />}
         </Button>
         <Button
           variant="outline"
@@ -92,6 +94,7 @@ export function ImageUploadField({
           disabled={p?.uploading || p?.removing || (!p?.url && !p?.preview)}
         >
           Hapus
+          {p?.removing && <Spinner className="size-4" />}
         </Button>
         {!p?.uploading && p?.url && (
           <Button variant={"outline"} asChild>

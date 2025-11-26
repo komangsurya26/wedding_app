@@ -5,35 +5,35 @@ const templates = [
   {
     id: 1,
     name: "Lume",
-    img: "https://masdianastudio.com/wp-content/uploads/2025/10/Undangan-Digital-Lumier_1-1.jpg",
+    img: "",
     bestSeller: true,
     href: "/template/1",
   },
   {
     id: 2,
     name: "Chocolate Dream",
-    img: "https://masdianastudio.com/wp-content/uploads/2025/09/UNDANGAN-DIGITAL-CELESTIA_1.jpg",
+    img: "",
     bestSeller: true,
     href: "/template/2",
   },
   {
     id: 3,
     name: "True Potential",
-    img: "https://masdianastudio.com/wp-content/uploads/2025/07/1-2.jpg",
+    img: "",
     bestSeller: true,
     href: "/template/3",
   },
   {
     id: 4,
     name: "True Potential",
-    img: "https://masdianastudio.com/wp-content/uploads/2025/07/1-2.jpg",
+    img: "",
     bestSeller: true,
     href: "/template/3",
   },
   {
     id: 5,
     name: "True Potential",
-    img: "https://masdianastudio.com/wp-content/uploads/2025/07/1-2.jpg",
+    img: "",
     bestSeller: true,
     href: "/template/3",
   },
@@ -67,13 +67,21 @@ export default function Template() {
                 className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg"
               >
                 <div className="p-4">
-                  <Image
-                    src={template.img}
-                    alt="Template"
-                    width={400}
-                    height={250}
-                    className="w-full object-cover rounded-lg"
-                  />
+                  {template.img ? (
+                    <Image
+                      src={template.img}
+                      alt="Template"
+                      width={400}
+                      height={250}
+                      className="w-full object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="aspect-square rounded-md bg-gray-100">
+                      <div className="flex items-center justify-center h-full text-muted-foreground text-xs">
+                        No Image
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-4 text-center space-y-3">

@@ -11,18 +11,18 @@ const invitations: InvitationTypes[] = [
     name: "Komang dan Surya",
     description: "Jumat, 14 Desember 2025",
     type: "wedding",
-    image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-50.webp",
+    image: "",
     expired: false,
-    urlInvitation: "http://192.168.1.5:3000",
+    urlInvitation: "",
   },
   {
     invitationId: 2,
     name: "Sedana dan Putri",
     description: "Jumat, 14 Desember 2025",
-    image: "https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-65.jpg",
+    image: "",
     type: "wedding",
     expired: true,
-    urlInvitation: "http://192.168.1.5:3000",
+    urlInvitation: "",
   },
 ];
 

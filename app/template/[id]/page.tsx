@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import TemplateLoader from "./components/TemplateLoader";
-import { TEMPLATE } from "./components/config-template";
+import { TEMPLATE } from "@/src/lib/config-template";
 
 export default async function TemplatePage({
   params,

@@ -47,7 +47,7 @@ export default function Creation() {
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="relative col-span-2 h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-54.webp"
+              src=""
               alt="Interior details"
               width={500}
               height={300}
@@ -60,7 +60,7 @@ export default function Creation() {
           </div>
           <div className="relative h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2024/08/Template-Foto-Cover-60.jpg"
+              src=""
               alt="Sand"
               width={500}
               height={300}
@@ -69,7 +69,7 @@ export default function Creation() {
           </div>
           <div className="relative h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-35.webp"
+              src=""
               alt="Smile"
               width={600}
               height={300}
@@ -78,7 +78,7 @@ export default function Creation() {
           </div>
           <div className="relative h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-50.webp"
+              src=""
               alt="Window"
               width={500}
               height={300}
@@ -87,7 +87,7 @@ export default function Creation() {
           </div>
           <div className="relative h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2025/03/Cover-2.0-60.webp"
+              src=""
               alt="Leaves"
               width={500}
               height={300}
@@ -96,7 +96,7 @@ export default function Creation() {
           </div>
           <div className="relative col-span-2 h-80">
             <Image
-              src="https://tamubali.com/wp-content/uploads/2025/07/Cover-2.0-2025-07-19T143825.805.jpg"
+              src=""
               alt="Model"
               width={500}
               height={300}

@@ -57,7 +57,7 @@ export default function TemplateMain({ config }: { config: ConfigTemplate }) {
             />
             <CountDownTimer
               image={config.images.couple[1]}
-              date="2025-11-20T16:02:00"
+              date="2025-12-20T16:02:00"
             />
             <WeddingDay
               events={[
@@ -89,16 +89,16 @@ export default function TemplateMain({ config }: { config: ConfigTemplate }) {
             <WeddingGift
               accounts={[
                 {
-                  bankName: "Bank Central Asia (BCA)",
+                  bankName: "BCA",
                   accountNumber: "1234567890",
                   owner: "Komang Surya",
-                  logo: "/banks/bca.png",
+                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bca_ls9vum.png",
                 },
                 {
-                  bankName: "Bank Mandiri",
+                  bankName: "Mandiri",
                   accountNumber: "0987654321",
                   owner: "Komang Surya",
-                  logo: "/banks/mandiri.png",
+                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/mandiri_lzkfeh.png",
                 },
               ]}
             />

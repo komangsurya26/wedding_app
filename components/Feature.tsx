@@ -47,7 +47,7 @@ const features: Feature[] = [
 
 export default function Feature() {
   return (
-    <section className="relative py-20 bg-[url('https://masdianastudio.com/wp-content/uploads/2025/09/overlay.jpg')] bg-cover bg-center">
+    <section className="relative py-20 bg-cover bg-center">
       {/* Overlay */}
       <div className="absolute inset-0 bg-brown/5"></div>
 

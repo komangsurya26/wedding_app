@@ -46,7 +46,7 @@ export function WeddingGift({ accounts }: WeddingGiftProps) {
                   alt={acc.bankName}
                   width={60}
                   height={40}
-                  className="object-cover object-center w-full h-full"
+                  className="object-contain w-full h-full"
                 />
               </div>
             ) : (
@@ -56,9 +56,8 @@ export function WeddingGift({ accounts }: WeddingGiftProps) {
             )}
 
             <div className="flex-1 text-left">
-              <p className="font-semibold text-sm sm:text-base">
-                {acc.accountNumber}
-              </p>
+              <p className="font-semibold text-base">{acc.bankName}</p>
+              <p className="font-semibold text-sm">{acc.accountNumber}</p>
               <p className="text-xs text-gray-300 mt-1">{acc.owner}</p>
             </div>
 

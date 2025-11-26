@@ -65,10 +65,10 @@ export function GroomEdit({
       };
 
       await createGroomBride(payload);
-      toast.success("Input Data Sukses");
+      toast.success("Mempelai berhasil disimpan");
       onClose();
     } catch (error) {
-      toast.error("Gagal Input Data");
+      toast.error("Mempelai gagal disimpan");
     }
   }
 

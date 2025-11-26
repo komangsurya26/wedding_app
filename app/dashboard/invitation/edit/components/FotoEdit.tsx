@@ -48,11 +48,11 @@ export function FotoEdit({
       };
       await createPhotos(payload);
       setLoading(false);
-      toast.success("Input Data Sukses");
+      toast.success("Foto berhasil disimpan");
       onClose();
     } catch (error) {
       setLoading(false);
-      toast.error("Gagal Input Data");
+      toast.error("Foto gagal disimpan");
     }
   }
 
