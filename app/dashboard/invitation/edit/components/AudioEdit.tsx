@@ -104,7 +104,7 @@ export function AudioEdit({
                         value={currentMusicCode}
                         onValueChange={handleMusicSelect}
                       >
-                        <SelectTrigger className="w-full text-base font-light">
+                        <SelectTrigger className="w-full text-sm sm:text-base font-light truncate">
                           <SelectValue placeholder="Pilih Audio" />
                         </SelectTrigger>
                         <SelectContent>

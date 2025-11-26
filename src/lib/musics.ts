@@ -23,7 +23,7 @@ export const MUSICS: MusicItem[] = [
     },
     {
         code: "audio_4",
-        title: "Mejangeran - Sekar Rare - Balinese Instrumental",
+        title: "Mejangeran - Sekar Rare",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764142727/audio/Mejangeran_-_Sekar_Rare_-_Balinese_instrumental_a16ocm.mp3",
     },
     {
@@ -38,12 +38,12 @@ export const MUSICS: MusicItem[] = [
     },
     {
         code: "audio_7",
-        title: "When God Made You NewSong and Natalie Grant",
+        title: "When God Made You",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764142672/audio/When_God_Made_You_NewSong_and_Natalie_Grant_Lyrics_pdtcws.mp3",
     },
     {
         code: "audio_8",
-        title: "Glenn Fredly - Kasih Putih Instrumental",
+        title: "Glenn Fredly - Kasih Putih",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764142672/audio/Glenn_Fredly_-_Kasih_Putih_Instrumental_Cover_by_Aveola_Music_w0frof.mp3",
     },
     {
@@ -53,12 +53,12 @@ export const MUSICS: MusicItem[] = [
     },
     {
         code: "audio_10",
-        title: "Nyoman Paul Andi Rianto The Way You Look At Me",
+        title: "The Way You Look At Me",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764142661/audio/Nyoman_Paul_Andi_Rianto_The_Way_You_Look_At_Me_Official_Lyric_Video_djwcmb.mp3",
     },
     {
         code: "audio_11",
-        title: "Manik - Ngulgul Hati Suling Bali Cover by Juni Ardika",
+        title: "Manik - Ngulgul Hati",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764142659/audio/Manik_-_Ngulgul_Hati_Suling_Bali_Cover_by_Juni_Ardika_laully.mp3",
     },
     {
@@ -68,7 +68,7 @@ export const MUSICS: MusicItem[] = [
     },
     {
         code: "audio_13",
-        title: "Calm - Balinese Backsound - Sugi Art",
+        title: "Sugi Art - Calm",
         url: "https://res.cloudinary.com/dpij7jkkd/video/upload/v1764141186/audio/Calm_-_Balinese_Backsound_-_Sugi_Art_vVn60RWWZ5Y_c3zmns.mp3",
     },
 ];
