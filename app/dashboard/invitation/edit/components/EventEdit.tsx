@@ -4,7 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createEvent } from "@/src/lib/event-invitation";
+import { createEvent } from "@/src/lib/event-actions";
 import {
   EventsArraySchema,
   EventArraySchemaType,

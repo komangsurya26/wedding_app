@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
 import { GroomEditProps } from "@/src/types";
-import { createGroomBride } from "@/src/lib/groombride";
+import { createGroomBride } from "@/src/lib/groombride-actions";
 import { GroomSchema, GroomSchemaType } from "@/src/schemas/groom.schema";
 import { toast } from "sonner";
 import {

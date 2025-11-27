@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
-import { InvitationEditMenu } from "./InvitationEditorMenu";
+import { InvitationEditMenu } from "./InvitationEditMenu";
 
 export function InvitationEdit() {
   const searchParams = useSearchParams();

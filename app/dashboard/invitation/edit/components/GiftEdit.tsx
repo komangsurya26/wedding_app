@@ -19,8 +19,8 @@ import {
   GiftsArraySchema,
   GiftsArraySchemaType,
 } from "@/src/schemas/gift.schema";
-import { createGift } from "@/src/lib/gift-invitation";
-import { BANKS } from "@/src/lib/bank";
+import { createGift } from "@/src/lib/gift-actions";
+import { BANKS } from "@/src/lib/bank-datas";
 import {
   Select,
   SelectContent,

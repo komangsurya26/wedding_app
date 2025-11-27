@@ -17,7 +17,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MUSICS } from "@/src/lib/musics";
+import { createAudio } from "@/src/lib/audio-actions";
+import { MUSICS } from "@/src/lib/musics-datas";
 import { MusicSchema, MusicSchemaType } from "@/src/schemas/music.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -76,7 +77,7 @@ export function AudioEdit({
         music_title: values.music_title,
         music_url: values.music_url,
       };
-
+      await createAudio(payload);
       toast.success("Musik berhasil disimpan");
       onClose();
     } catch (error) {

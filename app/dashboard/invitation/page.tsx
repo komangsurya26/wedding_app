@@ -5,23 +5,15 @@ import { Invitation as InvitationTypes } from "@/src/types";
 import { Invitation } from "./components/Invitation";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// my invitations
 const invitations: InvitationTypes[] = [
   {
-    invitationId: 1,
+    invitationId: 2,
     name: "Komang dan Surya",
     description: "Jumat, 14 Desember 2025",
     type: "wedding",
     image: "",
     expired: false,
-    urlInvitation: "",
-  },
-  {
-    invitationId: 2,
-    name: "Sedana dan Putri",
-    description: "Jumat, 14 Desember 2025",
-    image: "",
-    type: "wedding",
-    expired: true,
     urlInvitation: "",
   },
 ];

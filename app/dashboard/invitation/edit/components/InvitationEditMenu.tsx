@@ -18,6 +18,7 @@ import { EventEdit } from "./EventEdit";
 import { ICONS_CONFIG } from "./icons-config";
 import { GiftEdit } from "./GiftEdit";
 import { AudioEdit } from "./AudioEdit";
+import { VideoEdit } from "./VideoEdit";
 
 export function InvitationEditMenu({
   invitationId,
@@ -124,6 +125,12 @@ export function InvitationEditMenu({
                 )}
                 {activeItem.key === "audio" && (
                   <AudioEdit
+                    invitationId={invitationId}
+                    onClose={() => setOpen(false)}
+                  />
+                )}
+                {activeItem.key === "video" && (
+                  <VideoEdit
                     invitationId={invitationId}
                     onClose={() => setOpen(false)}
                   />

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { createPhotos } from "@/src/lib/photos";
+import { createPhotos } from "@/src/lib/photos-actions";
 import { Spinner } from "@/components/ui/spinner";
 
 export function FotoEdit({
