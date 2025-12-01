@@ -17,16 +17,6 @@ export async function POST(req: Request) {
     }
 
     const supabase = createClient()
-    const { data } = await (await supabase)
-        .from("orders")
-        .select("*")
-        .eq("order_id", order_id)
-        .eq("transaction_status", transaction_status)
-        .maybeSingle()
-
-    if (data) {
-        return NextResponse.json({ ok: true }, { status: 200 });
-    }
 
     if (transaction_status === "settlement" || transaction_status === "capture") {
         await (await supabase)
