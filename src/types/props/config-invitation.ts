@@ -6,7 +6,7 @@ export type Images = {
     landscape: string[];
 }
 
-export interface ConfigTemplate {
+export interface ConfigInvitation {
     templateId: number;
     videoSrc: string;
     videoIdYoutube: string;

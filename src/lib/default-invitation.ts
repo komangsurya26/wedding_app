@@ -1,7 +1,7 @@
-import { ConfigTemplate } from "@/src/types";
+import { ConfigInvitation } from "@/src/types";
 
-export const TEMPLATE: ConfigTemplate[] = [
-    {
+export const DEFAULT_INVITATIONS: ConfigInvitation[] = [
+    {  
         templateId: 1,
         videoSrc: "https://www.youtube.com/embed/6FYtKVFik_8?mute=1&autoplay=1",
         // videoIdYoutube: "T2fNPf3UIY8",

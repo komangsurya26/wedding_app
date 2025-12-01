@@ -1,43 +1,6 @@
+import { TEMPLATE_LIST } from "@/src/lib/template-data";
 import Image from "next/image";
 import Link from "next/link";
-
-const templates = [
-  {
-    id: 1,
-    name: "Lume",
-    img: "",
-    bestSeller: true,
-    href: "/template/1",
-  },
-  {
-    id: 2,
-    name: "Chocolate Dream",
-    img: "",
-    bestSeller: true,
-    href: "/template/2",
-  },
-  {
-    id: 3,
-    name: "True Potential",
-    img: "",
-    bestSeller: true,
-    href: "/template/3",
-  },
-  {
-    id: 4,
-    name: "True Potential",
-    img: "",
-    bestSeller: true,
-    href: "/template/3",
-  },
-  {
-    id: 5,
-    name: "True Potential",
-    img: "",
-    bestSeller: true,
-    href: "/template/3",
-  },
-];
 
 export default function Template() {
   return (
@@ -61,7 +24,7 @@ export default function Template() {
         {/* Grid */}
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {templates.map((template) => (
+            {TEMPLATE_LIST.map((template) => (
               <div
                 key={template.id}
                 className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg"
@@ -97,10 +60,10 @@ export default function Template() {
                       Lihat
                     </Link>
                     <Link
-                      href={`/dashboard/invitation/create?search=${template.id}`}
+                      href={`/checkout?templateId=${template.id}`}
                       className="border border-gray-400 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
                     >
-                      Coba Gratis
+                      Coba Sekarang
                     </Link>
                   </div>
                 </div>

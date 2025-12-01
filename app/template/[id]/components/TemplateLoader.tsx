@@ -1,14 +1,14 @@
 "use client";
 
 import React, { Suspense, lazy } from "react";
-import { ConfigTemplate } from "@/src/types";
+import { ConfigInvitation } from "@/src/types";
 
 // lazy-load komponen template (komponen harus diekspor default atau named yang sesuai)
 const Template1 = lazy(() => import("../components/template1/TemplateMain"));
 const Template2 = lazy(() => import("../components/template2/TemplateMain"));
 
 // map id -> komponen lazy
-const MAP: Record<string, React.ComponentType<{ config: ConfigTemplate }>> = {
+const MAP: Record<string, React.ComponentType<{ config: ConfigInvitation }>> = {
   "1": Template1,
   "2": Template2,
 };

@@ -2,10 +2,12 @@ import React, { Suspense } from "react";
 import { InvitationEdit } from "./components/InvitationEdit";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function Fallback() {
+export function FallbackInvitationEdit() {
   return (
-    <div className="w-full h-full">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="w-full">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-40 w-full" />
         <Skeleton className="h-40 w-full" />
         <Skeleton className="h-40 w-full" />
         <Skeleton className="h-40 w-full" />
@@ -19,7 +21,7 @@ function Fallback() {
 
 export default function InvitationEditPage() {
   return (
-    <Suspense fallback={<Fallback />}>
+    <Suspense>
       <InvitationEdit />
     </Suspense>
   );

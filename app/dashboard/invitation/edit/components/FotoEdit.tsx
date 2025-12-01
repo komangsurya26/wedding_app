@@ -24,7 +24,7 @@ export function FotoEdit({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    uploader.initSlots(20);
+    uploader.initSlots(10);
     return () => uploader.setPhotos([]);
   }, []);
 
