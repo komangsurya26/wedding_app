@@ -83,7 +83,7 @@ export function CheckoutProduct() {
           price: template?.price ?? 0,
           quantity: 1,
           title_invitation: title,
-          url_invitation: slug,
+          url_invitation: `${BASE_URL}${slug}`,
         },
         customer: {
           id: user?.id ?? "",
