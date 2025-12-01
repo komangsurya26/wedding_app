@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ConfigTemplate } from "@/src/types";
+import { ConfigInvitation } from "@/src/types";
 
 import { Footer } from "./Footer";
 import { WeddingGift } from "./WeddingGift";
@@ -18,7 +18,7 @@ import { LoadingPercent } from "./LoadingPercent";
 import { BgYoutube } from "./BgYoutube";
 import CountDownTimer from "./CountDownTimer";
 
-export default function TemplateMain({ config }: { config: ConfigTemplate }) {
+export default function TemplateMain({ config }: { config: ConfigInvitation }) {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
