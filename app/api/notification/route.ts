@@ -17,17 +17,19 @@ export async function POST(req: Request) {
     }
 
     const supabase = createClient()
+    console.log(transaction_status);
 
-    if (transaction_status === "settlement" || transaction_status === "capture") {
-        await (await supabase)
-            .from("orders")
-            .update({ status: "PAID", paid_at: new Date().toISOString() })
-            .eq("order_ref", order_id);
-    } else if (transaction_status === "pending") {
-        await (await supabase).from("orders").update({ status: "PENDING" }).eq("order_ref", order_id);
-    } else if (transaction_status === "deny" || transaction_status === "cancel" || transaction_status === "expire") {
-        await (await supabase).from("orders").update({ status: "FAILED", expires_at: new Date().toISOString() }).eq("order_ref", order_id);
-    }
 
-    return NextResponse.json({ ok: true }, { status: 200 });
+    // if (transaction_status === "settlement" || transaction_status === "capture") {
+    //     await (await supabase)
+    //         .from("orders")
+    //         .update({ status: "PAID", paid_at: new Date().toISOString() })
+    //         .eq("order_ref", order_id);
+    // } else if (transaction_status === "pending") {
+    //     await (await supabase).from("orders").update({ status: "PENDING" }).eq("order_ref", order_id);
+    // } else if (transaction_status === "deny" || transaction_status === "cancel" || transaction_status === "expire") {
+    //     await (await supabase).from("orders").update({ status: "FAILED", expires_at: new Date().toISOString() }).eq("order_ref", order_id);
+    // }
+
+    // return NextResponse.json({ ok: true }, { status: 200 });
 }
