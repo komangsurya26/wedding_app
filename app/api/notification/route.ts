@@ -40,7 +40,7 @@ export async function POST(req: Request) {
         }
 
         // create invitations baru
-        const insertInvitation = {
+        const payload = {
             user_id: orders.user_id,
             template_id: orders.template_id,
             invitation_name: orders.title_invitation,
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         }
         await supabase
             .from("invitations")
-            .insert(insertInvitation)
+            .insert(payload)
         return NextResponse.json({ ok: true, message: "Status settlement sukses" }, { status: 200 });
     } else if (transaction_status === "pending") {
         await supabase.from("orders").update({ status: "PENDING", expires_at: expiry_time }).eq("order_ref", order_id);

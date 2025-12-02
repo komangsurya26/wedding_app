@@ -35,7 +35,8 @@ export function ProfileSwitcher() {
   async function handleSignOut() {
     await signout();
     await refresh();
-    router.push("/");
+    router.replace("/login");
+    router.refresh();
   }
 
   return (
