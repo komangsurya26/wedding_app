@@ -73,3 +73,24 @@ export async function createGroomBride({
     }
 }
 
+export async function fetchGroom({ invitation_id, type }: { invitation_id: number, type: 'groom' | 'bride' }) {
+    try {
+        const supabase = await createClient()
+
+        const { data, error } = await supabase
+            .from(type === 'groom' ? "grooms" : "brides")
+            .select("*")
+            .eq("invitation_id", invitation_id)
+            .single();
+
+        if (error) throw error
+
+        if (!data) return null
+
+        return data
+    } catch (err) {
+        throw err;
+    }
+}
+
+

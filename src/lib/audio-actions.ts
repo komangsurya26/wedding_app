@@ -32,3 +32,33 @@ export async function createAudio({
     }
 }
 
+export async function fetchAudio({
+    invitation_id,
+}: {
+    invitation_id: number
+}) {
+    try {
+        const supabase = await createClient()
+
+        const { data, error } = await supabase
+            .from("audios")
+            .select("*")
+            .eq("invitation_id", invitation_id)
+            .maybeSingle();
+
+        if (error) throw error
+
+        if (!data) return null;
+
+        return {
+            music_code: data.music_code,
+            music_title: data.music_title,
+            music_url: data.music_url,
+        }
+    } catch (err) {
+        throw err;
+    }
+}
+
+
+

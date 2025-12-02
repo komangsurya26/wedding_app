@@ -2,25 +2,28 @@ export const TEMPLATE_LIST = [
     {
         id: 1,
         name: "Lume",
-        type: "Wedding",
+        type: "wedding",
         img: "",
         price: 100000,
         href: "/template/1",
+        description: "Template dengan konsep glass"
     },
     {
         id: 2,
         name: "Chocolate Dream",
-        type: "Wedding",
+        type: "wedding",
         img: "",
         price: 100000,
         href: "/template/2",
+        description: "Template dengan konsep glass"
     },
     {
         id: 3,
         name: "True Potential",
-        type: "Wedding",
+        type: "wedding",
         img: "",
         price: 100000,
         href: "/template/3",
+        description: "Template dengan konsep glass"
     },
 ];

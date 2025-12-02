@@ -10,20 +10,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useAudio } from "@/src/hooks/use-audio";
 import { createAudio } from "@/src/lib/audio-actions";
 import { MUSICS } from "@/src/lib/musics-datas";
 import { MusicSchema, MusicSchemaType } from "@/src/schemas/music.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { AudioSelect } from "./AudioSelect";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function AudioEdit({
   invitationId,
@@ -33,6 +29,8 @@ export function AudioEdit({
   onClose: () => void;
 }) {
   const defaultMusic = MUSICS[0];
+
+  const { audio, loading } = useAudio(invitationId);
 
   const form = useForm<MusicSchemaType>({
     resolver: zodResolver(MusicSchema),
@@ -44,7 +42,17 @@ export function AudioEdit({
     mode: "onBlur",
   });
 
-  const { handleSubmit, setValue, register, formState, watch } = form;
+  const { handleSubmit, setValue, register, formState, watch, reset } = form;
+
+  useEffect(() => {
+    if (!audio) return;
+
+    reset({
+      music_code: audio.music_code,
+      music_title: audio.music_title,
+      music_url: audio.music_url,
+    });
+  }, [audio, reset]);
 
   function handleMusicSelect(code: string) {
     const music = MUSICS.find((m) => m.code === code);
@@ -62,10 +70,6 @@ export function AudioEdit({
         shouldDirty: true,
         shouldValidate: true,
       });
-    } else {
-      setValue("music_code", "", { shouldDirty: true, shouldValidate: true });
-      setValue("music_title", "", { shouldDirty: true, shouldValidate: true });
-      setValue("music_url", "", { shouldDirty: true, shouldValidate: true });
     }
   }
 
@@ -88,6 +92,14 @@ export function AudioEdit({
   const currentMusicCode = watch("music_code");
   const currentPreviewUrl = watch("music_url");
 
+  if (loading)
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+    );
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,21 +113,10 @@ export function AudioEdit({
                   <FormItem>
                     <FormLabel>Pilih Audio</FormLabel>
                     <FormControl>
-                      <Select
+                      <AudioSelect
                         value={currentMusicCode}
-                        onValueChange={handleMusicSelect}
-                      >
-                        <SelectTrigger className="w-full text-sm sm:text-base font-light truncate">
-                          <SelectValue placeholder="Pilih Audio" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {MUSICS.map((m) => (
-                            <SelectItem key={m.code} value={m.code}>
-                              {m.title}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        onChange={handleMusicSelect}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useEvent } from "@/src/hooks/use-event";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function EventEdit({
   invitationId,
@@ -28,6 +30,8 @@ export function EventEdit({
   invitationId: number;
   onClose: () => void;
 }) {
+  const { events, loading } = useEvent(invitationId);
+
   const form = useForm<EventArraySchemaType>({
     resolver: zodResolver(EventsArraySchema),
     defaultValues: {
@@ -45,7 +49,22 @@ export function EventEdit({
     mode: "onBlur",
   });
 
-  const { control, handleSubmit, formState } = form;
+  const { control, handleSubmit, formState, reset } = form;
+
+  useEffect(() => {
+    if (!events) return;
+    const map = events.map((event) => ({
+      title: event.title,
+      date: event.date,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      venue: event.venue,
+      location_url: event.location_url,
+    }));
+
+    reset({ events: map });
+  }, [events, reset]);
+
   const { fields, append, remove } = useFieldArray<
     EventArraySchemaType,
     "events"
@@ -70,6 +89,17 @@ export function EventEdit({
       toast.error("Acara gagal disimpan");
     }
   }
+
+  if (loading)
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+    );
 
   return (
     <Form {...form}>

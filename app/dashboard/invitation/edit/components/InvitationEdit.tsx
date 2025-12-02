@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { InvitationEditMenu } from "./InvitationEditMenu";
-import { FallbackInvitationEdit } from "../page";
+import { FallbackInvitationEdit } from "../../components/FallbackInvitationEdit";
 
 export function InvitationEdit() {
   const searchParams = useSearchParams();

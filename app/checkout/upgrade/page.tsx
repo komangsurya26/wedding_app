@@ -18,5 +18,5 @@ export default async function CheckoutUpgradePage({
 
   const invitationId = Array.isArray(rawInvitId) ? rawInvitId[0] : rawInvitId;
 
-  return <div>Invitation ID: {invitationId}</div>;
+  return <div>Upgrade Invitation ID: {invitationId}</div>;
 }

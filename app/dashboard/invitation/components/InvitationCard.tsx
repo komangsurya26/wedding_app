@@ -18,12 +18,15 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
   const router = useRouter();
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-2">
-      {invitations.map((data, idx) => (
+      {invitations && invitations.map((data, idx) => (
         <Card className="w-full h-full relative" key={idx}>
           {/* Corner Badge */}
           {data.expired && (
             <div className="absolute -right-0 -top-0">
-              <Badge variant={"outline"} className="rounded-sm bg-amber-300 text-black h-7">
+              <Badge
+                variant={"outline"}
+                className="rounded-sm bg-amber-300 text-black h-7"
+              >
                 Kadaluarsa
               </Badge>
             </div>
@@ -64,7 +67,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
               </span>
             </div>
             <div className="flex items-center justify-end">
-              {mode === "create" ? (
+              {mode === "all" ? (
                 <Button
                   size="sm"
                   className="text-xs px-2 py-1 h-8 flex items-center gap-2"

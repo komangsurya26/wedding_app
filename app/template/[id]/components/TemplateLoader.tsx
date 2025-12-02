@@ -1,14 +1,14 @@
 "use client";
 
 import React, { Suspense, lazy } from "react";
-import { ConfigInvitation } from "@/src/types";
+import { Invitation } from "@/src/types";
 
 // lazy-load komponen template (komponen harus diekspor default atau named yang sesuai)
 const Template1 = lazy(() => import("../components/template1/TemplateMain"));
 const Template2 = lazy(() => import("../components/template2/TemplateMain"));
 
 // map id -> komponen lazy
-const MAP: Record<string, React.ComponentType<{ config: ConfigInvitation }>> = {
+const MAP: Record<string, React.ComponentType<{ config: Invitation }>> = {
   "1": Template1,
   "2": Template2,
 };
@@ -18,7 +18,7 @@ export default function TemplateLoader({
   config,
 }: {
   id: string;
-  config: any;
+  config: Invitation;
 }) {
   const Comp = MAP[id] ?? MAP["1"];
 

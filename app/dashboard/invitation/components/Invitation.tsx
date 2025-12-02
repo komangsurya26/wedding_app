@@ -7,20 +7,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { ChangeEvent, useState } from "react";
 import { InvitationCard } from "./InvitationCard";
 
-export function Invitation({ mode = "my", invitations }: InvitationProps) {
+export function Invitation({ mode, invitations }: InvitationProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const weddingInvs = invitations
-    .filter((i) => i.type === "wedding")
-    .filter((data) =>
-      data.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  const metatahInvs = invitations
-    .filter((i) => i.type === "metatah")
-    .filter((data) =>
-      data.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+  const weddingInvs =
+    invitations &&
+    invitations
+      .filter((i) => i.type === "wedding")
+      .filter((data) =>
+        data.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  const metatahInvs =
+    invitations &&
+    invitations
+      .filter((i) => i.type === "metatah")
+      .filter((data) =>
+        data.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };

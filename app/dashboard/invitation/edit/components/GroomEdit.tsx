@@ -19,18 +19,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useGroom } from "@/src/hooks/use-groom";
+import { ChildOrderSelect } from "./ChildOrderSelect";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function GroomEdit({
   invitationId,
-  type = "groom",
+  type,
   uploader,
   onClose,
 }: GroomEditProps) {
@@ -38,6 +33,8 @@ export function GroomEdit({
   const brideName = "Ni Putu Juliet, S.M";
   const defaultFullName = type === "groom" ? groomName : brideName;
   const defaultShortName = type === "groom" ? "Romeo" : "Juliet";
+
+  const { groom, loading } = useGroom(invitationId, type);
 
   const form = useForm<GroomSchemaType>({
     resolver: zodResolver(GroomSchema),
@@ -51,6 +48,8 @@ export function GroomEdit({
     },
     mode: "onTouched",
   });
+
+  const { reset } = form;
 
   async function onSubmit(values: GroomSchemaType) {
     try {
@@ -73,9 +72,33 @@ export function GroomEdit({
   }
 
   useEffect(() => {
+    if (!groom) return;
+    reset({
+      full_name: groom.full_name,
+      short_name: groom.short_name,
+      child_order: groom.child_order,
+      instagram: groom.instagram,
+      father: groom.father,
+      mother: groom.mother,
+    });
+  }, [reset, groom]);
+
+  useEffect(() => {
     uploader.initSlots(2);
     return () => uploader.setPhotos([]);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>
@@ -124,30 +147,10 @@ export function GroomEdit({
                   <FormItem>
                     <FormLabel htmlFor="child_order">Anak ke berapa</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange}>
-                        <SelectTrigger className="w-full text-base font-light">
-                          <SelectValue placeholder="Pilih anak ke berapa" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectItem value="none">
-                              Tidak Diketahui
-                            </SelectItem>
-                            <SelectItem value="Pertama">Pertama</SelectItem>
-                            <SelectItem value="Kedua">Kedua</SelectItem>
-                            <SelectItem value="Ketiga">Ketiga</SelectItem>
-                            <SelectItem value="Keempat">Keempat</SelectItem>
-                            <SelectItem value="Kelima">Kelima</SelectItem>
-                            <SelectItem value="Keenam">Keenam</SelectItem>
-                            <SelectItem value="Ketujuh">Ketujuh</SelectItem>
-                            <SelectItem value="Kedelapan">Kedelapan</SelectItem>
-                            <SelectItem value="Kesembilan">
-                              Kesembilan
-                            </SelectItem>
-                            <SelectItem value="Kesepuluh">Kesepuluh</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
+                      <ChildOrderSelect
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

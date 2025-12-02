@@ -1,6 +1,6 @@
 import { CheckoutProduct } from "./components/CheckoutProduct";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { FallbackCheckout } from "./components/FallbackCheckout";
 
 export const metadata = {
   title: "Checkout — Resepsi Bali",
@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function CheckoutPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<FallbackCheckout />}>
       <CheckoutProduct />
     </Suspense>
   );

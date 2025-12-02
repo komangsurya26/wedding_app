@@ -30,4 +30,28 @@ export async function createEvent(events: {
         throw err;
     }
 }
+export async function fetchEvent({
+    invitation_id,
+}: {
+    invitation_id: number
+}) {
+    try {
+        const supabase = await createClient()
+
+        const { data, error } = await supabase
+            .from("events")
+            .select("*")
+            .eq("invitation_id", invitation_id)
+
+        if (error) throw error
+
+        if (data.length > 0) {
+            return data
+        }
+
+        return null
+    } catch (err) {
+        throw err;
+    }
+}
 

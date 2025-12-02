@@ -1,28 +1,8 @@
-import React, { Suspense } from "react";
-import { InvitationEdit } from "./components/InvitationEdit";
-import { Skeleton } from "@/components/ui/skeleton";
+"use client";
 
-export function FallbackInvitationEdit() {
-  return (
-    <div className="w-full">
-      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-      </div>
-    </div>
-  );
-}
+import React from "react";
+import { InvitationEdit } from "./components/InvitationEdit";
 
 export default function InvitationEditPage() {
-  return (
-    <Suspense>
-      <InvitationEdit />
-    </Suspense>
-  );
+  return <InvitationEdit />;
 }
