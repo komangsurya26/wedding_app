@@ -1,111 +1,111 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
-import { ConfigInvitation } from "@/src/types";
+// import { useState } from "react";
+// import { Invitation } from "@/src/types";
 
-import { Footer } from "./Footer";
-import { WeddingGift } from "./WeddingGift";
-import { Greeting } from "./Greeting";
-import { Quote } from "./Quote";
-import { LoveStory } from "./LoveStory";
-import { Gallery } from "./Gallery";
-import { RSVP } from "./RSVP";
-import { WeddingDay } from "./WeddingDay";
-import { Groom } from "./Groom";
-import { Bride } from "./Bride";
-import { Hero } from "./Hero";
-import { LoadingPercent } from "./LoadingPercent";
-import { BgYoutube } from "./BgYoutube";
-import CountDownTimer from "./CountDownTimer";
+// import { Footer } from "./Footer";
+// import { WeddingGift } from "./WeddingGift";
+// import { Greeting } from "./Greeting";
+// import { Quote } from "./Quote";
+// import { LoveStory } from "./LoveStory";
+// import { Gallery } from "./Gallery";
+// import { RSVP } from "./RSVP";
+// import { WeddingDay } from "./WeddingDay";
+// import { Groom } from "./Groom";
+// import { Bride } from "./Bride";
+// import { Hero } from "./Hero";
+// import { LoadingPercent } from "./LoadingPercent";
+// import { BgYoutube } from "./BgYoutube";
+// import CountDownTimer from "./CountDownTimer";
 
-export default function TemplateMain({ config }: { config: ConfigInvitation }) {
-  const [isOpened, setIsOpened] = useState(false);
+// export default function TemplateMain({ config }: { config: Invitation }) {
+//   const [isOpened, setIsOpened] = useState(false);
 
-  return (
-    <>
-      <LoadingPercent
-        shortNameGroom="Komang"
-        shortNameBride="Surya"
-        minDuration={5000}
-      />
-      <main className="h-screen flex justify-center bg-black">
-        <div className="relative h-full w-full lg:w-1/2 overflow-hidden overflow-x-hidden">
-          <BgYoutube videoIdYoutube={config.videoIdYoutube} />
-          <div className={`relative h-full ${isOpened && "overflow-y-auto"}`}>
-            <Hero
-              isOpened={isOpened}
-              setIsOpened={setIsOpened}
-              scrollTargetId="section-2"
-            />
-            <Greeting id="section-2" image={config.images.couple[1]} />
-            <Quote />
-            <Groom
-              image={config.images.groom}
-              name="I Komang Agus Surya Sedana"
-              childOrder="Pertama"
-              father="I Made Sudiarta"
-              mother="Ni Nengah Karmini"
-              instagram="komangsurya_26"
-            />
-            <Bride
-              image={config.images.bride}
-              name="I Komang Agus Surya Sedana"
-              childOrder="Pertama"
-              father="I Made Sudiarta"
-              mother="Ni Nengah Karmini"
-              instagram="komangsurya_26"
-            />
-            <CountDownTimer
-              image={config.images.couple[1]}
-              date="2025-12-20T16:02:00"
-            />
-            <WeddingDay
-              events={[
-                {
-                  id: 1,
-                  title: "Akad Nikah",
-                  date: "Minggu, 31 Desember 2025",
-                  time: "09.00 WIB - Selesai",
-                  venue: "Balai Sarbini Jakarta",
-                  locationUrl: "https://maps.google.com/....",
-                },
-                {
-                  id: 2,
-                  title: "Resepsi Pernikahan",
-                  date: "Minggu, 31 Desember 2025",
-                  time: "11.00 WIB - Selesai",
-                  venue: "Balai Sarbini Jakarta",
-                  locationUrl: "https://maps.google.com/....",
-                },
-              ]}
-            />
-            <LoveStory image={config.images.couple[1]} />
-            <Gallery
-              videoIdYoutube={config.videoIdYoutube}
-              imageLandscapes={config.images.landscape}
-              imagePotraits={config.images.portrait}
-            />
-            <RSVP />
-            <WeddingGift
-              accounts={[
-                {
-                  bankName: "BCA",
-                  accountNumber: "1234567890",
-                  owner: "Komang Surya",
-                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bca_ls9vum.png",
-                },
-                {
-                  bankName: "Mandiri",
-                  accountNumber: "0987654321",
-                  owner: "Komang Surya",
-                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/mandiri_lzkfeh.png",
-                },
-              ]}
-            />
-            <Footer images={config.images.portrait} />
-          </div>
-        </div>
-      </main>
-    </>
-  );
-}
+//   return (
+//     <>
+//       <LoadingPercent
+//         shortNameGroom="Komang"
+//         shortNameBride="Surya"
+//         minDuration={5000}
+//       />
+//       <main className="h-screen flex justify-center bg-black">
+//         <div className="relative h-full w-full lg:w-1/2 overflow-hidden overflow-x-hidden">
+//           <BgYoutube videoIdYoutube={config.id_video_youtube} />
+//           <div className={`relative h-full ${isOpened && "overflow-y-auto"}`}>
+//             <Hero
+//               isOpened={isOpened}
+//               setIsOpened={setIsOpened}
+//               scrollTargetId="section-2"
+//             />
+//             <Greeting id="section-2" image={config.images.couple[1]} />
+//             <Quote />
+//             <Groom
+//               image={config.images.groom}
+//               name="I Komang Agus Surya Sedana"
+//               childOrder="Pertama"
+//               father="I Made Sudiarta"
+//               mother="Ni Nengah Karmini"
+//               instagram="komangsurya_26"
+//             />
+//             <Bride
+//               image={config.images.bride}
+//               name="I Komang Agus Surya Sedana"
+//               childOrder="Pertama"
+//               father="I Made Sudiarta"
+//               mother="Ni Nengah Karmini"
+//               instagram="komangsurya_26"
+//             />
+//             <CountDownTimer
+//               image={config.images.couple[1]}
+//               date="2025-12-20T16:02:00"
+//             />
+//             <WeddingDay
+//               events={[
+//                 {
+//                   id: 1,
+//                   title: "Akad Nikah",
+//                   date: "Minggu, 31 Desember 2025",
+//                   time: "09.00 WIB - Selesai",
+//                   venue: "Balai Sarbini Jakarta",
+//                   locationUrl: "https://maps.google.com/....",
+//                 },
+//                 {
+//                   id: 2,
+//                   title: "Resepsi Pernikahan",
+//                   date: "Minggu, 31 Desember 2025",
+//                   time: "11.00 WIB - Selesai",
+//                   venue: "Balai Sarbini Jakarta",
+//                   locationUrl: "https://maps.google.com/....",
+//                 },
+//               ]}
+//             />
+//             <LoveStory image={config.images.couple[1]} />
+//             <Gallery
+//               videoIdYoutube={config.videoIdYoutube}
+//               imageLandscapes={config.images.landscape}
+//               imagePotraits={config.images.portrait}
+//             />
+//             <RSVP />
+//             <WeddingGift
+//               accounts={[
+//                 {
+//                   bankName: "BCA",
+//                   accountNumber: "1234567890",
+//                   owner: "Komang Surya",
+//                   logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bca_ls9vum.png",
+//                 },
+//                 {
+//                   bankName: "Mandiri",
+//                   accountNumber: "0987654321",
+//                   owner: "Komang Surya",
+//                   logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/mandiri_lzkfeh.png",
+//                 },
+//               ]}
+//             />
+//             <Footer images={config.images.portrait} />
+//           </div>
+//         </div>
+//       </main>
+//     </>
+//   );
+// }

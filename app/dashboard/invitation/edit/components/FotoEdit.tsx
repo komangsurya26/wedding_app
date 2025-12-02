@@ -26,7 +26,7 @@ export function FotoEdit({
   useEffect(() => {
     uploader.initSlots(10);
     return () => uploader.setPhotos([]);
-  }, []);
+  }, [uploader]);
 
   // pembagian sederhana: index genap -> portrait, ganjil -> landscape
   const portraitPhotos = uploader.photos.filter((_, i) => i % 2 === 0);

@@ -23,7 +23,7 @@ export function useGroom(invitationId: number, type: 'groom' | 'bride') {
         }
 
         load();
-    }, [invitationId]);
+    }, [invitationId, type]);
 
     return { groom, loading, error };
 }

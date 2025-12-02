@@ -20,7 +20,7 @@ export function LoadingPercent({
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), minDuration);
     return () => clearTimeout(timer);
-  }, []);
+  }, [minDuration]);
 
   return (
     <div

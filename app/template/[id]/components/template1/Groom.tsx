@@ -1,20 +1,19 @@
-import { GroomProps } from "@/src/types";
+import { Groom as GroomProps } from "@/src/types";
 import Image from "next/image";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
 
 export function Groom({
-  image,
-  name,
+  full_name,
   father,
   mother,
-  childOrder,
+  child_order,
   instagram,
 }: GroomProps) {
   return (
     <section className="relative h-screen flex items-end">
       <Image
-        src={image}
+        src=""
         alt="Groom"
         fill
         className="absolute object-cover object-center"
@@ -27,11 +26,12 @@ export function Groom({
         </p>
 
         <h2 className="text-3xl md:text-5xl font-serif font-semibold tracking-tight leading-tight text-white">
-          {name}
+          {full_name}
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putra {childOrder} dari Bapak {father} dan <br /> Ibu {mother}
+          Putra {child_order.toLowerCase()} dari Bapak {father} dan <br /> Ibu{" "}
+          {mother}
         </p>
 
         <a

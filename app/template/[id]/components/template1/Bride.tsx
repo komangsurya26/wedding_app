@@ -1,20 +1,19 @@
-import { BrideProps } from "@/src/types";
+import { Bride as BrideTypes } from "@/src/types";
 import Image from "next/image";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
 
 export function Bride({
-  image,
-  name,
+  full_name,
+  child_order,
   father,
   mother,
-  childOrder,
   instagram,
-}: BrideProps) {
+}: BrideTypes) {
   return (
     <section className="relative h-screen flex items-end text-end">
       <Image
-        src={image}
+        src=""
         alt="Bride"
         fill
         className="absolute object-cover object-center"
@@ -27,11 +26,12 @@ export function Bride({
         </p>
 
         <h2 className="text-3xl md:text-5xl font-serif font-semibold tracking-tight leading-tight text-white">
-          {name}
+          {full_name}
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putri {childOrder} dari Bapak {father} dan <br /> Ibu {mother}
+          Putri {child_order.toLowerCase()} dari Bapak {father} dan <br /> Ibu{" "}
+          {mother}
         </p>
 
         <a
