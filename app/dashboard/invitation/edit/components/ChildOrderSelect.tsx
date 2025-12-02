@@ -21,19 +21,17 @@ export function ChildOrderSelect({
         <SelectValue placeholder="Pilih anak ke berapa" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectItem value="none">Tidak Diketahui</SelectItem>
-          <SelectItem value="Pertama">Pertama</SelectItem>
-          <SelectItem value="Kedua">Kedua</SelectItem>
-          <SelectItem value="Ketiga">Ketiga</SelectItem>
-          <SelectItem value="Keempat">Keempat</SelectItem>
-          <SelectItem value="Kelima">Kelima</SelectItem>
-          <SelectItem value="Keenam">Keenam</SelectItem>
-          <SelectItem value="Ketujuh">Ketujuh</SelectItem>
-          <SelectItem value="Kedelapan">Kedelapan</SelectItem>
-          <SelectItem value="Kesembilan">Kesembilan</SelectItem>
-          <SelectItem value="Kesepuluh">Kesepuluh</SelectItem>
-        </SelectGroup>
+        <SelectItem value="none">Tidak Diketahui</SelectItem>
+        <SelectItem value="Pertama">Pertama</SelectItem>
+        <SelectItem value="Kedua">Kedua</SelectItem>
+        <SelectItem value="Ketiga">Ketiga</SelectItem>
+        <SelectItem value="Keempat">Keempat</SelectItem>
+        <SelectItem value="Kelima">Kelima</SelectItem>
+        <SelectItem value="Keenam">Keenam</SelectItem>
+        <SelectItem value="Ketujuh">Ketujuh</SelectItem>
+        <SelectItem value="Kedelapan">Kedelapan</SelectItem>
+        <SelectItem value="Kesembilan">Kesembilan</SelectItem>
+        <SelectItem value="Kesepuluh">Kesepuluh</SelectItem>
       </SelectContent>
     </Select>
   );
