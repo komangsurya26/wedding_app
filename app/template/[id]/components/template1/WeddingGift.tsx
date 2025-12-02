@@ -5,12 +5,12 @@ import Image from "next/image";
 import copy from "copy-to-clipboard";
 
 //types
-import { WeddingGiftProps } from "@/src/types";
+import { Gifts } from "@/src/types";
 
 //icons
 import { HiOutlineClipboard } from "react-icons/hi";
 
-export function WeddingGift({ accounts }: WeddingGiftProps) {
+export function WeddingGift(gifts: Gifts[]) {
   const [copied, setCopied] = useState<string | null>(null);
   const [isCopying, setIsCopying] = useState(false);
 
@@ -34,16 +34,16 @@ export function WeddingGift({ accounts }: WeddingGiftProps) {
       </p>
 
       <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full">
-        {accounts.map((acc) => (
+        {gifts.map((g) => (
           <div
-            key={acc.accountNumber}
+            key={g.account_number}
             className="flex items-center gap-4 p-4 rounded-xl bg-white/20 border border-white/10 overflow-x-auto"
           >
-            {acc.logo ? (
+            {g.logo ? (
               <div className="w-12 h-12 rounded-lg">
                 <Image
-                  src={acc.logo}
-                  alt={acc.bankName}
+                  src={g.logo}
+                  alt={g.bank_name}
                   width={60}
                   height={40}
                   className="object-contain w-full h-full"
@@ -51,27 +51,27 @@ export function WeddingGift({ accounts }: WeddingGiftProps) {
               </div>
             ) : (
               <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-white/10 font-semibold">
-                {acc.bankName.slice(0, 2).toUpperCase()}
+                {g.bank_name.slice(0, 2).toUpperCase()}
               </div>
             )}
 
             <div className="flex-1 text-left">
-              <p className="font-semibold text-base">{acc.bankName}</p>
-              <p className="font-semibold text-sm">{acc.accountNumber}</p>
-              <p className="text-xs text-gray-300 mt-1">{acc.owner}</p>
+              <p className="font-semibold text-base">{g.bank_name}</p>
+              <p className="font-semibold text-sm">{g.account_number}</p>
+              <p className="text-xs text-gray-300 mt-1">{g.owner}</p>
             </div>
 
             <button
               disabled={isCopying}
-              onClick={() => handleCopy(acc.accountNumber)}
+              onClick={() => handleCopy(g.account_number)}
               className={`flex items-center gap-2 px-3 py-2 rounded-full text-sm transition ${
-                copied === acc.accountNumber
+                copied === g.account_number
                   ? "bg-white text-black"
                   : "border border-white/20 hover:bg-white/10"
               }`}
             >
               <HiOutlineClipboard className="w-4 h-4" />
-              <span>{copied === acc.accountNumber ? "Copied!" : "Copy"}</span>
+              <span>{copied === g.account_number ? "Copied!" : "Copy"}</span>
             </button>
           </div>
         ))}
