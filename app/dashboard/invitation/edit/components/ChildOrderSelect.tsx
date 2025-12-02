@@ -17,7 +17,7 @@ export function ChildOrderSelect({
   onChange: (v: string) => void;
 }) {
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select key={value} value={value} onValueChange={onChange}>
       <SelectTrigger className="w-full text-base font-light">
         <SelectValue placeholder="Pilih anak ke berapa" />
       </SelectTrigger>
