@@ -46,7 +46,7 @@ export function GroomEdit({
       father: "",
       mother: "",
     },
-    mode: "onTouched",
+    mode: "onBlur",
   });
 
   const { setValue } = form;
