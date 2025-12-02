@@ -24,8 +24,6 @@ export async function createEvent(events: {
         const { error } = await supabase
             .from("events")
             .upsert(events)
-            .select();
-
         if (error) throw error
 
     } catch (err) {

@@ -44,8 +44,6 @@ export async function createGroomBride({
         const { error } = await supabase
             .from(type === "groom" ? "grooms" : "brides")
             .upsert(payload, { onConflict: "invitation_id" })
-            .select()
-            .single();
         if (error) throw error
 
 
@@ -68,7 +66,6 @@ export async function createGroomBride({
             const { error: photoError } = await supabase
                 .from(type === "groom" ? "photo_grooms" : "photo_brides")
                 .insert(payload)
-                .select();
             if (photoError) throw photoError;
         }
     } catch (err) {

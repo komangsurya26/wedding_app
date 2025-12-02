@@ -22,7 +22,6 @@ export async function createGift(events: {
         const { error } = await supabase
             .from("gifts")
             .upsert(events)
-            .select();
 
         if (error) throw error
 

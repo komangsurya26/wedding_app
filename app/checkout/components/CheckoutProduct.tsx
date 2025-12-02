@@ -98,7 +98,7 @@ export function CheckoutProduct() {
       });
       const json = await res.json();
       if (json.ok) {
-        window.open(json.data.redirect_url, "_blank");
+        window.location.href = json.data.redirect_url;
       }
     } catch (err) {
       toast.error("Terjadi kesalahan, coba beberapa saat lagi");

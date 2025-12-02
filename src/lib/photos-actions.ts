@@ -36,7 +36,6 @@ export async function createPhotos({ orientation, invitation_id, photos }: {
             const { error: photoError } = await supabase
                 .from(table)
                 .insert(payload)
-                .select();
             if (photoError) throw photoError;
         }
     } catch (err) {

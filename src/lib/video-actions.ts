@@ -20,8 +20,6 @@ export async function createVideo({
         const { error } = await supabase
             .from("video_youtubes")
             .upsert(payload, { onConflict: "invitation_id" })
-            .select()
-            .single();
         if (error) throw error
     } catch (err) {
         throw err;

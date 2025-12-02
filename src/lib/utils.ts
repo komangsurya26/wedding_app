@@ -21,3 +21,9 @@ export function slugify(value: string) {
     .replace(/[^a-z0-9-]/g, "")
     .slice(0, 60);
 }
+
+export function addMonths(date: Date, months: number) {
+  const d = new Date(date);
+  d.setMonth(d.getMonth() + months);
+  return d;
+}

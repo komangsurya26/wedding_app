@@ -23,20 +23,6 @@ export async function POST(req: Request) {
         }
 
         const supabase = await createClient()
-        const payloadOrder = {
-            user_id: customer.id,
-            order_ref: orderId,
-            template_id: item.id,
-            title_invitation: item.title_invitation,
-            url_invitation: item.url_invitation,
-            amount: amount,
-        }
-        const { error } = await supabase
-            .from("orders")
-            .insert(payloadOrder)
-            .select()
-            .single();
-        if (error) throw error
 
         const payload = {
             transaction_details: {
@@ -48,6 +34,21 @@ export async function POST(req: Request) {
         };
 
         const response = await snap.createTransaction(payload)
+
+        const payloadOrder = {
+            user_id: customer.id,
+            order_ref: orderId,
+            template_id: item.id,
+            title_invitation: item.title_invitation,
+            url_invitation: item.url_invitation,
+            amount: amount,
+            url_payment: response.redirect_url,
+            status: "WAITING_PAYMENT",
+        }
+        const { error } = await supabase
+            .from("orders")
+            .insert(payloadOrder)
+        if (error) throw error
 
         return NextResponse.json({ ok: true, data: response });
     } catch (err) {
