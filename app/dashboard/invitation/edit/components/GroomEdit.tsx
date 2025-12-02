@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,7 +49,11 @@ export function GroomEdit({
     mode: "onTouched",
   });
 
-  const { reset } = form;
+  const { reset, setValue } = form;
+
+  function handleChildChange(value: string) {
+    setValue("child_order", value, { shouldDirty: true, shouldValidate: true });
+  }
 
   async function onSubmit(values: GroomSchemaType) {
     try {
@@ -77,19 +81,24 @@ export function GroomEdit({
       {
         full_name: groom.full_name,
         short_name: groom.short_name,
-        child_order: groom.child_order ?? "none",
+        child_order: groom.child_order,
         instagram: groom.instagram,
         father: groom.father,
         mother: groom.mother,
       },
       { keepDirty: false }
     );
-  }, [reset, groom]);
+  }, [groom, reset]);
 
   useEffect(() => {
     uploader.initSlots(2);
     return () => uploader.setPhotos([]);
   }, []);
+
+  const currentChildOrder = useWatch({
+    name: "child_order",
+    control: form.control,
+  });
 
   if (loading) {
     return (
@@ -143,22 +152,16 @@ export function GroomEdit({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="child_order"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="child_order">Anak ke berapa</FormLabel>
-                    <FormControl>
-                      <ChildOrderSelect
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <FormItem>
+                <FormLabel>Anak ke berapa</FormLabel>
+                <FormControl>
+                  <ChildOrderSelect
+                    value={currentChildOrder}
+                    onChange={handleChildChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
               <FormField
                 control={form.control}
                 name="father"
