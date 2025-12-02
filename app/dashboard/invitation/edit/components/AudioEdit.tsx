@@ -42,17 +42,15 @@ export function AudioEdit({
     mode: "onBlur",
   });
 
-  const { handleSubmit, setValue, register, formState, reset } = form;
+  const { handleSubmit, setValue, register, formState } = form;
 
   useEffect(() => {
     if (!audio) return;
 
-    reset({
-      music_code: audio.music_code,
-      music_title: audio.music_title,
-      music_url: audio.music_url,
-    });
-  }, [audio, reset]);
+    setValue("music_code", audio.music_code ?? "");
+    setValue("music_title", audio.music_title ?? "");
+    setValue("music_url", audio.music_url ?? "");
+  }, [audio, setValue]);
 
   function handleMusicSelect(code: string) {
     const music = MUSICS.find((m) => m.code === code);

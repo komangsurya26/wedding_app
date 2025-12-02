@@ -1,8 +1,9 @@
+"use client";
+
 import React from "react";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -21,18 +22,26 @@ export function ChildOrderSelect({
         <SelectValue placeholder="Pilih anak ke berapa" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="none">Tidak Diketahui</SelectItem>
-        <SelectItem value="Pertama">Pertama</SelectItem>
-        <SelectItem value="Kedua">Kedua</SelectItem>
-        <SelectItem value="Ketiga">Ketiga</SelectItem>
-        <SelectItem value="Keempat">Keempat</SelectItem>
-        <SelectItem value="Kelima">Kelima</SelectItem>
-        <SelectItem value="Keenam">Keenam</SelectItem>
-        <SelectItem value="Ketujuh">Ketujuh</SelectItem>
-        <SelectItem value="Kedelapan">Kedelapan</SelectItem>
-        <SelectItem value="Kesembilan">Kesembilan</SelectItem>
-        <SelectItem value="Kesepuluh">Kesepuluh</SelectItem>
+        {childOrderOptions.map((v) => (
+          <SelectItem key={v.value} value={v.value}>
+            {v.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
 }
+
+const childOrderOptions = [
+  { value: "none", label: "Tidak Diketahui" },
+  { value: "pertama", label: "Pertama" },
+  { value: "kedua", label: "Kedua" },
+  { value: "ketiga", label: "Ketiga" },
+  { value: "keempat", label: "Keempat" },
+  { value: "kelima", label: "Kelima" },
+  { value: "keenam", label: "Keenam" },
+  { value: "ketujuh", label: "Ketujuh" },
+  { value: "kedelapan", label: "Kedelapan" },
+  { value: "kesembilan", label: "Kesembilan" },
+  { value: "kesepuluh", label: "Kesepuluh" },
+];

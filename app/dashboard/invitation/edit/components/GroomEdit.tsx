@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,7 +41,7 @@ export function GroomEdit({
     defaultValues: {
       full_name: "",
       short_name: "",
-      child_order: "none",
+      child_order: "",
       instagram: "",
       father: "",
       mother: "",
@@ -49,11 +49,7 @@ export function GroomEdit({
     mode: "onTouched",
   });
 
-  const { reset, setValue } = form;
-
-  function handleChildChange(value: string) {
-    setValue("child_order", value, { shouldDirty: true, shouldValidate: true });
-  }
+  const { setValue } = form;
 
   async function onSubmit(values: GroomSchemaType) {
     try {
@@ -77,28 +73,18 @@ export function GroomEdit({
 
   useEffect(() => {
     if (!groom) return;
-    reset(
-      {
-        full_name: groom.full_name,
-        short_name: groom.short_name,
-        child_order: groom.child_order,
-        instagram: groom.instagram,
-        father: groom.father,
-        mother: groom.mother,
-      },
-      { keepDirty: false }
-    );
-  }, [groom, reset]);
+    setValue("full_name", groom.full_name ?? "");
+    setValue("short_name", groom.short_name ?? "");
+    setValue("child_order", groom.child_order ?? "");
+    setValue("instagram", groom.instagram ?? "");
+    setValue("father", groom.father ?? "");
+    setValue("mother", groom.mother ?? "");
+  }, [groom, setValue]);
 
   useEffect(() => {
     uploader.initSlots(2);
     return () => uploader.setPhotos([]);
   }, []);
-
-  const currentChildOrder = useWatch({
-    name: "child_order",
-    control: form.control,
-  });
 
   if (loading) {
     return (
@@ -152,16 +138,22 @@ export function GroomEdit({
                   </FormItem>
                 )}
               />
-              <FormItem>
-                <FormLabel>Anak ke berapa</FormLabel>
-                <FormControl>
-                  <ChildOrderSelect
-                    value={currentChildOrder}
-                    onChange={handleChildChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <FormField
+                control={form.control}
+                name="child_order"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Anak ke berapa</FormLabel>
+                    <FormControl>
+                      <ChildOrderSelect
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="father"

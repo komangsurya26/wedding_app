@@ -49,7 +49,7 @@ export function EventEdit({
     mode: "onBlur",
   });
 
-  const { control, handleSubmit, formState, reset } = form;
+  const { control, handleSubmit, formState, setValue } = form;
 
   useEffect(() => {
     if (!events) return;
@@ -62,8 +62,8 @@ export function EventEdit({
       location_url: event.location_url,
     }));
 
-    reset({ events: map });
-  }, [events, reset]);
+    setValue("events", map);
+  }, [events, setValue]);
 
   const { fields, append, remove } = useFieldArray<
     EventArraySchemaType,

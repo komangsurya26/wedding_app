@@ -81,8 +81,7 @@ export async function fetchGroom({ invitation_id, type }: { invitation_id: numbe
             .from(type === 'groom' ? "grooms" : "brides")
             .select("*")
             .eq("invitation_id", invitation_id)
-            .single();
-
+            .maybeSingle();
         if (error) throw error
 
         if (!data) return null

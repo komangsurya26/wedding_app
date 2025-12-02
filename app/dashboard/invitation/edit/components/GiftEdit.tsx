@@ -40,11 +40,11 @@ export function GiftEdit({
     mode: "onBlur",
   });
 
-  const { control, handleSubmit, formState, watch, register, setValue, reset } =
-    form;
+  const { control, handleSubmit, formState, watch, register, setValue } = form;
 
   useEffect(() => {
     if (!gifts) return;
+
     const map = gifts.map((gift) => ({
       bank_name: gift.bank_name,
       account_number: gift.account_number,
@@ -52,8 +52,8 @@ export function GiftEdit({
       logo: gift.logo,
     }));
 
-    reset({ gifts: map });
-  }, [gifts, reset]);
+    setValue("gifts", map);
+  }, [gifts, setValue]);
 
   const { fields, append, remove } = useFieldArray<
     GiftsArraySchemaType,
