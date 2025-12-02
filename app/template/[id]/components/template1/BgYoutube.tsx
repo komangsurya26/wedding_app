@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export function BgYoutube({ videoIdYoutube }: { videoIdYoutube?: string }) {
+export function BgYoutube({ videoIdYoutube }: { videoIdYoutube: string }) {
   // const url = `https://res.cloudinary.com/dpij7jkkd/video/upload/f_auto,q_auto/videoplayback_pua8re`;
   const url = `https://res.cloudinary.com/dpij7jkkd/video/upload/v1763908785/videoplayback_pua8re.mp4`;
   return (

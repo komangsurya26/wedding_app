@@ -10,7 +10,7 @@ import { Gifts } from "@/src/types";
 //icons
 import { HiOutlineClipboard } from "react-icons/hi";
 
-export function WeddingGift(gifts: Gifts[]) {
+export function WeddingGift({ gifts }: { gifts: Gifts[] }) {
   const [copied, setCopied] = useState<string | null>(null);
   const [isCopying, setIsCopying] = useState(false);
 

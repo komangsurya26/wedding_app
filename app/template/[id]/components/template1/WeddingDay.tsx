@@ -5,7 +5,7 @@ import { Events } from "@/src/types";
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
-export function WeddingDay(events: Events[]) {
+export function WeddingDay({ events }: { events: Events[] }) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-black/30" />
@@ -21,7 +21,7 @@ export function WeddingDay(events: Events[]) {
                   {e.title}
                 </h3>
 
-                <div className="mt-6 text-white">
+                <div className="mt-6 text-white space-y-2">
                   <div className="flex items-center gap-3">
                     <span className="p-2">
                       <FiCalendar className="w-5 h-5" />

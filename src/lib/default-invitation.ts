@@ -3,7 +3,6 @@ import { Invitation } from "@/src/types";
 export const DEFAULT_INVITATIONS: Invitation[] = [
     {
         templateId: 1,
-        
         id_video_youtube: "6FYtKVFik_8",
         photos: {
             photo_brides: [
@@ -47,16 +46,16 @@ export const DEFAULT_INVITATIONS: Invitation[] = [
             short_name: "",
         },
         countdown: {
-            date: ""
+            date: "2025-12-20T16:02:00"
         },
         events: [
             {
-                date: "",
-                end_time: "",
-                location_url: "",
-                start_time: "",
-                title: "",
-                venue: "",
+                date: "Selasa, 2 Desember 2025",
+                end_time: "16:00 WITA",
+                location_url: "https://komangsuryasedana.web.id",
+                start_time: "07.00 WITA",
+                title: "Resepsi",
+                venue: "Mall Bali Galeria",
             }
         ],
         gifts: [

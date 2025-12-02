@@ -3,17 +3,11 @@ import Image from "next/image";
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
 
-export function Bride({
-  full_name,
-  child_order,
-  father,
-  mother,
-  instagram,
-}: BrideTypes) {
+export function Bride(props: BrideTypes & { images: string[] }) {
   return (
     <section className="relative h-screen flex items-end text-end">
       <Image
-        src=""
+        src={props.images[0]}
         alt="Bride"
         fill
         className="absolute object-cover object-center"
@@ -26,16 +20,16 @@ export function Bride({
         </p>
 
         <h2 className="text-3xl md:text-5xl font-serif font-semibold tracking-tight leading-tight text-white">
-          {full_name}
+          {props.full_name}
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putri {child_order.toLowerCase()} dari Bapak {father} dan <br /> Ibu{" "}
-          {mother}
+          Putri {props.child_order.toLowerCase()} dari Bapak {props.father} dan{" "}
+          <br /> Ibu {props.mother}
         </p>
 
         <a
-          href={`https://instagram.com/${instagram}`}
+          href={`https://instagram.com/${props.instagram}`}
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-3 px-4 py-2 w-fit rounded-full text-white/70 bg-white/8 hover:bg-white/15 "
@@ -43,7 +37,7 @@ export function Bride({
           <span className="bg-white/10 rounded-full">
             <FaInstagram className="w-4 h-4" />
           </span>
-          <span>@{instagram}</span>
+          <span>@{props.instagram}</span>
         </a>
       </div>
     </section>
