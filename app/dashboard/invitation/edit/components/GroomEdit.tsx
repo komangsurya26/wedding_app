@@ -73,14 +73,17 @@ export function GroomEdit({
 
   useEffect(() => {
     if (!groom) return;
-    reset({
-      full_name: groom.full_name,
-      short_name: groom.short_name,
-      child_order: groom.child_order,
-      instagram: groom.instagram,
-      father: groom.father,
-      mother: groom.mother,
-    });
+    reset(
+      {
+        full_name: groom.full_name,
+        short_name: groom.short_name,
+        child_order: groom.child_order ?? "none",
+        instagram: groom.instagram,
+        father: groom.father,
+        mother: groom.mother,
+      },
+      { keepDirty: false }
+    );
   }, [reset, groom]);
 
   useEffect(() => {
