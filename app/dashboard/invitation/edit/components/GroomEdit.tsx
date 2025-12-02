@@ -86,7 +86,7 @@ export function GroomEdit({
   useEffect(() => {
     uploader.initSlots(2);
     return () => uploader.setPhotos([]);
-  }, [uploader]);
+  }, []);
 
   if (loading) {
     return (
