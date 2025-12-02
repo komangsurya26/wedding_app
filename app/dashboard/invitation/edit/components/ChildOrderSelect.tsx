@@ -12,7 +12,7 @@ export function ChildOrderSelect({
   value,
   onChange,
 }: {
-  value?: string;
+  value: string;
   onChange: (v: string) => void;
 }) {
   return (
