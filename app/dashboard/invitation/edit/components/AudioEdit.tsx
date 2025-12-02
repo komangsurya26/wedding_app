@@ -16,7 +16,7 @@ import { MUSICS } from "@/src/lib/musics-datas";
 import { MusicSchema, MusicSchemaType } from "@/src/schemas/music.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { AudioSelect } from "./AudioSelect";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -42,7 +42,7 @@ export function AudioEdit({
     mode: "onBlur",
   });
 
-  const { handleSubmit, setValue, register, formState, watch, reset } = form;
+  const { handleSubmit, setValue, register, formState, reset } = form;
 
   useEffect(() => {
     if (!audio) return;
@@ -89,8 +89,14 @@ export function AudioEdit({
     }
   }
 
-  const currentMusicCode = watch("music_code");
-  const currentPreviewUrl = watch("music_url");
+  const currentMusicCode = useWatch({
+    name: "music_code",
+    control: form.control,
+  });
+  const currentPreviewUrl = useWatch({
+    name: "music_url",
+    control: form.control,
+  });
 
   if (loading)
     return (
