@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { GroomEdit } from "./GroomEdit";
 import { FotoEdit } from "./FotoEdit";
-import { useImageUploader } from "@/src/hooks/use-image-uploader";
+import { PhotoState, useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
 import { EventEdit } from "./EventEdit";
 import { ICONS_CONFIG } from "./icons-config";
@@ -39,9 +39,15 @@ export function InvitationEditMenu({
 
   function handleOpenChange(next: boolean) {
     if (!next) {
-      if (uploader.photos.some((p: any) => p?.uploading)) {
+      if (uploader.photos.some((p: PhotoState) => p?.uploading)) {
         toast.warning(
           "Upload sedang berjalan. Tunggu sampai selesai sebelum menutup."
+        );
+        return;
+      }
+      if (uploader.photos.some((p: PhotoState) => p?.removing)) {
+        toast.warning(
+          "Hapus sedang berjalan. Tunggu sampai selesai sebelum menutup."
         );
         return;
       }

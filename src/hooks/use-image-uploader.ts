@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { deleteImage, getSignature } from '../lib/cloudinary'
 
-type PhotoState = {
+export type PhotoState = {
     file?: File | null
     preview?: string | null
     url?: string | null
@@ -152,8 +152,9 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
             const initial = initialPhotos[i];
             // Jika foto awal ada tapi sekarang dihapus → true
             if (initial?.public_id && !p.public_id && !p.saved) return true;
+            if (initial?.public_id && p.public_id && initial?.public_id !== p.public_id && !p.saved) return true;
             // Jika foto baru diupload → true
-            if (!initial?.public_id && p.public_id) return true;
+            if (!initial?.public_id && p.public_id && !p.saved) return true;
 
             return false;
         });
