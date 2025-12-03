@@ -109,3 +109,34 @@ export function usePhotosGrid({
         return () => uploader.setPhotos([]);
     }, [portraits, landscapes, initSlot]);
 }
+
+export function usePhotosLinear({
+    uploader,
+    photos,
+    initSlot,
+}: {
+    uploader: ReturnType<typeof useImageUploader>;
+    photos: PhotoProps[];
+    initSlot: number;
+}) {
+    useEffect(() => {
+        const filled = Array.from({ length: initSlot }).map(() => ({
+            url: "",
+            public_id: "",
+        }));
+
+        photos.forEach((p, i) => {
+            if (i < initSlot) {
+                filled[i] = {
+                    url: p.image_url ?? "",
+                    public_id: p.public_id ?? "",
+                };
+            }
+        });
+
+        uploader.initPhotos(filled);
+
+        return () => uploader.setPhotos([]);
+    }, [photos, initSlot]);
+}
+

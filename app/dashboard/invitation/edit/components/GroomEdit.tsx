@@ -13,7 +13,7 @@ import { Form } from "@/components/ui/form";
 import { useGroom } from "@/src/hooks/use-groom";
 import { Skeleton } from "@/components/ui/skeleton";
 import GroomForm from "./GroomForm";
-import { usePhotoGroom, usePhotosGrid } from "@/src/hooks/use-photos";
+import { usePhotoGroom, usePhotosLinear } from "@/src/hooks/use-photos";
 import { useImageUploader } from "@/src/hooks/use-image-uploader";
 
 export function GroomEdit({
@@ -32,7 +32,7 @@ export function GroomEdit({
     invitationId,
     type
   );
-  usePhotosGrid({ uploader, portraits: photoGrooms, initSlot: 2 });
+  usePhotosLinear({ uploader, photos: photoGrooms, initSlot: 2 });
 
   const form = useForm<GroomSchemaType>({
     resolver: zodResolver(GroomSchema),
@@ -100,14 +100,17 @@ export function GroomEdit({
             <div className="space-y-4">
               <GroomForm form={form} type={type} />
               <div className="grid grid-cols-2 gap-4">
-                {uploader.photos.map((_, i) => (
-                  <ImageUploadField
-                    key={i}
-                    index={i}
-                    uploader={uploader}
-                    invitationId={invitationId}
-                  />
-                ))}
+                {uploader.photos.map((p, idx) => {
+                  const originalIndex = uploader.photos.indexOf(p);
+                  return (
+                    <ImageUploadField
+                      key={originalIndex}
+                      index={originalIndex}
+                      uploader={uploader}
+                      invitationId={invitationId}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

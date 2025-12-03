@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { createPhotos, fecthPhotos } from "@/src/lib/photos-actions";
+import { createPhotos } from "@/src/lib/photos-actions";
 import { Spinner } from "@/components/ui/spinner";
 import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { usePhotosGrid, usePortraitLandscape } from "@/src/hooks/use-photos";
@@ -51,12 +51,22 @@ export function FotoEdit({
         })),
       };
       await createPhotos(payload);
+
+      uploader.setPhotos((prev) =>
+        prev.map((p, i) => {
+          const isTarget =
+            (orientation === "portrait" && i % 2 === 0) ||
+            (orientation === "landscape" && i % 2 === 1);
+
+          return isTarget ? { ...p, saved: true } : p;
+        })
+      );
+
       setLoading(false);
-      toast.success("Foto berhasil disimpan");
-      onClose();
+      toast.success(`Foto ${orientation} berhasil disimpan`);
     } catch (error) {
       setLoading(false);
-      toast.error("Foto gagal disimpan");
+      toast.error(`Foto ${orientation}  gagal disimpan`);
     }
   }
 

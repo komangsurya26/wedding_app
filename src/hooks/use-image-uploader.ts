@@ -8,6 +8,7 @@ type PhotoState = {
     public_id?: string | null
     uploading?: boolean
     removing?: boolean
+    saved?: boolean
 }
 
 
@@ -150,9 +151,10 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
         return photos.some((p, i) => {
             const initial = initialPhotos[i];
             // Jika foto awal ada tapi sekarang dihapus → true
-            if (initial?.public_id && !p.public_id) return true;
+            if (initial?.public_id && !p.public_id && !p.saved) return true;
             // Jika foto baru diupload → true
             if (!initial?.public_id && p.public_id) return true;
+
             return false;
         });
     }
