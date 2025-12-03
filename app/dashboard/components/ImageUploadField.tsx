@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { useImageUploader } from "@/src/hooks/use-image-uploader";
 
 export function ImageUploadField({
   index,
@@ -10,9 +11,7 @@ export function ImageUploadField({
   invitationId,
 }: {
   index: number;
-  uploader: ReturnType<
-    typeof import("@/src/hooks/use-image-uploader").useImageUploader
-  >;
+  uploader: ReturnType<typeof useImageUploader>;
   invitationId: number;
 }) {
   const p = uploader.photos[index];

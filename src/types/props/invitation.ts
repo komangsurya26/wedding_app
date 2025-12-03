@@ -16,6 +16,11 @@ export type Bride = {
     mother: string
 }
 
+export type PhotoProps = {
+    image_url: string
+    public_id: string
+}
+
 export type Photos = {
     photo_brides: string[]
     photo_grooms: string[]

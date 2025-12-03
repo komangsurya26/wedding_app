@@ -17,6 +17,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext<'/api/invitations
             .from("invitations")
             .select("*")
             .eq("id", invitationId)
+            .eq("status", "ACTIVE")
             .maybeSingle()
 
         if (invitError) {

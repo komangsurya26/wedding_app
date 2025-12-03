@@ -7,8 +7,11 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { createPhotos } from "@/src/lib/photos-actions";
+import { createPhotos, fecthPhotos } from "@/src/lib/photos-actions";
 import { Spinner } from "@/components/ui/spinner";
+import { useImageUploader } from "@/src/hooks/use-image-uploader";
+import { usePhotosGrid, usePortraitLandscape } from "@/src/hooks/use-photos";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function FotoEdit({
   invitationId,
@@ -16,17 +19,18 @@ export function FotoEdit({
   onClose,
 }: {
   invitationId: number;
-  uploader: ReturnType<
-    typeof import("@/src/hooks/use-image-uploader").useImageUploader
-  >;
+  uploader: ReturnType<typeof useImageUploader>;
   onClose: () => void;
 }) {
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    uploader.initSlots(10);
-    return () => uploader.setPhotos([]);
-  }, []);
+  const {
+    portraits,
+    landscapes,
+    loading: loadingPhotos,
+  } = usePortraitLandscape(invitationId);
+
+  usePhotosGrid({ uploader, portraits, landscapes, initSlot: 10 });
 
   // pembagian sederhana: index genap -> portrait, ganjil -> landscape
   const portraitPhotos = uploader.photos.filter((_, i) => i % 2 === 0);
@@ -54,6 +58,17 @@ export function FotoEdit({
       setLoading(false);
       toast.error("Foto gagal disimpan");
     }
+  }
+
+  if (loadingPhotos) {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-32 w-full" />
+      </div>
+    );
   }
 
   return (

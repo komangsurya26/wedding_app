@@ -7,7 +7,7 @@ type PhotoGroomBrides = {
     public_id: string
 }
 
-export async function createGroomBride({
+export async function createGroom({
     type,
     invitation_id,
     full_name,

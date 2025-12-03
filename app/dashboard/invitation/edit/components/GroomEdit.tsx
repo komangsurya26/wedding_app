@@ -5,36 +5,34 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
-import { GroomEditProps } from "@/src/types";
-import { createGroomBride } from "@/src/lib/groombride-actions";
+import { createGroom } from "@/src/lib/groom-actions";
 import { GroomSchema, GroomSchemaType } from "@/src/schemas/groom.schema";
 import { toast } from "sonner";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useGroom } from "@/src/hooks/use-groom";
-import { ChildOrderSelect } from "./ChildOrderSelect";
 import { Skeleton } from "@/components/ui/skeleton";
+import GroomForm from "./GroomForm";
+import { usePhotoGroom, usePhotosGrid } from "@/src/hooks/use-photos";
+import { useImageUploader } from "@/src/hooks/use-image-uploader";
 
 export function GroomEdit({
   invitationId,
   type,
   uploader,
   onClose,
-}: GroomEditProps) {
-  const groomName = "I Putu Romeo, S.T., M.T.";
-  const brideName = "Ni Putu Juliet, S.M";
-  const defaultFullName = type === "groom" ? groomName : brideName;
-  const defaultShortName = type === "groom" ? "Romeo" : "Juliet";
-
-  const { groom, loading } = useGroom(invitationId, type);
+}: {
+  invitationId: number;
+  type: "groom" | "bride";
+  uploader: ReturnType<typeof useImageUploader>;
+  onClose: () => void;
+}) {
+  const { groom, loading: loadingGroom } = useGroom(invitationId, type);
+  const { photoGrooms, loading: loadingPhoto } = usePhotoGroom(
+    invitationId,
+    type
+  );
+  usePhotosGrid({ uploader, portraits: photoGrooms, initSlot: 2 });
 
   const form = useForm<GroomSchemaType>({
     resolver: zodResolver(GroomSchema),
@@ -63,7 +61,7 @@ export function GroomEdit({
         })),
       };
 
-      await createGroomBride(payload);
+      await createGroom(payload);
       toast.success("Mempelai berhasil disimpan");
       onClose();
     } catch (error) {
@@ -81,12 +79,8 @@ export function GroomEdit({
     setValue("mother", groom.mother ?? "");
   }, [groom, setValue]);
 
-  useEffect(() => {
-    uploader.initSlots(2);
-    return () => uploader.setPhotos([]);
-  }, []);
-
-  if (loading) {
+  const isLoading = loadingGroom || loadingPhoto;
+  if (isLoading) {
     return (
       <div className="space-y-3">
         <Skeleton className="h-10 w-full" />
@@ -104,109 +98,7 @@ export function GroomEdit({
         <div className="flex flex-col max-h-[55vh]">
           <div className="flex-1 overflow-y-auto pr-3 pb-5 pt-2">
             <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="full_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="full_name">Nama Lengkap</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="full_name"
-                        placeholder={defaultFullName}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="short_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="short_name">Nama Panggilan</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="short_name"
-                        placeholder={defaultShortName}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="child_order"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Anak ke berapa</FormLabel>
-                    <FormControl>
-                      <ChildOrderSelect
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="father"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="father">Nama Bapak</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="father"
-                        placeholder="I Wayan Jaya"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="mother"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="mother">Nama Ibu</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="mother"
-                        placeholder="Ni Nengah Ayu"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instagram"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="instagram">
-                      Instagram (Tanpa @)
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        id="instagram"
-                        placeholder="komangsurya_26"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <GroomForm form={form} type={type} />
               <div className="grid grid-cols-2 gap-4">
                 {uploader.photos.map((_, i) => (
                   <ImageUploadField

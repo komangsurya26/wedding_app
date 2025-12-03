@@ -8,21 +8,22 @@ type PhotoState = {
     public_id?: string | null
     uploading?: boolean
     removing?: boolean
-    saved?: boolean
 }
 
 
 export function useImageUploader({ cloudName }: { cloudName: string; }) {
     const [photos, setPhotos] = useState<PhotoState[]>([])
+    const [initialPhotos, setInitialPhotos] = useState<PhotoState[]>([]);
 
     const inputRefs = useRef<Record<number, HTMLInputElement | null>>({})
 
 
-    function initSlots(count = 1) {
-        setPhotos((prev) => {
-            if (prev.length >= count) return prev
-            return Array.from({ length: count }).map((_, i) => prev[i] ?? { file: null, preview: null, url: null, public_id: null, uploading: false })
-        })
+    function initPhotos(initialData: PhotoState[]) {
+        const filled = [
+            ...initialData,
+        ];
+        setPhotos(filled);
+        setInitialPhotos(filled.map((p) => ({ ...p }))); // untuk set photos awal pertama fetch dari databse
     }
 
 
@@ -49,7 +50,16 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
 
 
         const data = await res.json()
-        setPhotos((prev) => { const next = [...prev]; next[index] = { file, preview: URL.createObjectURL(file), url: data.secure_url, public_id: data.public_id, uploading: false, saved: false }; return next })
+        setPhotos((prev) => {
+            const next = [...prev]; next[index] = {
+                file,
+                preview: URL.createObjectURL(file),
+                url: data.secure_url,
+                public_id: data.public_id,
+                uploading: false,
+            };
+            return next
+        })
         return data
     }
 
@@ -71,7 +81,14 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
             setPhotos((prev) => {
                 const next = [...prev];
                 if (next[index]?.preview) URL.revokeObjectURL(next[index]!.preview!);
-                next[index] = { file: null, preview: null, url: null, public_id: null, uploading: false, removing: false };
+                next[index] = {
+                    file: null,
+                    preview: null,
+                    url: null,
+                    public_id: null,
+                    uploading: false,
+                    removing: false
+                };
                 return next
             })
 
@@ -105,7 +122,14 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
             setPhotos((prev) => {
                 const next = [...prev];
                 if (next[index]?.preview) URL.revokeObjectURL(next[index]!.preview!);
-                next[index] = { file: null, preview: null, url: null, public_id: null, uploading: false, removing: false };
+                next[index] = {
+                    file: null,
+                    preview: null,
+                    url: null,
+                    public_id: null,
+                    uploading: false,
+                    removing: false,
+                };
                 return next
             })
         } catch (error) {
@@ -123,8 +147,15 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
     function trigger(index: number) { inputRefs.current[index]?.click() }
 
     function hasUnsaved() {
-        return photos.some(p => p?.public_id && !p?.saved);
+        return photos.some((p, i) => {
+            const initial = initialPhotos[i];
+            // Jika foto awal ada tapi sekarang dihapus → true
+            if (initial?.public_id && !p.public_id) return true;
+            // Jika foto baru diupload → true
+            if (!initial?.public_id && p.public_id) return true;
+            return false;
+        });
     }
 
-    return { photos, initSlots, uploadFileSigned, replaceFile, remove, bindInput, trigger, setPhotos, hasUnsaved }
+    return { photos, initPhotos, uploadFileSigned, replaceFile, remove, bindInput, trigger, setPhotos, hasUnsaved }
 }

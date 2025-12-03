@@ -43,3 +43,55 @@ export async function createPhotos({ orientation, invitation_id, photos }: {
     }
 }
 
+export async function fecthPhotos({ invitation_id, orientation }: {
+    invitation_id: number,
+    orientation: "portrait" | "landscape",
+}) {
+    try {
+        const supabase = await createClient()
+
+        const table = orientation === "portrait" ? "photo_portraits" : "photo_landscapes"
+        const { data, error } = await supabase
+            .from(table)
+            .select("*")
+            .eq("invitation_id", invitation_id);
+
+        if (error) {
+            throw error
+        }
+
+        if (data && data?.length > 0) {
+            return data
+        }
+        return []
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function fetchPhotoGrooms({ invitation_id, type }: {
+    invitation_id: number,
+    type: "groom" | "bride",
+}) {
+    try {
+        const supabase = await createClient()
+
+        const table = type === "groom" ? "photo_grooms" : "photo_brides"
+        const { data, error } = await supabase
+            .from(table)
+            .select("*")
+            .eq("invitation_id", invitation_id);
+
+        if (error) {
+            throw error
+        }
+
+        if (data && data?.length > 0) {
+            return data
+        }
+        return []
+    } catch (error) {
+        throw error
+    }
+}
+

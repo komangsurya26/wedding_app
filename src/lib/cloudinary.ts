@@ -40,7 +40,7 @@ export async function getSignature(invitationId: number) {
 
 export async function deleteImage(publicId: string) {
     try {
-        const res = await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
+        const res = await cloudinary.uploader.destroy(publicId, { resource_type: 'image', invalidate: true })
         return res
     } catch (err) {
         throw err
