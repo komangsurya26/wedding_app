@@ -55,8 +55,14 @@ export async function POST(req: Request) {
     } else if (transaction_status === "pending") {
         await supabase.from("orders").update({ status: "PENDING", expires_at: expiry_time }).eq("order_ref", order_id);
         return NextResponse.json({ ok: true, message: "Status pending sukses" }, { status: 200 });
-    } else if (transaction_status === "deny" || transaction_status === "cancel" || transaction_status === "expire") {
-        await supabase.from("orders").update({ status: "FAILED" }).eq("order_ref", order_id);
+    } else if (transaction_status === "expire") {
+        await supabase.from("orders").update({ status: "EXPIRED" }).eq("order_ref", order_id);
         return NextResponse.json({ ok: true, message: "Status expired sukses" }, { status: 200 });
+    } else if (transaction_status === "cancel") {
+        await supabase.from("orders").update({ status: "CANCELLED" }).eq("order_ref", order_id);
+        return NextResponse.json({ ok: true, message: "Status cancelled sukses" }, { status: 200 });
+    } else if (transaction_status === "deny") {
+        await supabase.from("orders").update({ status: "FAILED" }).eq("order_ref", order_id);
+        return NextResponse.json({ ok: true, message: "Status failed sukses" }, { status: 200 });
     }
 }
