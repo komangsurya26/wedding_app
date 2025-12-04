@@ -103,7 +103,7 @@ export function OrderList() {
                     </Badge>
                   </TableCell>
                   <TableCell>{formatDate(order.created_at)}</TableCell>
-                  <TableCell>{formatDate(order.expires_at)}</TableCell>
+                  <TableCell>{order.expires_at}</TableCell>
                   <TableCell>{formatDate(order.paid_at)}</TableCell>
 
                   {/* ACTIONS */}
