@@ -96,7 +96,7 @@ export function GroomEdit({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col max-h-[55vh]">
-          <div className="flex-1 overflow-y-auto pr-3 pb-5 pt-2">
+          <div className="flex-1 overflow-y-auto hide-scrollbar pr-3 pb-5 pt-2">
             <div className="space-y-4">
               <GroomForm form={form} type={type} />
               <div className="grid grid-cols-2 gap-4">

@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { InvitationEditMenu } from "./InvitationEditMenu";
+import { InvitationDialog } from "./InvitationDialog";
 import { FallbackInvitationEdit } from "../../components/FallbackInvitationEdit";
 
 export function InvitationEdit() {
@@ -45,11 +45,9 @@ export function InvitationEdit() {
   if (!existInvitation) return <FallbackInvitationEdit />;
 
   return (
-    <div className="h-full w-full">
-      <InvitationEditMenu
-        invitationId={Number(invitationIdStr)}
-        cloudName={cloudName}
-      />
-    </div>
+    <InvitationDialog
+      invitationId={Number(invitationIdStr)}
+      cloudName={cloudName}
+    />
   );
 }

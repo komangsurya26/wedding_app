@@ -15,12 +15,13 @@ import { FotoEdit } from "./FotoEdit";
 import { PhotoState, useImageUploader } from "@/src/hooks/use-image-uploader";
 import { toast } from "sonner";
 import { EventEdit } from "./EventEdit";
-import { ICONS_CONFIG } from "./icons-config";
+import { ICONS_CONFIG } from "../icons/Icons";
 import { GiftEdit } from "./GiftEdit";
 import { AudioEdit } from "./AudioEdit";
 import { VideoEdit } from "./VideoEdit";
+import { CountdownEdit } from "./CountdownEdit";
 
-export function InvitationEditMenu({
+export function InvitationDialog({
   invitationId,
   cloudName,
 }: {
@@ -40,20 +41,16 @@ export function InvitationEditMenu({
   function handleOpenChange(next: boolean) {
     if (!next) {
       if (uploader.photos.some((p: PhotoState) => p?.uploading)) {
-        toast.warning(
-          "Upload sedang berjalan. Tunggu sampai selesai sebelum menutup."
-        );
+        toast.warning("Upload sedang berjalan. Tunggu sampai selesai.");
         return;
       }
       if (uploader.photos.some((p: PhotoState) => p?.removing)) {
-        toast.warning(
-          "Hapus sedang berjalan. Tunggu sampai selesai sebelum menutup."
-        );
+        toast.warning("Hapus sedang berjalan. Tunggu sampai selesai.");
         return;
       }
       if (uploader.hasUnsaved?.()) {
         toast.warning(
-          "Anda punya perubahan yang belum disimpan. Tekan Save untuk menyimpan"
+          "Anda punya perubahan yang belum disimpan. Tekan Save untuk menyimpan."
         );
         return;
       }
@@ -64,7 +61,7 @@ export function InvitationEditMenu({
   const activeItem = ICONS_CONFIG.find((c) => c.key === activeKey);
 
   return (
-    <>
+    <div className="h-full w-full overflow-y-auto hide-scrollbar">
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
         {ICONS_CONFIG.map((item) => (
           <Card
@@ -91,7 +88,7 @@ export function InvitationEditMenu({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="">
+          <div>
             {activeItem && (
               <>
                 {activeItem.key === "groom" && (
@@ -141,11 +138,17 @@ export function InvitationEditMenu({
                     onClose={() => setOpen(false)}
                   />
                 )}
+                {activeItem.key === "countdown" && (
+                  <CountdownEdit
+                    invitationId={invitationId}
+                    onClose={() => setOpen(false)}
+                  />
+                )}
               </>
             )}
           </div>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { InvitationProps } from "@/src/types";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,12 +11,10 @@ import {
 import { PlusCircle, Sparkles, SquarePen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export function InvitationCard({ mode, invitations }: InvitationProps) {
-  const router = useRouter();
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-2">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-2">
       {invitations &&
         invitations.map((data, idx) => (
           <Card className="w-full h-full relative" key={idx}>
@@ -58,19 +55,21 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                   </div>
                 )}
               </div>
-              <CardTitle className="text-sm mb-1">{data.name}</CardTitle>
-              <CardDescription className="text-xs mb-2 line-clamp-2">
+              <CardTitle className="text-sm mb-1 flex justify-center">
+                {data.name}
+              </CardTitle>
+              <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
                 {data.description}
               </CardDescription>
-              <div className="flex items-center space-x-1 mb-2">
+              <div className="flex items-center justify-center space-x-1 mb-4">
                 <span className="text-xs text-muted-foreground capitalize">
                   {data.type}
                 </span>
               </div>
-              <div className="flex items-center justify-end">
+              <div className="flex items-center justify-center">
                 {mode === "all" ? (
                   <Link
-                    className="text-sm px-2 py-1 h-8 flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                    className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
                     href={`/checkout?templateId=${data.templateId}`}
                   >
                     <PlusCircle className="h-4 w-4" />
@@ -80,7 +79,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                   <>
                     {!data.expired ? (
                       <Link
-                        className="text-sm px-2 py-1 h-8 flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                        className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
                         href={`/dashboard/invitation/edit?invitationId=${data.invitationId}`}
                       >
                         <SquarePen className="h-4 w-4" />
@@ -88,7 +87,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                       </Link>
                     ) : (
                       <Link
-                        className="text-sm px-2 py-1 h-8 flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                        className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
                         href={`/checkout/upgrade?invitationId=${data.invitationId}`}
                       >
                         <Sparkles className="h-4 w-4" />

@@ -17,7 +17,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext<'/api/invitations
             .from("invitations")
             .select("*")
             .eq("id", invitationId)
-            .eq("status", "ACTIVE")
+            .gt("expires_at", new Date().toISOString())
             .maybeSingle()
 
         if (invitError) {

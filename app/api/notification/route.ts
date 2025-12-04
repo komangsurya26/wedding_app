@@ -32,7 +32,6 @@ export async function POST(req: Request) {
             await supabase
                 .from("invitations")
                 .update({
-                    status: "ACTIVE",
                     expires_at: addMonths(new Date(), 6).toISOString() // now tambah 6 bulan
                 })
                 .eq("id", orders.invitation_id)
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
             template_id: orders.template_id,
             invitation_name: orders.title_invitation,
             invitation_url: orders.url_invitation,
-            status: "ACTIVE",
             expires_at: addMonths(new Date(), 6).toISOString() // now tambah 6 bulan
         }
         await supabase

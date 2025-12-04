@@ -4,7 +4,7 @@ import { InvitationProps } from "@/src/types";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { InvitationCard } from "./InvitationCard";
 
 export function Invitation({ mode, invitations }: InvitationProps) {
@@ -24,9 +24,6 @@ export function Invitation({ mode, invitations }: InvitationProps) {
       .filter((data) =>
         data.name?.toLowerCase().includes(searchTerm.toLowerCase())
       );
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
 
   return (
     <Tabs defaultValue="wedding" className="h-full w-full space-y-5">
@@ -35,7 +32,9 @@ export function Invitation({ mode, invitations }: InvitationProps) {
           placeholder="Filter undangan..."
           className="h-9 w-40 lg:w-[250px]"
           value={searchTerm}
-          onChange={handleSearch}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
         />
         <TabsList>
           <TabsTrigger value="wedding">Wedding</TabsTrigger>
@@ -45,11 +44,11 @@ export function Invitation({ mode, invitations }: InvitationProps) {
 
       <Separator className="shadow-sm" />
 
-      <TabsContent value="wedding" className="overflow-y-auto">
+      <TabsContent value="wedding" className="overflow-y-auto hide-scrollbar">
         <InvitationCard mode={mode} invitations={weddingInvs} />
       </TabsContent>
 
-      <TabsContent value="metatah" className="overflow-y-auto">
+      <TabsContent value="metatah" className="overflow-y-auto hide-scrollbar">
         <InvitationCard mode={mode} invitations={metatahInvs} />
       </TabsContent>
     </Tabs>

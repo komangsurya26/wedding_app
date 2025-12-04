@@ -95,7 +95,7 @@ export function FotoEdit({
       {/* Potraits Tab */}
       <TabsContent
         value="portrait"
-        className="pr-3 pt-2 overflow-y-auto max-h-[55vh]"
+        className="pr-3 pt-2 overflow-y-auto max-h-[55vh] hide-scrollbar"
       >
         <div className="grid grid-cols-2 gap-4">
           {portraitPhotos.map((p, idx) => {
@@ -115,7 +115,7 @@ export function FotoEdit({
       {/* Landscape Tab */}
       <TabsContent
         value="landscape"
-        className="pr-3 pt-2 overflow-y-auto max-h-[55vh]"
+        className="pr-3 pt-2 overflow-y-auto max-h-[55vh] hide-scrollbar"
       >
         <div className="grid grid-cols-2 gap-4">
           {landscapePhotos.map((p, idx) => {

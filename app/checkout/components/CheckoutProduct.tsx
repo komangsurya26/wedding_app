@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import { v4 as uuid } from "uuid";
 import { toast } from "sonner";
-import { formatIDR, slugify } from "@/src/lib/utils";
+import { addDay, formatIDR, slugify } from "@/src/lib/utils";
 import { useTemplateValidation } from "@/src/hooks/use-template-validation";
 import { useUser } from "@/src/providers/UserProvider";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { createTrialInvitation } from "@/src/lib/invitation-actions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -57,13 +58,6 @@ export function CheckoutProduct() {
   const price = template?.price ?? 50000;
   const subtotal = price;
   const total = Math.max(subtotal - (discount ?? 0), 0);
-
-  const handleSlugChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSlug(slugify(e.target.value));
-    },
-    []
-  );
 
   async function handleProceed() {
     setLoading(true);
@@ -108,17 +102,28 @@ export function CheckoutProduct() {
   }
 
   async function handleProceedTrial() {
-    if (!title.trim() || !slug.trim()) {
-      toast.warning("Judul undangan dan Url undangan harus diisi");
-      return;
+    setLoading(true);
+
+    try {
+      if (!title.trim() || !slug.trim()) {
+        toast.warning("Judul undangan dan Url undangan harus diisi");
+        return;
+      }
+      const payload = {
+        user_id: user?.id ?? "",
+        template_id: String(templateId ?? ""),
+        invitation_name: title.trim(),
+        invitation_url: `${BASE_URL}${slug}`,
+        expires_at: addDay(new Date(), 1).toISOString(),
+      };
+      await createTrialInvitation({ payload });
+      toast.success("Undangan berhasil dibuat");
+      router.push("/dashboard/invitation");
+    } catch (error) {
+      toast.error("Terjadi kesalahan, coba beberapa saat lagi");
+    } finally {
+      setLoading(false);
     }
-    // const params = new URLSearchParams({
-    //   templateId: String(templateId ?? ""),
-    //   title: title.trim(),
-    //   slug: slug.trim(),
-    //   amount: String(total),
-    // });
-    // router.push(`/dashboard/invitation`);
   }
 
   if (checking) return <FallbackCheckout />;
@@ -161,12 +166,14 @@ export function CheckoutProduct() {
             <Input
               placeholder="komang-dan-surya"
               value={slug}
-              onChange={handleSlugChange}
+              onChange={(e) => {
+                setSlug(slugify(e.target.value));
+              }}
               className="flex-1"
             />
           </div>
           <p className="text-sm text-muted-foreground">
-            Preview:{" "}
+            Hasil URL:{" "}
             <span className="font-medium">{`${BASE_URL}${
               slug || "komang-dan-surya"
             }`}</span>

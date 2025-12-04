@@ -40,10 +40,6 @@ const data = {
           title: "Order Saya",
           url: "/dashboard/order",
         },
-        {
-          title: "Invoice",
-          url: "/dashboard/invoice",
-        },
       ],
     },
     {

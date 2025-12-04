@@ -11,10 +11,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createVideo } from "@/src/lib/video-actions";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useVideo } from "@/src/hooks/use-video";
+import { createVideoYoutube } from "@/src/lib/video-actions";
 import { VideoSchema, VideoSchemaType } from "@/src/schemas/video.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -25,6 +27,7 @@ export function VideoEdit({
   invitationId: number;
   onClose: () => void;
 }) {
+  const { video, loading } = useVideo(invitationId);
   const form = useForm<VideoSchemaType>({
     resolver: zodResolver(VideoSchema),
     defaultValues: {
@@ -33,7 +36,11 @@ export function VideoEdit({
     mode: "onBlur",
   });
 
-  const { handleSubmit, formState } = form;
+  const { handleSubmit, formState, setValue } = form;
+  useEffect(() => {
+    if (!video) return;
+    setValue("id_video_youtube", video.id_video_youtube ?? "");
+  }, [video, setValue]);
 
   async function onSubmit(values: VideoSchemaType) {
     try {
@@ -41,13 +48,15 @@ export function VideoEdit({
         invitation_id: invitationId,
         id_video_youtube: values.id_video_youtube,
       };
-      await createVideo(payload);
+      await createVideoYoutube(payload);
       toast.success("Video berhasil disimpan");
       onClose();
     } catch (error) {
       toast.error("Gagal menyimpan video");
     }
   }
+
+  if (loading) return <Skeleton className="h-10 w-full" />;
 
   return (
     <Form {...form}>

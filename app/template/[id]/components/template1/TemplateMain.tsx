@@ -30,7 +30,7 @@ export default function TemplateMain({ config }: { config: Invitation }) {
       />
       <main className="h-screen flex justify-center bg-black">
         <div className="relative h-full w-full lg:w-1/2 overflow-hidden overflow-x-hidden">
-          <BgYoutube videoIdYoutube={config.id_video_youtube!} />
+          <BgYoutube videoIdYoutube={config.video?.id_video_youtube!} />
           <div className={`relative h-full ${isOpened && "overflow-y-auto"}`}>
             <Hero
               isOpened={isOpened}
@@ -67,7 +67,7 @@ export default function TemplateMain({ config }: { config: Invitation }) {
             <WeddingDay events={config.events!} />
             <LoveStory image={config.photos?.photo_portraits[0]!} />
             <Gallery
-              videoIdYoutube={config.id_video_youtube ?? ""}
+              videoIdYoutube={config.video?.id_video_youtube ?? ""}
               imageLandscapes={config.photos?.photo_landscapes ?? []}
               imagePotraits={config.photos?.photo_portraits ?? []}
             />

@@ -3,7 +3,9 @@ import { Invitation } from "@/src/types";
 export const DEFAULT_INVITATIONS: Invitation[] = [
     {
         templateId: 1,
-        id_video_youtube: "6FYtKVFik_8",
+        video: {
+            id_video_youtube: "6FYtKVFik_8"
+        },
         photos: {
             photo_brides: [
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
@@ -46,7 +48,8 @@ export const DEFAULT_INVITATIONS: Invitation[] = [
             short_name: "",
         },
         countdown: {
-            date: "2025-12-20T16:02:00"
+            date: "2025-12-20T16:02:00",
+            time: "16:02:00"
         },
         events: [
             {

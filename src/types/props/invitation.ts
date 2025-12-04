@@ -46,6 +46,11 @@ export type Events = {
 
 export type Countdown = {
     date: string
+    time: string
+}
+
+export type Video = {
+    id_video_youtube?: string
 }
 
 export type Audio = {
@@ -64,7 +69,7 @@ export type Invitation = {
     type?: 'wedding' | 'metatah';
     image?: string;
     photos?: Photos;
-    id_video_youtube?: string
+    video?: Video
     groom?: Groom
     bride?: Bride
     gifts?: Gifts[]

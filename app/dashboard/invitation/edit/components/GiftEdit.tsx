@@ -94,7 +94,7 @@ export function GiftEdit({
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col max-h-[70vh]">
-          <div className="flex-1 overflow-y-auto pr-3 pb-5 pt-2 space-y-6">
+          <div className="flex-1 overflow-y-auto hide-scrollbar pr-3 pb-5 pt-2 space-y-6">
             {fields.map((field, index) => (
               <GiftRow
                 key={field.id}

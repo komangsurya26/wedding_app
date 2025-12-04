@@ -27,3 +27,9 @@ export function addMonths(date: Date, months: number) {
   d.setMonth(d.getMonth() + months);
   return d;
 }
+
+export function addDay(date: Date, days: number) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}

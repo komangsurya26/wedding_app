@@ -199,3 +199,15 @@ select {
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
 }
+
+/* Hide scrollbar but keep scrolling */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}

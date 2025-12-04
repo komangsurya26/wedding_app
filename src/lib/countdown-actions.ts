@@ -2,23 +2,26 @@
 
 import { createClient } from "../utils/supabase/server";
 
-export async function createVideoYoutube({
+export async function createCountdown({
     invitation_id,
-    id_video_youtube
+    date,
+    time
 }: {
     invitation_id: number
-    id_video_youtube: string
+    date: string
+    time: string
 }) {
     try {
         const supabase = await createClient()
 
         const payload = {
             invitation_id,
-            id_video_youtube
+            date,
+            time
         };
 
         const { error } = await supabase
-            .from("video_youtubes")
+            .from("countdowns")
             .upsert(payload, { onConflict: "invitation_id" })
         if (error) throw error
     } catch (err) {
@@ -26,7 +29,7 @@ export async function createVideoYoutube({
     }
 }
 
-export async function fetchVideoYoutube({
+export async function fetchCountdown({
     invitation_id,
 }: {
     invitation_id: number
@@ -35,13 +38,12 @@ export async function fetchVideoYoutube({
         const supabase = await createClient()
 
         const { error, data } = await supabase
-            .from("video_youtubes")
+            .from("countdowns")
             .select("*")
             .eq("invitation_id", invitation_id)
             .maybeSingle()
 
         if (error) throw error
-
         if (data) {
             return data
         }
@@ -50,4 +52,5 @@ export async function fetchVideoYoutube({
         throw error
     }
 };
+
 

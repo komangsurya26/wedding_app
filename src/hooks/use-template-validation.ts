@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { TEMPLATE_LIST } from "@/src/lib/template-data";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-
-
 /**
  * Hook untuk:
  * - validasi templateId dari query (caller tangani redirect)

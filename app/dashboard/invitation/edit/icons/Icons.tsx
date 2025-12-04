@@ -1,4 +1,12 @@
-import { CalendarDays, Code, Gift, Images, Video, Volume2 } from "lucide-react";
+import {
+  CalendarDays,
+  Code,
+  Gift,
+  Images,
+  Timer,
+  Video,
+  Volume2,
+} from "lucide-react";
 import { FaFemale, FaMale } from "react-icons/fa";
 
 type IconConfig = {
@@ -15,5 +23,6 @@ export const ICONS_CONFIG: IconConfig[] = [
   { key: "gifts", icon: <Gift size={30} />, label: "Kado Digital" },
   { key: "audio", icon: <Volume2 size={30} />, label: "Audio" },
   { key: "video", icon: <Video size={30} />, label: "Video" },
+  { key: "countdown", icon: <Timer size={30} />, label: "Countdown" },
   { key: "meta", icon: <Code size={30} />, label: "Meta" },
 ];
