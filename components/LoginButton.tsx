@@ -3,14 +3,17 @@
 import React from "react";
 import Link from "next/link";
 import { useUser } from "@/src/providers/UserProvider";
-import { Skeleton } from "./ui/skeleton";
 
 export default function LoginButton() {
   const { user, loading } = useUser();
-  if (loading) {
-    return <Skeleton className="size-4" />;
-  }
 
+  if (loading) {
+    return (
+      <div className="rounded-full border border-gray-800 px-3.5 py-1 text-black hover:bg-white/15 transition cursor-pointer z-50">
+        Loading...
+      </div>
+    );
+  }
   return (
     <Link
       href={user ? "/dashboard" : "/login"}
