@@ -16,10 +16,23 @@ import { Order } from "@/src/types";
 import { Separator } from "@/components/ui/separator";
 import { SearchOrder } from "./SearchOrder";
 import { FallbackOrder } from "./FallbackOrder";
+import { formatDate, formatExpired } from "@/src/lib/utils";
+import { CancelOrder } from "./CancelOrder";
+import { DetailOrder } from "./DetailOrder";
+import { useSearchParams } from "next/navigation";
 
 export function OrderList() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("order_id");
+
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [searchTerm, setSearchTerm] = useState(search ?? "");
+
+  // filter berdasarkan order_ref
+  const filtered = orders.filter((o) =>
+    o.order_ref.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     async function load() {
@@ -40,99 +53,95 @@ export function OrderList() {
     load();
   }, []);
 
-  function formatDate(date?: string | null) {
-    if (!date) return "-";
-    return new Intl.DateTimeFormat("id", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(new Date(date));
-  }
-
   if (loading) return <FallbackOrder />;
 
   return (
-    <div className="space-y-5">
-      <SearchOrder />
+    <div className="w-full h-full">
+      <div className="space-y-3 mb-4">
+        <SearchOrder
+          searchTerm={searchTerm}
+          onSearch={(e) => setSearchTerm(e)}
+        />
 
-      <Separator className="shadow-sm" />
-
-      <div className="overflow-y-auto hide-scrollbar">
-        <div className="w-full pt-2">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Nama</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Dibuat</TableHead>
-                <TableHead>Kedaluwarsa</TableHead>
-                <TableHead>Dibayar</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody>
-              {orders.map((order, idx) => (
-                <TableRow key={idx}>
-                  <TableCell className="truncate max-w-30">
-                    {order.order_ref}
-                  </TableCell>
-                  <TableCell>{order.title_invitation}</TableCell>
-                  <TableCell>
-                    Rp {order.amount.toLocaleString("id-ID")}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        order.status === "PAID"
-                          ? "success"
-                          : order.status === "PENDING"
-                          ? "outline"
-                          : order.status === "WAITING_PAYMENT"
-                          ? "secondary"
-                          : order.status === "CANCELLED"
-                          ? "warning"
-                          : "destructive"
-                      }
-                    >
-                      {order.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{formatDate(order.created_at)}</TableCell>
-                  <TableCell>{order.expires_at}</TableCell>
-                  <TableCell>{formatDate(order.paid_at)}</TableCell>
-
-                  {/* ACTIONS */}
-                  <TableCell className="text-right space-x-2">
-                    {/* Button Bayar */}
-                    {order.status === "PENDING" && (
-                      <Button size="sm" variant="default">
-                        Bayar
-                      </Button>
-                    )}
-
-                    {/* Button Cancel */}
-                    {order.status === "PENDING" && (
-                      <Button size="sm" variant="destructive">
-                        Cancel
-                      </Button>
-                    )}
-
-                    {/* Button Detail */}
-                    <Button size="sm" variant="outline">
-                      Detail
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Separator className="shadow-sm" />
       </div>
+
+      <div className="w-full h-[75vh] overflow-y-auto hide-scrollbar">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Order ID</TableHead>
+              <TableHead>Judul Undangan</TableHead>
+              <TableHead>Total</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Dibuat</TableHead>
+              <TableHead>Kedaluwarsa</TableHead>
+              <TableHead>Dibayar</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filtered.map((order, idx) => (
+              <TableRow key={idx}>
+                <TableCell className="truncate max-w-30">
+                  {order.order_ref}
+                </TableCell>
+                <TableCell>{order.title_invitation}</TableCell>
+                <TableCell>Rp {order.amount.toLocaleString("id-ID")}</TableCell>
+                <TableCell>
+                  <Badge
+                    variant={
+                      order.status === "PAID"
+                        ? "success"
+                        : order.status === "PENDING"
+                        ? "warning"
+                        : order.status === "WAITING_PAYMENT"
+                        ? "secondary"
+                        : "destructive"
+                    }
+                  >
+                    {order.status}
+                  </Badge>
+                </TableCell>
+                <TableCell>{formatDate(order.created_at)}</TableCell>
+                <TableCell>{formatExpired(order.expires_at)}</TableCell>
+                <TableCell>{formatDate(order.paid_at)}</TableCell>
+
+                {/* ACTIONS PAY */}
+                <TableCell className="space-x-2 flex justify-end">
+                  {order.status === "PENDING" && (
+                    <Button
+                      size="sm"
+                      variant="default"
+                      onClick={() => {
+                        window.location.href = order.url_payment;
+                      }}
+                      className="cursor-pointer"
+                    >
+                      Bayar
+                    </Button>
+                  )}
+                  {/* ACTIONS CANCEL */}
+                  {order.status === "PENDING" && (
+                    <CancelOrder
+                      order_ref={order.order_ref}
+                      onCancelSuccess={(order_ref) =>
+                        setOrders((prev) =>
+                          prev.filter((o) => o.order_ref !== order_ref)
+                        )
+                      }
+                    />
+                  )}
+                  {/* ACTIONS DETAIL */}
+                  <DetailOrder order={order} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* <div className="h-10"></div> */}
     </div>
   );
 }

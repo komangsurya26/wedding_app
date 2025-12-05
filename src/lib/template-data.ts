@@ -1,4 +1,6 @@
-export const TEMPLATE_LIST = [
+import { Template } from "../types";
+
+export const TEMPLATE_LIST: Template[] = [
     {
         id: 1,
         name: "Lume",

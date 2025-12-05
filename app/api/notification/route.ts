@@ -3,6 +3,8 @@ import { verifySignature } from "@/src/lib/midtrans";
 import { createServiceClient } from "@/src/utils/supabase/service";
 import { addMonths } from "@/src/lib/utils";
 
+const TEMPLATE_ACTIVE_DURATION = process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION
+
 export async function POST(req: Request) {
     const raw = await req.text()
     let payload: any;
@@ -32,7 +34,7 @@ export async function POST(req: Request) {
             await supabase
                 .from("invitations")
                 .update({
-                    expires_at: addMonths(new Date(), 6).toISOString() // now tambah 6 bulan
+                    expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString()
                 })
                 .eq("id", orders.invitation_id)
             return NextResponse.json({ ok: true, message: "Status settlement sukses" }, { status: 200 });
@@ -44,7 +46,7 @@ export async function POST(req: Request) {
             template_id: orders.template_id,
             invitation_name: orders.title_invitation,
             invitation_url: orders.url_invitation,
-            expires_at: addMonths(new Date(), 6).toISOString() // now tambah 6 bulan
+            expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString()
         }
         await supabase
             .from("invitations")

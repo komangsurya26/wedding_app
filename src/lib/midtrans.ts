@@ -9,3 +9,7 @@ export function verifySignature({ order_id, status_code, gross_amount, signature
     // timing-safe compare
     return crypto.timingSafeEqual(Buffer.from(expected, "hex"), Buffer.from(String(signature_key), "hex"));
 }
+
+export function getBase64() {
+    return Buffer.from(`${MIDTRANS_SERVER_KEY}:`).toString("base64");
+};

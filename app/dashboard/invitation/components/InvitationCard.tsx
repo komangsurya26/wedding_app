@@ -25,7 +25,7 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                   variant={"outline"}
                   className="rounded-sm bg-amber-300 text-black h-7"
                 >
-                  Kadaluarsa
+                  Kedaluwarsa
                 </Badge>
               </div>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { v4 as uuid } from "uuid";
 import { toast } from "sonner";
@@ -18,6 +18,8 @@ import { Spinner } from "@/components/ui/spinner";
 import { createTrialInvitation } from "@/src/lib/invitation-actions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const TEMPLATE_ACTIVE_DURATION =
+  process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION;
 
 type Item = {
   id: string;
@@ -187,7 +189,7 @@ export function CheckoutProduct() {
           <Label className="text-base font-medium">Detail Produk</Label>
           <div className="flex justify-between">
             <div className="font-normal text-muted-foreground">Tipe</div>
-            <div className="font-normal text-muted-foreground">
+            <div className="font-normal text-muted-foreground capitalize">
               {template?.type}
             </div>
           </div>
@@ -205,7 +207,9 @@ export function CheckoutProduct() {
           </div>
           <div className="flex justify-between">
             <div className="font-normal text-muted-foreground">Masa Aktif</div>
-            <div className="font-normal text-muted-foreground">6 Bulan</div>
+            <div className="font-normal text-muted-foreground">
+              {TEMPLATE_ACTIVE_DURATION} Bulan
+            </div>
           </div>
 
           <Separator />

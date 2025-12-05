@@ -3,6 +3,7 @@ export type Order = {
     order_ref: string
     amount: number
     title_invitation: string
+    template_id: string
     url_invitation: string
     url_payment: string
     status: 'PENDING' | 'PAID' | 'FAILED' | 'CANCELLED' | 'EXPIRED' | 'WAITING_PAYMENT'

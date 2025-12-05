@@ -1,0 +1,90 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { TEMPLATE_LIST } from "@/src/lib/template-data";
+import { formatIDR } from "@/src/lib/utils";
+import { Order, Template } from "@/src/types";
+import React, { useEffect, useState } from "react";
+
+const TEMPLATE_ACTIVE_DURATION = process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION
+
+export function DetailOrder({ order }: { order: Order }) {
+  const [template, setTemplate] = useState<Template>();
+
+  useEffect(() => {
+    if (!order?.template_id) return;
+
+    const data = TEMPLATE_LIST.find(
+      (t) => Number(t.id) === Number(order.template_id)
+    );
+
+    setTemplate(data);
+  }, [order.template_id]);
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline" className="cursor-pointer">
+          Detail
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent className="max-w-sm">
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold">Detail Order</DialogTitle>
+          <DialogDescription>
+            Informasi mengenai pesanan undangan Anda.
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Isi konten */}
+        <div className="space-y-3 mt-2">
+          <div className="flex justify-between">
+            <span className="font-medium">Tipe</span>
+            <span className="text-muted-foreground capitalize">
+              {template?.type}
+            </span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="font-medium">Nama Template</span>
+            <span className="text-muted-foreground">{template?.name}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="font-medium">Harga</span>
+            <span className="text-muted-foreground">
+              {formatIDR(template?.price ?? 0)}
+            </span>
+          </div>
+
+          <div className="flex justify-between">
+            <span className="font-medium">Masa Aktif</span>
+            <span className="text-muted-foreground">{TEMPLATE_ACTIVE_DURATION} Bulan</span>
+          </div>
+
+          {order.status === "PAID" && (
+            <div className="pt-2">
+              <p className="font-medium">URL Undangan</p>
+              <a
+                href={order.url_invitation}
+                target="_blank"
+                className="text-blue-600 underline break-all"
+              >
+                {order.url_invitation}
+              </a>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

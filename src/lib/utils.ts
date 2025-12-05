@@ -33,3 +33,31 @@ export function addDay(date: Date, days: number) {
   d.setDate(d.getDate() + days);
   return d;
 }
+
+export function formatExpired(date?: string | null) {
+  if (!date) return "-";
+
+  // Hilangkan Z agar tidak berubah timezone
+  const clean = date.replace("Z", "");
+
+  // Pecah manual
+  const [datePart, timePart] = clean.split("T");
+  const [year, month, day] = datePart.split("-");
+  const [hour, minute] = timePart.split(":");
+
+  const monthName = new Date(clean).toLocaleString("id-ID", { month: "short" });
+
+  // Contoh: 27 Des 2025, 11:52
+  return `${day} ${monthName} ${year}, ${hour}:${minute}`;
+}
+
+export function formatDate(date?: string | null) {
+  if (!date) return "-";
+  return new Intl.DateTimeFormat("id", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(date));
+}
