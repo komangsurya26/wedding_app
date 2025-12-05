@@ -1,6 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { OrderList } from "./components/OrderList";
+import { FallbackOrder } from "./components/FallbackOrder";
 
 export default function OrderPage() {
-  return <OrderList />;
+  return (
+    <Suspense fallback={<FallbackOrder />}>
+      <OrderList />
+    </Suspense>
+  );
 }
