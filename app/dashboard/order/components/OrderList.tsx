@@ -123,8 +123,7 @@ export function OrderList() {
                     </Button>
                   )}
                   {/* ACTIONS CANCEL */}
-                  {(order.status === "PENDING" ||
-                    order.status === "WAITING_PAYMENT") && (
+                  {order.status === "PENDING" && (
                     <CancelOrder
                       order_ref={order.order_ref}
                       onCancelSuccess={(order_ref) =>
