@@ -11,24 +11,16 @@ import {
 } from "@/components/ui/dialog";
 import { TEMPLATE_LIST } from "@/src/lib/template-data";
 import { formatIDR } from "@/src/lib/utils";
-import { Order, Template } from "@/src/types";
-import React, { useEffect, useState } from "react";
+import { Order } from "@/src/types";
+import React from "react";
 
-const TEMPLATE_ACTIVE_DURATION = process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION
+const TEMPLATE_ACTIVE_DURATION =
+  process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION;
 
 export function DetailOrder({ order }: { order: Order }) {
-  const [template, setTemplate] = useState<Template>();
-
-  useEffect(() => {
-    if (!order?.template_id) return;
-
-    const data = TEMPLATE_LIST.find(
-      (t) => Number(t.id) === Number(order.template_id)
-    );
-
-    setTemplate(data);
-  }, [order.template_id]);
-
+  const template =
+    TEMPLATE_LIST.find((t) => String(t.id) === String(order.template_id)) ??
+    null;
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -68,7 +60,9 @@ export function DetailOrder({ order }: { order: Order }) {
 
           <div className="flex justify-between">
             <span className="font-medium">Masa Aktif</span>
-            <span className="text-muted-foreground">{TEMPLATE_ACTIVE_DURATION} Bulan</span>
+            <span className="text-muted-foreground">
+              {TEMPLATE_ACTIVE_DURATION} Bulan
+            </span>
           </div>
 
           {order.status === "PAID" && (
