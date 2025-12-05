@@ -12,7 +12,8 @@ export async function GET() {
     const { data, error } = await (await supabase)
         .from("orders")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
 
     if (error) {
         return NextResponse.json({ ok: false, error: error.message }, { status: 500 });

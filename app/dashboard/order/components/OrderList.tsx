@@ -129,7 +129,11 @@ export function OrderList() {
                       order_ref={order.order_ref}
                       onCancelSuccess={(order_ref) =>
                         setOrders((prev) =>
-                          prev.filter((o) => o.order_ref !== order_ref)
+                          prev.map((o) =>
+                            o.order_ref === order_ref
+                              ? { ...o, status: "CANCELLED" }
+                              : o
+                          )
                         )
                       }
                     />
