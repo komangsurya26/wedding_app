@@ -109,7 +109,8 @@ export function OrderList() {
 
                 {/* ACTIONS PAY */}
                 <TableCell className="space-x-2 flex justify-end">
-                  {order.status === "PENDING" && (
+                  {(order.status === "PENDING" ||
+                    order.status === "WAITING_PAYMENT") && (
                     <Button
                       size="sm"
                       variant="default"
@@ -122,7 +123,8 @@ export function OrderList() {
                     </Button>
                   )}
                   {/* ACTIONS CANCEL */}
-                  {order.status === "PENDING" && (
+                  {(order.status === "PENDING" ||
+                    order.status === "WAITING_PAYMENT") && (
                     <CancelOrder
                       order_ref={order.order_ref}
                       onCancelSuccess={(order_ref) =>
