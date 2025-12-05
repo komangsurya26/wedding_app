@@ -10,8 +10,6 @@ export function FallbackInvitationEdit() {
         <Skeleton className="h-40 w-full" />
         <Skeleton className="h-40 w-full" />
         <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
       </div>
     </div>
   );

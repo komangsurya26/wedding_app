@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function FallbackInvitation() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[85vh] overflow-hidden">
       <div className="mb-10 flex flex-row gap-3">
         <Skeleton className="h-10 w-50" />
         <Skeleton className="h-10 w-30" />

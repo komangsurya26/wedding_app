@@ -3,9 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { useUser } from "@/src/providers/UserProvider";
+import { Skeleton } from "./ui/skeleton";
 
 export default function LoginButton() {
-  const { user } = useUser();
+  const { user, loading } = useUser();
+  if (loading) {
+    return <Skeleton className="size-4" />;
+  }
+
   return (
     <Link
       href={user ? "/dashboard" : "/login"}

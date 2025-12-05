@@ -6,9 +6,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Home } from "lucide-react";
+import { Home, LucideHome } from "lucide-react";
 import Link from "next/link";
 import { AppSidebar } from "./components/AppSidebar";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Dashboard — Resepsi Bali",
@@ -32,9 +33,13 @@ export default async function DaashboardLayout({
             />
             <BreadcrumbDynamic />
           </div>
-          <div className="flex items-center gap-2">
+          <Link href={"/"} className="flex items-center lg:hidden">
+            <Home size={20} strokeWidth={1.8} />
+          </Link>
+
+          <div className="hidden items-center lg:flex">
             <Link href={"/"}>
-              <Home />
+              <Button variant={"outline"}>Halaman Utama</Button>
             </Link>
           </div>
         </header>
