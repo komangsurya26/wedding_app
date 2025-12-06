@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { fecthPhotos, fetchPhotoGrooms } from "../lib/photos-actions";
 import { PhotoProps } from "../types";
@@ -70,13 +71,10 @@ export function usePhotosGrid({
     initSlot: number;
 }) {
     useEffect(() => {
-        // buat array placeholder sesuai initSlot
         const filled = Array.from({ length: initSlot }).map(() => ({
             url: "",
             public_id: "",
         }));
-
-        // masukkan portrait ke index genap
         if (portraits) {
             portraits.forEach((p, i) => {
                 const idx = i * 2;
@@ -88,8 +86,6 @@ export function usePhotosGrid({
                 }
             });
         }
-
-        // masukkan landscape ke index ganjil
         if (landscapes) {
             landscapes.forEach((p, i) => {
                 const idx = i * 2 + 1;
