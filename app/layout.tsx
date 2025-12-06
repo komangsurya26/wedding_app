@@ -22,7 +22,7 @@ export default async function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </head>
-      <body className={`${fontVariables} antialiased`}>
+      <body className={`${fontVariables} antialiased font-karla`}>
         <UserProvider>
           <main>{children}</main>
         </UserProvider>

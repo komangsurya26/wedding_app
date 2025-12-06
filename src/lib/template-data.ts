@@ -28,4 +28,13 @@ export const TEMPLATE_LIST: Template[] = [
         href: "/template/3",
         description: "Template dengan konsep glass"
     },
+    {
+        id: 4,
+        name: "True Gold",
+        type: "wedding",
+        img: "",
+        price: 100000,
+        href: "/template/3",
+        description: "Template dengan konsep glass"
+    },
 ];

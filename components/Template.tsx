@@ -7,18 +7,9 @@ export default function Template() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-20">
         {/* Header */}
-        <div className="flex items-center mb-12">
-          <div>
-            <p className="font-karla text-gray-700">- Our Template</p>
-            <div className="mt-5 flex space-x-4">
-              <button className="border border-black/20 text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-gray-100 cursor-pointer">
-                Wedding
-              </button>
-              <button className="border border-black/20 text-black px-2 py-2 sm:px-3 text-sm sm:text-base md:text-lg rounded-none font-medium hover:bg-gray-100 cursor-pointer">
-                Metatah
-              </button>
-            </div>
-          </div>
+        <div className="text-center items-center mb-12">
+          <p className="font-karla text-gray-700">- Our Template -</p>
+          <h2 className="text-4xl mt-2 font-marcellus">Pilih template</h2>
         </div>
 
         {/* Grid */}
@@ -48,7 +39,7 @@ export default function Template() {
                 </div>
 
                 <div className="p-4 text-center space-y-3">
-                  <h2 className="text-lg font-semibold text-gray-800">
+                  <h2 className="text-lg font-semibold text-gray-800 font-marcellus">
                     {template.name}
                   </h2>
 

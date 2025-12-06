@@ -23,7 +23,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Left - About */}
         <div>
-          <h2 className="text-black text-xl font-semibold mb-4">
+          <h2 className="text-black text-xl font-semibold mb-4 font-marcellus">
             Tentang Kami
           </h2>
           <p className="text-black text-sm leading-relaxed">
@@ -34,7 +34,7 @@ export default function Footer() {
 
         {/* Middle - Form */}
         <div>
-          <h2 className="text-black text-xl font-semibold mb-4">Kirim Pesan</h2>
+          <h2 className="text-black text-xl font-semibold mb-4 font-marcellus">Kirim Pesan</h2>
           <div className="space-y-3">
             <input
               type="text"
@@ -61,7 +61,7 @@ export default function Footer() {
 
         {/* Right - Social Media */}
         <div>
-          <h2 className="text-black text-xl font-semibold mb-4">Ikuti Kami</h2>
+          <h2 className="text-black text-xl font-semibold mb-4 font-marcellus">Ikuti Kami</h2>
           <div className="flex space-x-4 text-white">
             <a
               href="https://instagram.com"
