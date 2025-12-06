@@ -9,34 +9,29 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import React from "react";
-import Link from "next/link";
+
+const breadcrumbConfig: Record<string, string[]> = {
+  // Record untuk membuat key string dan value array string
+  "/dashboard": ["Dashboard"],
+  "/dashboard/invitation": ["Undangan", "Undangan Saya"],
+  "/dashboard/invitation/edit": ["Undangan", "Undangan Saya", "Edit"],
+  "/dashboard/invitation/create": ["Undangan", "Buat Undangan"],
+  "/dashboard/order": ["Order", "Order Saya"],
+  "/dashboard/faq": ["Bantuan", "FAQ"],
+};
 
 export function BreadcrumbDynamic() {
-  const pathname = usePathname() ?? "/";
-  const segments = pathname.split("/").filter((segment) => segment !== "");
-  const breadcrumbs = segments.map((segment, index) => {
-    const href = "/" + segments.slice(0, index + 1).join("/");
-    const isLast = index === segments.length - 1;
-    const title =
-      segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
-    return { title, href, isLast, index };
-  });
+  const pathname = usePathname();
+  const breadcrumbs = breadcrumbConfig[pathname] ?? [];
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {breadcrumbs.map((item) => (
-          <React.Fragment key={`crumb-${item.index}`}>
-            <BreadcrumbSeparator />
-
+        {breadcrumbs.map((title, idx) => (
+          <React.Fragment key={`crumb-${idx}`}>
+            {idx > 0 && <BreadcrumbSeparator />}
             <BreadcrumbItem>
-              {item.isLast ? (
-                <BreadcrumbPage>{item.title}</BreadcrumbPage>
-              ) : (
-                <BreadcrumbPage className="text-foreground/60 hover:text-foreground/50">
-                  <Link href={item.href}>{item.title}</Link>
-                </BreadcrumbPage>
-              )}
+              <BreadcrumbPage>{title}</BreadcrumbPage>
             </BreadcrumbItem>
           </React.Fragment>
         ))}

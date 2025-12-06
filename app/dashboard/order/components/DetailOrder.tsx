@@ -12,6 +12,7 @@ import {
 import { TEMPLATE_LIST } from "@/src/lib/template-data";
 import { formatIDR } from "@/src/lib/utils";
 import { Order } from "@/src/types";
+import Link from "next/link";
 import React from "react";
 
 const TEMPLATE_ACTIVE_DURATION =
@@ -68,13 +69,12 @@ export function DetailOrder({ order }: { order: Order }) {
           {order.status === "PAID" && (
             <div className="pt-2">
               <p className="font-medium">URL Undangan</p>
-              <a
+              <Link
                 href={order.url_invitation}
-                target="_blank"
-                className="text-blue-600 underline break-all"
+                className="underline text-muted-foreground text-sm"
               >
                 {order.url_invitation}
-              </a>
+              </Link>
             </div>
           )}
         </div>

@@ -58,9 +58,18 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
               <CardTitle className="text-sm mb-1 flex justify-center">
                 {data.name}
               </CardTitle>
-              <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
-                {data.description}
-              </CardDescription>
+              {data.description && (
+                <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
+                  {data.description}
+                </CardDescription>
+              )}
+              {data.urlInvitation && (
+                <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
+                  <Link href={data.urlInvitation} className="underline text-center">
+                    {data.urlInvitation}
+                  </Link>
+                </CardDescription>
+              )}
               <div className="flex items-center justify-center space-x-1 mb-4">
                 <span className="text-xs text-muted-foreground capitalize">
                   {data.type}
