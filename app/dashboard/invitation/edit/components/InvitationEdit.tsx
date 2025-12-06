@@ -23,9 +23,12 @@ export function InvitationEdit() {
         return;
       }
 
-      const res = await fetch(`/api/invitations/${invitationIdStr}`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `/api/invitations/${invitationIdStr}?expired=false`,
+        {
+          credentials: "include",
+        }
+      );
 
       const json = await res.json();
 

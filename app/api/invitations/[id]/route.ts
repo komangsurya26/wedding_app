@@ -13,12 +13,24 @@ export async function GET(_req: NextRequest, ctx: RouteContext<'/api/invitations
     }
 
     try {
-        const { data: invitation, error: invitError } = await (await supabase)
+        const searchParams = _req.nextUrl.searchParams;
+        const expired = searchParams.get("expired")
+
+        const now = new Date().toISOString();
+
+        const query = (await supabase)
             .from("invitations")
             .select("*")
             .eq("id", invitationId)
-            .gt("expires_at", new Date().toISOString())
-            .maybeSingle()
+
+        if (expired === "true") {
+            query.lt("expires_at", now);
+        }
+        if (expired === "false") {
+            query.gt("expires_at", now);
+        }
+
+        const { data: invitation, error: invitError } = await query.maybeSingle();
 
         if (invitError) {
             return NextResponse.json(
@@ -35,7 +47,7 @@ export async function GET(_req: NextRequest, ctx: RouteContext<'/api/invitations
             return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
         }
 
-        return Response.json({ ok: true }, { status: 200 })
+        return Response.json({ ok: true, invitation }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ ok: false, error: "Internal server error" }, { status: 500 });
     }

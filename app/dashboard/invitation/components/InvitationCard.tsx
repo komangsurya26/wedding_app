@@ -1,6 +1,6 @@
 "use client";
 
-import { InvitationProps } from "@/src/types";
+import { Invitation } from "@/src/types";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -12,7 +12,12 @@ import { PlusCircle, Sparkles, SquarePen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function InvitationCard({ mode, invitations }: InvitationProps) {
+export type InvitationCardProps = {
+  mode?: "all" | "mine";
+  invitations: Invitation[] | [];
+};
+
+export function InvitationCard({ mode, invitations }: InvitationCardProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-2">
       {invitations &&
@@ -65,7 +70,10 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
               )}
               {data.urlInvitation && (
                 <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
-                  <Link href={data.urlInvitation} className="underline text-center">
+                  <Link
+                    href={data.urlInvitation}
+                    className="underline text-center"
+                  >
                     {data.urlInvitation}
                   </Link>
                 </CardDescription>
@@ -97,10 +105,10 @@ export function InvitationCard({ mode, invitations }: InvitationProps) {
                     ) : (
                       <Link
                         className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
-                        href={`/checkout/upgrade?invitationId=${data.invitationId}`}
+                        href={`/checkout/?invitationId=${data.invitationId}`}
                       >
                         <Sparkles className="h-4 w-4" />
-                        Upgrade undangan
+                        Aktifkan undangan
                       </Link>
                     )}
                   </>

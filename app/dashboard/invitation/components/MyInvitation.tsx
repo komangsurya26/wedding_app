@@ -28,6 +28,7 @@ export function MyInvitation() {
             ? new Date() > new Date(item.expires_at)
             : false,
           urlInvitation: item.invitation_url ?? "",
+          templateId: item.template_id ?? "",
         }));
         setMyInvitations(data);
       } catch (error) {

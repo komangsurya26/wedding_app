@@ -5,7 +5,7 @@ import Image from "next/image";
 import { v4 as uuid } from "uuid";
 import { toast } from "sonner";
 import { addDay, formatIDR, slugify } from "@/src/lib/utils";
-import { useTemplateValidation } from "@/src/hooks/use-template-validation";
+import { useCheckoutValidation } from "@/src/hooks/use-checkout-validation";
 import { useUser } from "@/src/providers/UserProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FallbackCheckout } from "./FallbackCheckout";
@@ -28,6 +28,7 @@ type Item = {
   price: number;
   quantity: number;
   name: string;
+  invitation_id: string | null;
 };
 type Customer = {
   id: string;
@@ -40,22 +41,32 @@ interface PaymentProps {
   item: Item;
   customer: Customer;
 }
+interface TrialProps {
+  user_id: string;
+  template_id: string;
+  invitation_name: string;
+  invitation_url: string;
+  expires_at: string;
+}
 
 export function CheckoutProduct() {
   const { user } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get("templateId");
+  const invitationId = searchParams.get("invitationId");
+
+  // validation + discount logic in hook
+  const { checking, valid, template, discount, invitation } =
+    useCheckoutValidation({
+      templateId,
+      invitationId,
+      router,
+    });
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // validation + discount logic in hook
-  const { checking, valid, template, discount } = useTemplateValidation({
-    templateId,
-    router,
-  });
 
   const price = template?.price ?? 50000;
   const subtotal = price;
@@ -65,26 +76,29 @@ export function CheckoutProduct() {
     setLoading(true);
 
     try {
-      if (!title.trim() || !slug.trim()) {
-        toast.warning("Judul undangan dan Url undangan harus diisi");
-        return;
+      if (templateId) {
+        if (!title.trim() || !slug.trim()) {
+          toast.warning("Judul undangan dan Url undangan harus diisi");
+          return;
+        }
       }
 
       const payload: PaymentProps = {
         orderId: uuid(),
         amount: total,
         item: {
-          id: String(template?.id) ?? "1",
-          name: template?.name ?? "",
-          price: template?.price ?? 0,
+          id: String(template?.id),
+          name: template?.name!,
+          price: price,
           quantity: 1,
-          title_invitation: title,
+          title_invitation: title ? title : invitation?.name!,
           url_invitation: `${BASE_URL}${slug}`,
+          invitation_id: invitationId,
         },
         customer: {
-          id: user?.id ?? "",
-          first_name: user?.full_name ?? "",
-          email: user?.email ?? "",
+          id: user?.id!,
+          first_name: user?.full_name!,
+          email: user?.email!,
         },
       };
 
@@ -111,9 +125,9 @@ export function CheckoutProduct() {
         toast.warning("Judul undangan dan Url undangan harus diisi");
         return;
       }
-      const payload = {
-        user_id: user?.id ?? "",
-        template_id: String(templateId ?? ""),
+      const payload: TrialProps = {
+        user_id: user?.id!,
+        template_id: String(templateId),
         invitation_name: title.trim(),
         invitation_url: `${BASE_URL}${slug}`,
         expires_at: addDay(new Date(), 1).toISOString(),
@@ -144,42 +158,62 @@ export function CheckoutProduct() {
               className="w-full h-full object-contain"
             />
           </div>
-          <Label className="text-2xl font-bold tracking-widest">CHECKOUT</Label>
+          <Label className="text-2xl font-bold tracking-wide">
+            {invitationId ? "AKTIVASI ULANG" : "CHECKOUT"}
+          </Label>
         </div>
         {/* Judul Undangan */}
         <div className="space-y-2">
           <Label className="text-base font-medium">Judul Undangan</Label>
-          <Input
-            placeholder="Komang & Surya Wedding"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          {invitationId ? (
+            <Input
+              value={invitation?.name}
+              readOnly
+              className="bg-muted cursor-not-allowed text-muted-foreground"
+            />
+          ) : (
+            <Input
+              placeholder="Komang & Surya Wedding"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          )}
         </div>
 
         {/* URL Undangan */}
         <div className="space-y-2">
           <Label className="text-base font-medium">URL Undangan</Label>
-          <div className="flex items-center gap-2">
+          {templateId ? (
+            <>
+              <div className="flex items-center gap-2">
+                <Input
+                  value={BASE_URL}
+                  readOnly
+                  className="w-[200px] bg-muted cursor-not-allowed text-muted-foreground"
+                />
+                <Input
+                  placeholder="komang-dan-surya"
+                  value={slug}
+                  onChange={(e) => {
+                    setSlug(slugify(e.target.value));
+                  }}
+                  className="flex-1"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Hasil URL:{" "}
+                <span className="font-medium">{`${BASE_URL}${
+                  slug || "komang-dan-surya"
+                }`}</span>
+              </p>
+            </>
+          ) : (
             <Input
-              value={BASE_URL}
+              value={invitation?.urlInvitation}
               readOnly
-              className="w-[200px] bg-muted cursor-not-allowed text-muted-foreground"
+              className="w-full bg-muted cursor-not-allowed text-muted-foreground"
             />
-            <Input
-              placeholder="komang-dan-surya"
-              value={slug}
-              onChange={(e) => {
-                setSlug(slugify(e.target.value));
-              }}
-              className="flex-1"
-            />
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Hasil URL:{" "}
-            <span className="font-medium">{`${BASE_URL}${
-              slug || "komang-dan-surya"
-            }`}</span>
-          </p>
+          )}
         </div>
 
         <Separator />

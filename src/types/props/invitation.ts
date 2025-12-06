@@ -78,8 +78,3 @@ export type Invitation = {
     audio?: Audio
     expired?: boolean;
 };
-
-export type InvitationProps = {
-    mode?: "all" | "mine";
-    invitations: Invitation[] | [];
-};

@@ -43,6 +43,7 @@ export async function POST(req: Request) {
             url_invitation: item.url_invitation,
             amount: amount,
             url_payment: response.redirect_url,
+            invitation_id: item.invitation_id,
             status: "WAITING_PAYMENT",
         }
         const { error } = await supabase

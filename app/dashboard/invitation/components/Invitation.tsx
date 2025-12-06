@@ -1,13 +1,12 @@
 "use client";
 
-import { InvitationProps } from "@/src/types";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useState } from "react";
-import { InvitationCard } from "./InvitationCard";
+import { InvitationCard, InvitationCardProps } from "./InvitationCard";
 
-export function Invitation({ mode, invitations }: InvitationProps) {
+export function Invitation({ mode, invitations }: InvitationCardProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const weddingInvs =
