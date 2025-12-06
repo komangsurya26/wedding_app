@@ -30,7 +30,7 @@
     "lightgallery": "^2.9.0",
     "lucide-react": "^0.553.0",
     "midtrans-client": "^1.4.3",
-    "next": "15.5.3",
+    "next": "^16.0.7",
     "next-themes": "^0.4.6",
     "react": "19.1.0",
     "react-countdown": "^2.3.6",
