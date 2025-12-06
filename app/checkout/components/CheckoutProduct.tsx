@@ -92,7 +92,7 @@ export function CheckoutProduct() {
           price: price,
           quantity: 1,
           title_invitation: title ? title : invitation?.name!,
-          url_invitation: `${BASE_URL}${slug}`,
+          url_invitation: templateId ? `${BASE_URL}${slug}` : invitation?.urlInvitation!,
           invitation_id: invitationId,
         },
         customer: {
