@@ -22,13 +22,13 @@ export function MyInvitation() {
         const data = json.data.map((item: any) => ({
           invitationId: item.id,
           name: item.invitation_name,
-          type: item.type ?? "wedding",
-          image: item.image ?? "",
+          type: item.type,
+          image: item.image,
           expired: item.expires_at
             ? new Date() > new Date(item.expires_at)
             : false,
-          urlInvitation: item.invitation_url ?? "",
-          templateId: item.template_id ?? "",
+          urlInvitation: item.invitation_url,
+          templateId: item.template_id,
         }));
         setMyInvitations(data);
       } catch (error) {

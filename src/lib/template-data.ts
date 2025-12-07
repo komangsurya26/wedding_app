@@ -1,10 +1,10 @@
-import { Template } from "../types";
+import { InvitationType, Template } from "../types";
 
 export const TEMPLATE_LIST: Template[] = [
     {
         id: 1,
         name: "Lume",
-        type: "wedding",
+        type: InvitationType.BASIC,
         img: "",
         price: 100000,
         href: "/template/1",
@@ -13,7 +13,7 @@ export const TEMPLATE_LIST: Template[] = [
     {
         id: 2,
         name: "Chocolate Dream",
-        type: "wedding",
+        type: InvitationType.BASIC,
         img: "",
         price: 100000,
         href: "/template/2",
@@ -22,7 +22,7 @@ export const TEMPLATE_LIST: Template[] = [
     {
         id: 3,
         name: "True Potential",
-        type: "wedding",
+        type: InvitationType.PREMIUM,
         img: "",
         price: 100000,
         href: "/template/3",
@@ -31,7 +31,7 @@ export const TEMPLATE_LIST: Template[] = [
     {
         id: 4,
         name: "True Gold",
-        type: "wedding",
+        type: InvitationType.VIP,
         img: "",
         price: 100000,
         href: "/template/3",

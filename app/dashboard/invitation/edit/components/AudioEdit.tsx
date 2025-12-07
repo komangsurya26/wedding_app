@@ -87,10 +87,6 @@ export function AudioEdit({
     }
   }
 
-  const currentMusicCode = useWatch({
-    name: "music_code",
-    control: form.control,
-  });
   const currentPreviewUrl = useWatch({
     name: "music_url",
     control: form.control,
@@ -113,12 +109,12 @@ export function AudioEdit({
               <FormField
                 control={form.control}
                 name="music_code"
-                render={() => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Pilih Audio</FormLabel>
                     <FormControl>
                       <AudioSelect
-                        value={currentMusicCode}
+                        value={field.value}
                         onChange={handleMusicSelect}
                       />
                     </FormControl>

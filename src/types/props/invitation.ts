@@ -1,3 +1,5 @@
+import { InvitationType } from "./template"
+
 export type Groom = {
     full_name: string
     short_name: string
@@ -60,13 +62,13 @@ export type Audio = {
 }
 
 export type Invitation = {
-    templateId?: number | string; //invitationId atau templateId
+    templateId?: number | string;
     invitationId?: number | string;
     urlInvitation?: string
     urlTemplate?: string
     name?: string;
     description?: string;
-    type?: 'wedding' | 'metatah';
+    type?: InvitationType;
     image?: string;
     photos?: Photos;
     video?: Video

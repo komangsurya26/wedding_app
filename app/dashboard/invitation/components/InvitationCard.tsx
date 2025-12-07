@@ -11,6 +11,7 @@ import {
 import { PlusCircle, Sparkles, SquarePen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChangeTemplate } from "./ChangeTemplate";
 
 export type InvitationCardProps = {
   mode?: "all" | "mine";
@@ -19,7 +20,7 @@ export type InvitationCardProps = {
 
 export function InvitationCard({ mode, invitations }: InvitationCardProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-2">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {invitations &&
         invitations.map((data, idx) => (
           <Card className="w-full h-full relative" key={idx}>
@@ -34,7 +35,7 @@ export function InvitationCard({ mode, invitations }: InvitationCardProps) {
                 </Badge>
               </div>
             )}
-            <CardContent className="p-3">
+            <CardContent>
               <div className="mb-5">
                 {data.image ? (
                   <Link
@@ -60,56 +61,63 @@ export function InvitationCard({ mode, invitations }: InvitationCardProps) {
                   </div>
                 )}
               </div>
-              <CardTitle className="text-sm mb-1 flex justify-center">
+              <CardTitle className="mb-1 flex justify-center">
                 {data.name}
               </CardTitle>
               {data.description && (
-                <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
+                <CardDescription className="text-xs mb-1 line-clamp-2 flex justify-center">
                   {data.description}
                 </CardDescription>
               )}
               {data.urlInvitation && (
-                <CardDescription className="text-xs mb-2 line-clamp-2 flex justify-center">
+                <CardDescription className="text-xs mb-1 text-center">
                   <Link
                     href={data.urlInvitation}
-                    className="underline text-center"
+                    className="underline break-all"
                   >
                     {data.urlInvitation}
                   </Link>
                 </CardDescription>
               )}
               <div className="flex items-center justify-center space-x-1 mb-4">
-                <span className="text-xs text-muted-foreground capitalize">
+                <span className="text-sm text-muted-foreground uppercase">
                   {data.type}
                 </span>
               </div>
               <div className="flex items-center justify-center">
                 {mode === "all" ? (
-                  <Link
-                    className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
-                    href={`/checkout?templateId=${data.templateId}`}
-                  >
-                    <PlusCircle className="h-4 w-4" />
-                    Gunakan Template
-                  </Link>
+                  <div className="w-full">
+                    <Link
+                      className="text-sm h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                      href={`/checkout?templateId=${data.templateId}`}
+                    >
+                      <PlusCircle className="h-4 w-4" />
+                      Gunakan Template
+                    </Link>
+                  </div>
                 ) : (
                   <>
                     {!data.expired ? (
-                      <Link
-                        className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
-                        href={`/dashboard/invitation/edit?invitationId=${data.invitationId}`}
-                      >
-                        <SquarePen className="h-4 w-4" />
-                        Edit undangan
-                      </Link>
+                      <div className="flex flex-col w-full gap-2">
+                        <Link
+                          className="text-sm h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                          href={`/dashboard/invitation/edit?invitationId=${data.invitationId}`}
+                        >
+                          <SquarePen className="h-4 w-4" />
+                          Edit Undangan
+                        </Link>
+                        <ChangeTemplate invitation={data} />
+                      </div>
                     ) : (
-                      <Link
-                        className="text-sm w-full px-2 py-1 h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
-                        href={`/checkout/?invitationId=${data.invitationId}`}
-                      >
-                        <Sparkles className="h-4 w-4" />
-                        Aktifkan undangan
-                      </Link>
+                      <div className="w-full">
+                        <Link
+                          className="text-sm h-9 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md"
+                          href={`/checkout/?invitationId=${data.invitationId}`}
+                        >
+                          <Sparkles className="h-4 w-4" />
+                          Aktifkan Undangan
+                        </Link>
+                      </div>
                     )}
                   </>
                 )}

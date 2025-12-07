@@ -16,7 +16,7 @@ export function AudioSelect({
 }) {
   return (
     <Select key={value} value={value} onValueChange={onChange}>
-      <SelectTrigger className="w-full text-sm sm:text-base font-light truncate">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Pilih Audio" />
       </SelectTrigger>
       <SelectContent>
