@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { InvitationDialog } from "./InvitationDialog";
 import { FallbackInvitationEdit } from "../../components/FallbackInvitationEdit";
+import { useInvitationStore } from "@/src/stores/invitation-store";
 
 export function InvitationEdit() {
   const searchParams = useSearchParams();
@@ -12,9 +13,15 @@ export function InvitationEdit() {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
   const invitationIdStr = searchParams.get("invitationId");
 
+  const { invitations, fetchInvitations } = useInvitationStore();
   const [existInvitation, setExistInvitation] = useState<boolean | null>(null);
 
   useEffect(() => {
+    fetchInvitations();
+  }, [fetchInvitations]);
+
+  useEffect(() => {
+    if (invitations.length === 0) return;
     async function verify() {
       // Jika tidak ada invitationId → redirect & hentikan
       if (!invitationIdStr) {
@@ -22,27 +29,29 @@ export function InvitationEdit() {
         router.push("/dashboard/invitation");
         return;
       }
-
-      const res = await fetch(
-        `/api/invitations/${invitationIdStr}?expired=false`,
-        {
-          credentials: "include",
-        }
+      const invitationIdNum = Number(invitationIdStr);
+      // Cek di store dulu
+      const foundInStore = invitations.find(
+        (inv) => inv.invitationId === invitationIdNum
       );
 
-      const json = await res.json();
-
-      if (!res.ok || !json.ok) {
+      if (!foundInStore) {
         setExistInvitation(false);
         router.push("/dashboard/invitation");
         return;
       }
-
+      // cek expired
+      const isExpired = foundInStore.expired;
+      if (isExpired) {
+        setExistInvitation(false);
+        router.push("/dashboard/invitation");
+        return;
+      }
       setExistInvitation(true);
     }
 
     verify();
-  }, [invitationIdStr, router]);
+  }, [invitationIdStr, invitations, router]);
 
   // Saat belum cek atau invalid → tampil fallback
   if (!existInvitation) return <FallbackInvitationEdit />;

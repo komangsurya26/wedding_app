@@ -31,7 +31,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { login } from "@/src/lib/auth-actions";
-import { useUser } from "@/src/providers/UserProvider";
+import { useUserStore } from "@/src/stores/user-store";
 
 const LoginSchema = z.object({
   email: z.email({
@@ -49,7 +49,7 @@ export function LoginForm({
   ...props
 }: { next: string } & React.ComponentProps<"div">) {
   const router = useRouter();
-  const { refresh } = useUser();
+  const refresh = useUserStore((state) => state.refresh);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),

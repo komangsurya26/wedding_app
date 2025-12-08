@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import { fontVariables } from "./font";
 import { metadata as siteMetadata } from "./metadata";
 
-import { UserProvider } from "@/src/providers/UserProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 export { siteMetadata as metadata };
@@ -23,9 +22,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${fontVariables} antialiased font-karla`}>
-        <UserProvider>
-          <main>{children}</main>
-        </UserProvider>
+        <main>{children}</main>
         <Toaster position="top-center" />
       </body>
     </html>

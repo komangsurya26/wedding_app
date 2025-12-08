@@ -26,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUser } from "@/src/providers/UserProvider";
+import { useUserStore } from "@/src/stores/user-store";
 
 const RegisterSchema = z
   .object({
@@ -51,7 +51,7 @@ export function SignupForm({
   ...props
 }: { next: string } & React.ComponentProps<typeof Card>) {
   const router = useRouter();
-  const { refresh } = useUser();
+  const refresh = useUserStore((state) => state.refresh);
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(RegisterSchema),

@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { v4 as uuid } from "uuid";
 import { toast } from "sonner";
 import { addDay, formatIDR, slugify } from "@/src/lib/utils";
 import { useCheckoutValidation } from "@/src/hooks/use-checkout-validation";
-import { useUser } from "@/src/providers/UserProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FallbackCheckout } from "./FallbackCheckout";
 
@@ -16,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { createTrialInvitation } from "@/src/lib/invitation-actions";
+import { useUserStore } from "@/src/stores/user-store";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const TEMPLATE_ACTIVE_DURATION =
@@ -50,7 +50,13 @@ interface TrialProps {
 }
 
 export function CheckoutProduct() {
-  const { user } = useUser();
+  const user = useUserStore((state) => state.user);
+  const refresh = useUserStore((state) => state.refresh);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get("templateId");
@@ -92,7 +98,9 @@ export function CheckoutProduct() {
           price: price,
           quantity: 1,
           title_invitation: title ? title : invitation?.name!,
-          url_invitation: templateId ? `${BASE_URL}${slug}` : invitation?.urlInvitation!,
+          url_invitation: templateId
+            ? `${BASE_URL}${slug}`
+            : invitation?.urlInvitation!,
           invitation_id: invitationId,
         },
         customer: {

@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/src/utils/supabase/server";
-import { useUser } from "../providers/UserProvider";
 
 export async function login(data: { email: string; password: string }) {
     try {

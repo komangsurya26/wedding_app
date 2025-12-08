@@ -1,44 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Invitation as InvitationTypes } from "@/src/types";
-import { toast } from "sonner";
+import React, { useEffect } from "react";
 import { FallbackInvitation } from "./FallbackInvitation";
 import { Invitation } from "./Invitation";
+import { useInvitationStore } from "@/src/stores/invitation-store";
 
 export function MyInvitation() {
-  const [loading, setLoading] = useState(true);
-  const [myInvitations, setMyInvitations] = useState<InvitationTypes[]>([]);
-  useEffect(() => {
-    async function load() {
-      try {
-        setLoading(true);
-        const res = await fetch("/api/invitations", {
-          credentials: "include",
-          cache: "no-store",
-        });
-        const json = await res.json();
+  const myInvitations = useInvitationStore((state) => state.invitations);
+  const loading = useInvitationStore((state) => state.loading);
+  const fetchInvitations = useInvitationStore(
+    (state) => state.fetchInvitations
+  );
 
-        const data = json.data.map((item: any) => ({
-          invitationId: item.id,
-          name: item.invitation_name,
-          type: item.type,
-          image: item.image,
-          expired: item.expires_at
-            ? new Date() > new Date(item.expires_at)
-            : false,
-          urlInvitation: item.invitation_url,
-          templateId: item.template_id,
-        }));
-        setMyInvitations(data);
-      } catch (error) {
-        toast.warning("Terjadi Kesalahan");
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, []);
+  useEffect(() => {
+    fetchInvitations();
+  }, [fetchInvitations]);
 
   if (loading) return <FallbackInvitation />;
 

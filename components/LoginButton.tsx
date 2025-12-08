@@ -1,11 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { useUser } from "@/src/providers/UserProvider";
+import { useUserStore } from "@/src/stores/user-store";
 
 export default function LoginButton() {
-  const { user, loading } = useUser();
+  const user = useUserStore((state) => state.user);
+  const refresh = useUserStore((state) => state.refresh);
+  const loading = useUserStore((state) => state.loading);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
   if (loading) {
     return (

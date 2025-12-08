@@ -19,7 +19,8 @@ import { signout } from "@/src/lib/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useUser } from "@/src/providers/UserProvider";
+import { useUserStore } from "@/src/stores/user-store";
+import { useEffect } from "react";
 
 export function ProfileSwitcher() {
   const router = useRouter();
@@ -30,7 +31,12 @@ export function ProfileSwitcher() {
   //   router.push(path);
   // };
 
-  const { user, refresh } = useUser();
+  const user = useUserStore((state) => state.user);
+  const refresh = useUserStore((state) => state.refresh);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
   async function handleSignOut() {
     await signout();
