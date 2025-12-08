@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import useInViewAnimation from "@/src/hooks/use-inview-animation";
 
 export function Greeting({ image, id }: { image: string; id: string }) {
@@ -19,7 +19,7 @@ export function Greeting({ image, id }: { image: string; id: string }) {
           alt="Couple Photo"
           fill
           className="object-cover object-center"
-          priority={false}
+          priority
         />
         <div className="absolute inset-0 bg-black/30" />
         <div className="absolute top-0 left-0 right-0 h-[250px] bg-gradient-to-b from-black/60 via-black/50 to-transparent"></div>

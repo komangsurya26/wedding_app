@@ -68,7 +68,7 @@ export default function CountDownTimer({
         alt="Couple"
         fill
         className="absolute object-cover object-center"
-        priority={false}
+        priority
       />
 
       {/* Overlay gradient */}

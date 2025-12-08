@@ -3,9 +3,32 @@
 import useInViewAnimation from "@/src/hooks/use-inview-animation";
 import React, { useRef } from "react";
 
-export function Quote() {
+export function Quote({ dateCountdown }: { dateCountdown: string }) {
   const quoteRef = useRef<HTMLHeadingElement>(null);
   const isVisible = useInViewAnimation(quoteRef, 0.1);
+
+  // Format Tanggal
+  const dateObj = new Date(dateCountdown);
+  const date = String(dateObj.getDate()).padStart(2, "0");
+
+  const monthNames = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MEI",
+    "JUN",
+    "JUL",
+    "AGU",
+    "SEP",
+    "OKT",
+    "NOV",
+    "DES",
+  ];
+
+  const month = monthNames[dateObj.getMonth()];
+
+  const year = dateObj.getFullYear();
 
   return (
     <section ref={quoteRef} className="px-8 py-10 text-left text-white">
@@ -16,9 +39,9 @@ export function Quote() {
             isVisible && "animate__animated animate__fadeInLeft animate__slow"
           }`}
         >
-          <p className="text-[4rem] sm:text-[6rem]">31</p>
-          <p className="text-[4rem] sm:text-[6rem]">DES</p>
-          <p className="text-[4rem] sm:text-[6rem]">2025</p>
+          <p className="text-[4rem] sm:text-[6rem]">{date}</p>
+          <p className="text-[4rem] sm:text-[6rem]">{month}</p>
+          <p className="text-[4rem] sm:text-[6rem]">{year}</p>
         </div>
         <div className="space-y-4">
           <p
@@ -29,9 +52,9 @@ export function Quote() {
               animationDelay: "1s",
             }}
           >
-            &ldquo; Ya Tuhanku Yang Maha Pengasih, anugrahkanlah kepada pasangan ini
-            senantiasa kebahagiaan, kesehatan, tetap bersatu dan tidak pernah
-            terpisahkan, panjang umur dan tinggal di rumah yang penuh
+            &ldquo; Ya Tuhanku Yang Maha Pengasih, anugrahkanlah kepada pasangan
+            ini senantiasa kebahagiaan, kesehatan, tetap bersatu dan tidak
+            pernah terpisahkan, panjang umur dan tinggal di rumah yang penuh
             kegembiraan bersama seluruh keturunannya &rdquo;
           </p>
 

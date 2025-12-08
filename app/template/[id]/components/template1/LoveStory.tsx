@@ -10,7 +10,7 @@ export function LoveStory({ image }: { image: string }) {
         alt="Couple"
         fill
         className="absolute object-cover object-center"
-        priority={false}
+        priority
       />
       <div className="absolute top-0 left-0 right-0 h-[70vh] sm:h-[80vh] bg-gradient-to-b from-neutral-900 via-neutral-800 to-transparent" />
       {/* Content */}
