@@ -1,4 +1,4 @@
-import { InvitationType } from "./template"
+import { TemplateType } from "./template"
 
 export type Groom = {
     full_name: string
@@ -68,7 +68,7 @@ export type Invitation = {
     urlTemplate?: string
     name?: string;
     description?: string;
-    type?: InvitationType;
+    templateType?: TemplateType;
     image?: string;
     photos?: Photos;
     video?: Video

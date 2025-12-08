@@ -1,7 +1,7 @@
 export type Template = {
     id: number
     name: string
-    type: InvitationType
+    type: TemplateType
     img: string
     price: number
     href: string
@@ -9,7 +9,7 @@ export type Template = {
 };
 
 
-export enum InvitationType {
+export enum TemplateType {
     BASIC = "basic",
     PREMIUM = "premium",
     VIP = "vip",
