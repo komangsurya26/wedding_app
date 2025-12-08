@@ -7,45 +7,46 @@ export const DEFAULT_INVITATIONS: Invitation[] = [
             id_video_youtube: "6FYtKVFik_8"
         },
         photos: {
-            photo_brides: [
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
-            ],
             photo_grooms: [
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1765018777/invitations/18/xc9tkqj9c2yzwn3vufnn.webp",
+            ],
+            photo_brides: [
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1765018847/invitations/18/mckwmzjcbrxuieszvzok.webp",
             ],
             photo_landscapes: [
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998052/ERY_6518-scaled_agxy3o.webp",
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998052/ERY_6518-scaled_agxy3o.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998070/ERY_6912-cetak-scaled_jzccvd.webp",
             ],
             photo_portraits: [
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_6810-scaled_hyxume.webp",
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
-                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_6810-scaled_hyxume.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
+                "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
                 "https://res.cloudinary.com/dpij7jkkd/image/upload/v1763998051/ERY_7023-scaled_s7l4np.webp",
             ]
         },
         audio: {
             music_url: ""
         },
-        bride: {
-            child_order: "",
-            father: "",
-            mother: "",
-            full_name: "",
-            instagram: "",
-            short_name: "",
-        },
         groom: {
-            child_order: "",
-            father: "",
-            mother: "",
-            full_name: "",
-            instagram: "",
-            short_name: "",
+            full_name: "I Komang Agus Surya Sedana",
+            short_name: "Komang",
+            child_order: "Pertama",
+            father: "I Made Sudiarta",
+            mother: "Ni Nengah Karmini",
+            instagram: "komangsurya_26",
+        },
+        bride: {
+            full_name: "Ni Nyoman Erny Sari Dewi",
+            short_name: "Erny",
+            child_order: "Kedua",
+            father: "I Wayan Suryadarma",
+            mother: "Ni Made Sri Astiti",
+            instagram: "ernysari_dewi",
         },
         countdown: {
             date: "2025-12-20T16:02:00",
@@ -63,10 +64,16 @@ export const DEFAULT_INVITATIONS: Invitation[] = [
         ],
         gifts: [
             {
-                account_number: "",
-                bank_name: "",
-                logo: "",
-                owner: "",
+                account_number: "023456789",
+                bank_name: "BNI",
+                logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bni_zswvuk.png",
+                owner: "I Komang Agus Surya Sedana",
+            },
+            {
+                account_number: "243242342",
+                bank_name: "BCA",
+                logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bca_ls9vum.png",
+                owner: "Ni Nyoman Erny Sari Dewi",
             }
         ],
     },

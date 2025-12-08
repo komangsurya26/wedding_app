@@ -1,13 +1,18 @@
 import { Groom as GroomProps } from "@/src/types";
 import Image from "next/image";
-import React from "react";
 import { FaInstagram } from "react-icons/fa";
 
-export function Groom(props: GroomProps & { images: string[] }) {
+export function Groom({
+  groom,
+  imagesGroom,
+}: {
+  groom: GroomProps;
+  imagesGroom: string[];
+}) {
   return (
     <section className="relative h-screen flex items-end">
       <Image
-        src={props.images[0]}
+        src={imagesGroom[0]}
         alt="Groom"
         fill
         className="absolute object-cover object-center"
@@ -20,16 +25,16 @@ export function Groom(props: GroomProps & { images: string[] }) {
         </p>
 
         <h2 className="text-3xl md:text-5xl font-serif font-semibold tracking-tight leading-tight text-white">
-          {props.full_name}
+          {groom.full_name}
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putra {props.child_order.toLowerCase()} dari Bapak {props.father} dan{" "}
-          <br /> Ibu {props.mother}
+          Putra {groom.child_order.toLowerCase()} dari Bapak {groom.father} dan{" "}
+          <br /> Ibu {groom.mother}
         </p>
 
         <a
-          href={`https://instagram.com/${props.instagram}`}
+          href={`https://instagram.com/${groom.instagram}`}
           target="_blank"
           rel="noreferrer"
           className="flex items-center gap-3 px-4 py-2 w-fit rounded-full text-white/70 bg-white/8 hover:bg-white/15 "
@@ -37,7 +42,7 @@ export function Groom(props: GroomProps & { images: string[] }) {
           <span className="bg-white/10 rounded-full">
             <FaInstagram className="w-4 h-4" />
           </span>
-          <span>@{props.instagram}</span>
+          <span>@{groom.instagram}</span>
         </a>
       </div>
     </section>

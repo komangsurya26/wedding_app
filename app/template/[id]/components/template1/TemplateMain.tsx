@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Invitation } from "@/src/types";
 
 import { Footer } from "./Footer";
@@ -22,10 +22,10 @@ export default function TemplateMain({ config }: { config: Invitation }) {
   const [isOpened, setIsOpened] = useState(false);
 
   return (
-    <>
+    <React.Fragment>
       <LoadingPercent
-        shortNameGroom="Komang"
-        shortNameBride="Surya"
+        shortNameGroom={config.groom?.short_name!}
+        shortNameBride={config.bride?.short_name!}
         minDuration={5000}
       />
       <main className="h-screen flex justify-center bg-black">
@@ -43,22 +43,12 @@ export default function TemplateMain({ config }: { config: Invitation }) {
             />
             <Quote />
             <Groom
-              full_name="I Komang Agus Surya Sedana"
-              child_order="Pertama"
-              father="I Made Sudiarta"
-              mother="Ni Nengah Karmini"
-              instagram="komangsurya_26"
-              short_name=""
-              images={config.photos?.photo_grooms ?? []}
+              groom={config.groom!}
+              imagesGroom={config.photos?.photo_grooms ?? []}
             />
             <Bride
-              full_name="I Komang Agus Surya Sedana"
-              child_order="Pertama"
-              father="I Made Sudiarta"
-              mother="Ni Nengah Karmini"
-              instagram="komangsurya_26"
-              short_name=""
-              images={config.photos?.photo_brides ?? []}
+              bride={config.bride!}
+              imagesBride={config.photos?.photo_brides ?? []}
             />
             <CountDownTimer
               image={config.photos?.photo_landscapes[0] ?? ""}
@@ -67,31 +57,18 @@ export default function TemplateMain({ config }: { config: Invitation }) {
             <WeddingDay events={config.events!} />
             <LoveStory image={config.photos?.photo_portraits[0]!} />
             <Gallery
+              bride={config.bride!.short_name!}
+              groom={config.groom!.short_name!}
               videoIdYoutube={config.video?.id_video_youtube ?? ""}
               imageLandscapes={config.photos?.photo_landscapes ?? []}
               imagePotraits={config.photos?.photo_portraits ?? []}
             />
             <RSVP />
-            <WeddingGift
-              gifts={[
-                {
-                  bank_name: "BCA",
-                  account_number: "1234567890",
-                  owner: "Komang Surya",
-                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/bca_ls9vum.png",
-                },
-                {
-                  bank_name: "Mandiri",
-                  account_number: "0987654321",
-                  owner: "Komang Surya",
-                  logo: "https://res.cloudinary.com/dpij7jkkd/image/upload/v1764136672/banks/mandiri_lzkfeh.png",
-                },
-              ]}
-            />
+            <WeddingGift gifts={config.gifts ?? []} />
             <Footer images={config.photos?.photo_portraits ?? []} />
           </div>
         </div>
       </main>
-    </>
+    </React.Fragment>
   );
 }

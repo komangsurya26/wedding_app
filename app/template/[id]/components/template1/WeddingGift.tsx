@@ -33,11 +33,11 @@ export function WeddingGift({ gifts }: { gifts: Gifts[] }) {
         rekening di bawah ini:
       </p>
 
-      <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full">
-        {gifts.map((g) => (
+      <div className="mt-10 space-y-5 max-h-[60vh] overflow-y-auto w-full hide-scrollbar">
+        {gifts.map((g, idx) => (
           <div
-            key={g.account_number}
-            className="flex items-center gap-4 p-4 rounded-xl bg-white/20 border border-white/10 overflow-x-auto"
+            key={idx}
+            className="flex items-center gap-4 p-4 rounded-xl bg-white/20 border border-white/10 overflow-x-auto hide-scrollbar"
           >
             {g.logo ? (
               <div className="w-12 h-12 rounded-lg">
