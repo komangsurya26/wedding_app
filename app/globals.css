@@ -2,6 +2,10 @@
 @import 'animate.css';
 @import "tw-animate-css";
 
+@import "lightgallery/css/lightgallery.css";
+@import "lightgallery/css/lg-thumbnail.css";
+@import "lightgallery/css/lg-zoom.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

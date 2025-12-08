@@ -6,7 +6,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Home, LucideHome } from "lucide-react";
+import { Home } from "lucide-react";
 import Link from "next/link";
 import { AppSidebar } from "./components/AppSidebar";
 import { Button } from "@/components/ui/button";

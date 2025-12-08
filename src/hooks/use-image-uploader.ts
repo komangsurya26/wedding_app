@@ -145,7 +145,7 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
 
 
     function bindInput(ref: HTMLInputElement | null, index: number) { inputRefs.current[index] = ref }
-    function trigger(index: number) { inputRefs.current[index]?.click() }
+    function trigger(index: number) { inputRefs.current[index]?.focus() }
 
     function hasUnsaved() {
         return photos.some((p, i) => {
