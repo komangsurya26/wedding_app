@@ -81,7 +81,7 @@ export function InvitationCard({ mode, invitations }: InvitationCardProps) {
               )}
               <div className="flex items-center justify-center space-x-1 mb-4">
                 <span className="text-sm text-muted-foreground uppercase">
-                  {data.type}
+                  {data.templateType}
                 </span>
               </div>
               <div className="flex items-center justify-center">

@@ -9,7 +9,7 @@ const templates: InvitationTypes[] = TEMPLATE_LIST.map((value) => ({
   templateId: value.id,
   name: value.name,
   description: value.description,
-  type: value.type,
+  templateType: value.type,
   image: value.img,
   urlTemplate: value.href,
 }));
