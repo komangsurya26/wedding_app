@@ -59,7 +59,7 @@ export function ChangeTemplateDialog({
     },
   });
 
-  const { setValue, handleSubmit } = form;
+  const { setValue, handleSubmit, formState } = form;
 
   useEffect(() => {
     if (!open) return;
@@ -146,7 +146,9 @@ export function ChangeTemplateDialog({
               />
 
               <DialogFooter>
-                <Button type="submit">Simpan Perubahan</Button>
+                <Button disabled={formState.isSubmitting} type="submit">
+                  {formState.isSubmitting ? "Menyimpan..." : "Simpan Perubahan"}
+                </Button>
               </DialogFooter>
             </form>
           </Form>
