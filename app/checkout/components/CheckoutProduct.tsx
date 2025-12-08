@@ -54,8 +54,10 @@ export function CheckoutProduct() {
   const refresh = useUserStore((state) => state.refresh);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (!user) {
+      refresh();
+    }
+  }, [user,refresh]);
 
   const router = useRouter();
   const searchParams = useSearchParams();

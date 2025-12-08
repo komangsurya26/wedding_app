@@ -35,8 +35,10 @@ export function ProfileSwitcher() {
   const refresh = useUserStore((state) => state.refresh);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (!user) {
+      refresh();
+    }
+  }, [user, refresh]);
 
   async function handleSignOut() {
     await signout();

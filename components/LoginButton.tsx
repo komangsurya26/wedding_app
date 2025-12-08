@@ -10,8 +10,10 @@ export default function LoginButton() {
   const loading = useUserStore((state) => state.loading);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (!user) {
+      refresh();
+    }
+  }, [user, refresh]);
 
   if (loading) {
     return (
