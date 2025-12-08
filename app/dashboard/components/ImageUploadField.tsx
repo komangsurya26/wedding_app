@@ -59,17 +59,19 @@ export function ImageUploadField({
           <Image
             src={p.preview}
             alt={`preview-${index}`}
-            width={257}
-            height={160}
+            width={400}
+            height={300}
             className="object-contain w-full h-full"
+            priority
           />
         ) : p?.url ? (
           <Image
             src={p.url}
             alt={`photo-${index}`}
-            width={257}
-            height={160}
+            width={400}
+            height={300}
             className="object-contain w-full h-full"
+            priority
           />
         ) : (
           <div className="text-center text-sm text-gray-500">
