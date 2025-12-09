@@ -83,12 +83,16 @@ export function ChangeTemplateDialog({
         body: JSON.stringify({
           invitation_id: invitationId,
           template_id: selectedTemplate.id,
-          template_type: selectedTemplate.type,
         }),
       });
-      await res.json();
+      const json = await res.json();
+      if (!json.ok) {
+        toast.error("Gagal mengganti template");
+        onOpen(false);
+        return;
+      }
 
-      // Update invitation store
+      // Update invitation store zod
       const updatedInvitations = invitations.map((inv) =>
         inv.invitationId === invitationId
           ? {
@@ -103,7 +107,7 @@ export function ChangeTemplateDialog({
       toast.success("Ganti template sukses");
       onOpen(false);
     } catch (error) {
-      toast.error("Gagal ganti template");
+      toast.error("Terjadi kesalahan jaringan");
       onOpen(false);
     }
   };
@@ -137,11 +141,15 @@ export function ChangeTemplateDialog({
                         <SelectValue placeholder="Pilih template" />
                       </SelectTrigger>
                       <SelectContent>
-                        {TEMPLATE_LIST.map((temp, idx) => (
-                          <SelectItem key={idx} value={`${temp.id}`}>
-                            {`${temp.name} (${temp.type})`}
-                          </SelectItem>
-                        ))}
+                        {TEMPLATE_LIST.map(
+                          (temp, idx) =>
+                            // tampilkan template type yang sesuai denngan invitation
+                            temp.type === invitation.templateType && (
+                              <SelectItem key={idx} value={`${temp.id}`}>
+                                {`${temp.name} (${temp.type})`}
+                              </SelectItem>
+                            )
+                        )}
                       </SelectContent>
                     </Select>
                   </FormControl>
