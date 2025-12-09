@@ -15,7 +15,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { signout } from "@/src/lib/auth-actions";
+import { signout } from "@/src/actions/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";

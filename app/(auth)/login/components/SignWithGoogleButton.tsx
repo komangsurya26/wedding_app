@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signInWithGoogle } from "@/src/lib/auth-actions";
+import { signInWithGoogle } from "@/src/actions/auth-actions";
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
 

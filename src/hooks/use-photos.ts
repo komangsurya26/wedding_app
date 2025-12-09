@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { fecthPhotos, fetchPhotoGrooms } from "../lib/photos-actions";
+import { fecthPhotos, fetchPhotoGrooms } from "../actions/photos-actions";
 import { PhotoProps } from "../types";
 import { useImageUploader } from "./use-image-uploader";
 

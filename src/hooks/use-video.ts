@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Video } from "../types";
-import { fetchVideoYoutube } from "../lib/video-actions";
+import { fetchVideoYoutube } from "../actions/video-actions";
 
 export function useVideo(invitationId: number) {
     const [loading, setLoading] = useState(false);

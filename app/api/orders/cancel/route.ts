@@ -1,18 +1,25 @@
-import { getBase64 } from "@/src/lib/midtrans";
+import { getBase64 } from "@/src/services/midtrans";
 import { NextRequest, NextResponse } from "next/server";
+import z from "zod";
 
 const NEXT_PUBLIC_URL_MIDTRANS = process.env.NEXT_PUBLIC_URL_MIDTRANS;
 
+const Schema = z.object({
+    order_ref: z.string().min(1, "order_ref required"),
+});
+
 export async function POST(req: NextRequest) {
     try {
-        const { order_ref } = await req.json();
+        const body = await req.json();
 
-        if (!order_ref) {
+        const parsed = Schema.safeParse(body);
+        if (!parsed.success) {
             return NextResponse.json(
-                { error: "order_ref required" },
+                { ok: false, error: "Invalid payload", details: parsed.error.message },
                 { status: 400 }
             );
         }
+        const { order_ref } = parsed.data;
 
         const auth = getBase64()
 
@@ -27,13 +34,11 @@ export async function POST(req: NextRequest) {
                 },
             }
         );
-
         const data = await midtransRes.json();
-
         return NextResponse.json({ ok: true, data });
     } catch (error) {
         return NextResponse.json(
-            { ok: false, error: (error as Error).message },
+            { ok: false, error: "Internal Server Error" },
             { status: 500 }
         );
     }

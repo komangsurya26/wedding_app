@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
-import { createGroom } from "@/src/lib/groom-actions";
+import { createGroom } from "@/src/actions/groom-actions";
 import { GroomSchema, GroomSchemaType } from "@/src/schemas/groom.schema";
 import { toast } from "sonner";
 import { Form } from "@/components/ui/form";

@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCountdown } from "@/src/hooks/use-countdown";
-import { createCountdown } from "@/src/lib/countdown-actions";
+import { createCountdown } from "@/src/actions/countdown-actions";
 import {
   CountdownSchema,
   CountdownSchemaType,

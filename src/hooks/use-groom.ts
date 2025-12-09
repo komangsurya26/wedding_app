@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Groom } from "../types";
-import { fetchGroom } from "../lib/groom-actions";
+import { fetchGroom } from "../actions/groom-actions";
 
 export function useGroom(invitationId: number, type: 'groom' | 'bride') {
     const [loading, setLoading] = useState(false);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Gifts } from "../types";
-import { fetchGift } from "../lib/gift-actions";
+import { fetchGift } from "../actions/gift-actions";
 
 export function useGift(invitationId: number) {
     const [loading, setLoading] = useState(false);

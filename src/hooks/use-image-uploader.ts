@@ -1,5 +1,7 @@
-import { useState, useRef } from 'react'
-import { deleteImage, getSignature } from '../lib/cloudinary'
+"use client";
+
+import { useState } from 'react'
+import { deleteImage, getSignature } from '../services/cloudinary'
 
 export type PhotoState = {
     file?: File | null
@@ -15,9 +17,6 @@ export type PhotoState = {
 export function useImageUploader({ cloudName }: { cloudName: string; }) {
     const [photos, setPhotos] = useState<PhotoState[]>([])
     const [initialPhotos, setInitialPhotos] = useState<PhotoState[]>([]);
-
-    const inputRefs = useRef<Record<number, HTMLInputElement | null>>({})
-
 
     function initPhotos(initialData: PhotoState[]) {
         const filled = [
@@ -144,9 +143,6 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
     }
 
 
-    function bindInput(ref: HTMLInputElement | null, index: number) { inputRefs.current[index] = ref }
-    function trigger(index: number) { inputRefs.current[index]?.focus() }
-
     function hasUnsaved() {
         return photos.some((p, i) => {
             const initial = initialPhotos[i];
@@ -160,5 +156,5 @@ export function useImageUploader({ cloudName }: { cloudName: string; }) {
         });
     }
 
-    return { photos, initPhotos, uploadFileSigned, replaceFile, remove, bindInput, trigger, setPhotos, hasUnsaved }
+    return { photos, initPhotos, uploadFileSigned, replaceFile, remove, setPhotos, hasUnsaved }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Events } from "../types";
-import { fetchEvent } from "../lib/event-actions";
+import { fetchEvent } from "../actions/event-actions";
 
 export function useEvent(invitationId: number) {
     const [loading, setLoading] = useState(false);

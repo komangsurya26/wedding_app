@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Countdown } from "../types";
-import { fetchCountdown } from "../lib/countdown-actions";
+import { fetchCountdown } from "../actions/countdown-actions";
 
 export function useCountdown(invitationId: number) {
     const [loading, setLoading] = useState(false);

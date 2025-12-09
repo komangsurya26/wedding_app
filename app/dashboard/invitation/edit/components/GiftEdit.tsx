@@ -11,7 +11,7 @@ import {
   GiftsArraySchema,
   GiftsArraySchemaType,
 } from "@/src/schemas/gift.schema";
-import { createGift } from "@/src/lib/gift-actions";
+import { createGift } from "@/src/actions/gift-actions";
 import { useGift } from "@/src/hooks/use-gift";
 import { Skeleton } from "@/components/ui/skeleton";
 import GiftRow from "./GIftRow";

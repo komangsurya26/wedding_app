@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { createPhotos } from "@/src/lib/photos-actions";
+import { createPhotos } from "@/src/actions/photos-actions";
 import { Spinner } from "@/components/ui/spinner";
 import { useImageUploader } from "@/src/hooks/use-image-uploader";
 import { usePhotosGrid, usePortraitLandscape } from "@/src/hooks/use-photos";

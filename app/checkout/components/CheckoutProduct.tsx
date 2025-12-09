@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { v4 as uuid } from "uuid";
 import { toast } from "sonner";
-import { addDay, formatIDR, slugify } from "@/src/lib/utils";
+import { formatIDR, slugify } from "@/src/lib/utils";
 import { useCheckoutValidation } from "@/src/hooks/use-checkout-validation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FallbackCheckout } from "./FallbackCheckout";
@@ -14,51 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { createTrialInvitation } from "@/src/lib/invitation-actions";
-import { useUserStore } from "@/src/stores/user-store";
+import { PaymentProps, TrialProps } from "@/src/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const TEMPLATE_ACTIVE_DURATION =
   process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION;
 
-type Item = {
-  id: string;
-  title_invitation: string;
-  url_invitation: string;
-  price: number;
-  quantity: number;
-  name: string;
-  invitation_id: string | null;
-};
-type Customer = {
-  id: string;
-  first_name: string;
-  email: string;
-};
-interface PaymentProps {
-  orderId: string;
-  amount: number;
-  item: Item;
-  customer: Customer;
-}
-interface TrialProps {
-  user_id: string;
-  template_id: string;
-  invitation_name: string;
-  invitation_url: string;
-  expires_at: string;
-}
-
 export function CheckoutProduct() {
-  const user = useUserStore((state) => state.user);
-  const refresh = useUserStore((state) => state.refresh);
-
-  useEffect(() => {
-    if (!user) {
-      refresh();
-    }
-  }, [user,refresh]);
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get("templateId");
@@ -92,24 +53,12 @@ export function CheckoutProduct() {
       }
 
       const payload: PaymentProps = {
-        orderId: uuid(),
-        amount: total,
-        item: {
-          id: String(template?.id),
-          name: template?.name!,
-          price: price,
-          quantity: 1,
-          title_invitation: title ? title : invitation?.name!,
-          url_invitation: templateId
-            ? `${BASE_URL}${slug}`
-            : invitation?.urlInvitation!,
-          invitation_id: invitationId,
-        },
-        customer: {
-          id: user?.id!,
-          first_name: user?.full_name!,
-          email: user?.email!,
-        },
+        template_id: templateId ? Number(templateId) : template?.id!,
+        invitation_id: invitationId ? Number(invitationId) : null,
+        title_invitation: title.trim() ? title.trim() : invitation?.name!,
+        url_invitation: templateId
+          ? `${BASE_URL}${slug}`
+          : invitation?.urlInvitation!,
       };
 
       const res = await fetch("/api/checkout/create-snap", {
@@ -117,11 +66,13 @@ export function CheckoutProduct() {
         body: JSON.stringify(payload),
       });
       const json = await res.json();
-      if (json.ok) {
-        window.location.href = json.data.redirect_url;
+      if (!json.ok) {
+        toast.error("Terjadi kesalahan, coba beberapa saat lagi");
+        return;
       }
+      window.location.href = json.data.redirect_url;
     } catch (err) {
-      toast.error("Terjadi kesalahan, coba beberapa saat lagi");
+      toast.error("Terjadi kesalahan jaringan");
     } finally {
       setLoading(false);
     }
@@ -136,17 +87,24 @@ export function CheckoutProduct() {
         return;
       }
       const payload: TrialProps = {
-        user_id: user?.id!,
-        template_id: String(templateId),
+        template_id: Number(templateId),
         invitation_name: title.trim(),
         invitation_url: `${BASE_URL}${slug}`,
-        expires_at: addDay(new Date(), 1).toISOString(),
+        slug: slug,
       };
-      await createTrialInvitation({ payload });
+      const res = await fetch("/api/checkout/trial", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (!json.ok) {
+        toast.error("Terjadi kesalahan, coba beberapa saat lagi");
+        return;
+      }
       toast.success("Undangan berhasil dibuat");
       router.push("/dashboard/invitation");
     } catch (error) {
-      toast.error("Terjadi kesalahan, coba beberapa saat lagi");
+      toast.error("Terjadi kesalahan jaringan");
     } finally {
       setLoading(false);
     }

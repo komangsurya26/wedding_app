@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useVideo } from "@/src/hooks/use-video";
-import { createVideoYoutube } from "@/src/lib/video-actions";
+import { createVideoYoutube } from "@/src/actions/video-actions";
 import { VideoSchema, VideoSchemaType } from "@/src/schemas/video.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";

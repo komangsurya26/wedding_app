@@ -3,8 +3,7 @@
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { createEvent } from "@/src/lib/event-actions";
+import { createEvent } from "@/src/actions/event-actions";
 import {
   EventsArraySchema,
   EventArraySchemaType,
@@ -12,16 +11,10 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useEvent } from "@/src/hooks/use-event";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EventCard } from "./EventCard";
 
 export function EventEdit({
   invitationId,
@@ -107,148 +100,13 @@ export function EventEdit({
         <div className="flex flex-col max-h-[70vh]">
           <div className="flex-1 overflow-y-auto pr-3 pb-5 pt-2 space-y-6">
             {fields.map((field, index) => (
-              <div
+              <EventCard
                 key={field.id}
-                className="p-4 border rounded-md shadow-sm relative"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="font-medium">Acara #{index + 1}</div>
-                  {index > 0 && (
-                    <Button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="text-sm"
-                      variant="destructive"
-                      disabled={formState.isSubmitting}
-                    >
-                      Hapus
-                    </Button>
-                  )}
-                </div>
-
-                <div className="space-y-3">
-                  <FormField
-                    control={control}
-                    name={`events.${index}.title`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-title`}>
-                          Judul
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-title`}
-                            placeholder="Resepsi"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={control}
-                    name={`events.${index}.date`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-date`}>
-                          Tanggal
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-date`}
-                            type="date"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="flex gap-3">
-                    <FormField
-                      control={control}
-                      name={`events.${index}.start_time`}
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel htmlFor={`events-${index}-start_time`}>
-                            Waktu Mulai
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              id={`events-${index}-start_time`}
-                              type="time"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name={`events.${index}.end_time`}
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormLabel htmlFor={`events-${index}-end_time`}>
-                            Waktu Selesai
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              id={`events-${index}-end_time`}
-                              type="time"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={control}
-                    name={`events.${index}.venue`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-venue`}>
-                          Lokasi
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-venue`}
-                            placeholder="Gang Mawar No 7, Jln Tua Buduk, Mengwi, Badung"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={control}
-                    name={`events.${index}.location_url`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor={`events-${index}-location_url`}>
-                          Lokasi Url (Google Maps)
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id={`events-${index}-location_url`}
-                            placeholder="https://maps.app.goo.gl/..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
+                index={index}
+                control={control}
+                remove={remove}
+                isSubmitting={formState.isSubmitting}
+              />
             ))}
           </div>
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -14,33 +16,31 @@ export function ImageUploadField({
   uploader: ReturnType<typeof useImageUploader>;
   invitationId: number;
 }) {
-  const p = uploader.photos[index];
+  const photo = uploader.photos[index];
+  const ref = React.useRef<Record<number, HTMLInputElement | null>>({});
 
   async function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const input = e.target;
-    const f = input.files?.[0];
-    if (!f) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    const allowed = ["image/jpeg", "image/png", "image/webp"];
-
-    if (!allowed.includes(f.type)) {
-      toast.warning("Format file harus JPG, PNG, atau WebP.");
-      input.value = "";
+    // validasi file size
+    if (file.size > 1 * 1024 * 1024) {
+      toast.error("Foto tidak boleh lebih dari 1MB");
       return;
     }
 
-    if (f.size > 1 * 1024 * 1024) {
-      toast.warning("Ukuran file maksimal 1 MB");
-      input.value = "";
+    // validasi file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Foto harus berupa gambar");
       return;
     }
 
-    if (p?.public_id)
-      uploader.replaceFile(f, index, invitationId).catch(() => {
+    if (photo?.public_id)
+      uploader.replaceFile(file, index, invitationId).catch(() => {
         toast.error("Ganti foto gagal, silakan coba lagi.");
       });
     else
-      uploader.uploadFileSigned(f, index, invitationId).catch(() => {
+      uploader.uploadFileSigned(file, index, invitationId).catch(() => {
         toast.error("Upload foto gagal, silakan coba lagi.");
       });
   }
@@ -48,25 +48,27 @@ export function ImageUploadField({
   return (
     <div className="border rounded p-3 flex flex-col items-center">
       <input
-        ref={(el) => uploader.bindInput(el, index)}
+        ref={(el) => {
+          ref.current[index] = el;
+        }}
         type="file"
         accept="image/*"
         className="hidden"
         onChange={handleInputChange}
       />
       <div className="w-full h-40 flex items-center justify-center bg-gray-50 rounded overflow-hidden">
-        {p?.preview ? (
+        {photo?.preview ? (
           <Image
-            src={p.preview}
+            src={photo.preview}
             alt={`preview-${index}`}
             width={400}
             height={300}
             className="object-contain w-full h-full"
             priority
           />
-        ) : p?.url ? (
+        ) : photo?.url ? (
           <Image
-            src={p.url}
+            src={photo.url}
             alt={`photo-${index}`}
             width={400}
             height={300}
@@ -82,24 +84,28 @@ export function ImageUploadField({
       <div className="w-full mt-3 flex flex-col gap-2 sm:flex-row">
         <Button
           type="button"
-          onClick={() => uploader.trigger(index)}
-          disabled={p?.uploading || p?.removing}
+          onClick={() => ref.current[index]?.click()}
+          disabled={photo?.uploading || photo?.removing}
         >
-          {p?.url || p?.preview ? "Ganti Foto" : "Upload Foto"}
-          {p?.uploading && <Spinner className="size-4" />}
+          {photo?.url || photo?.preview ? "Ganti Foto" : "Upload Foto"}
+          {photo?.uploading && <Spinner className="size-4" />}
         </Button>
         <Button
           variant="outline"
           type="button"
           onClick={() => uploader.remove(index)}
-          disabled={p?.uploading || p?.removing || (!p?.url && !p?.preview)}
+          disabled={
+            photo?.uploading ||
+            photo?.removing ||
+            (!photo?.url && !photo?.preview)
+          }
         >
           Hapus
-          {p?.removing && <Spinner className="size-4" />}
+          {photo?.removing && <Spinner className="size-4" />}
         </Button>
-        {!p?.uploading && p?.url && (
+        {!photo?.uploading && photo?.url && (
           <Button variant={"outline"} asChild>
-            <a href={p?.url} target="_blank" rel="noopener noreferrer">
+            <a href={photo?.url} target="_blank" rel="noopener noreferrer">
               Lihat
             </a>
           </Button>

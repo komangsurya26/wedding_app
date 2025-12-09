@@ -12,7 +12,7 @@ import { FieldDescription } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SignWithGoogleButton from "../../login/components/SignWithGoogleButton";
 import Link from "next/link";
-import { signup } from "@/src/lib/auth-actions";
+import { signup } from "@/src/actions/auth-actions";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

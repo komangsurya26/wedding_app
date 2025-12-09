@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAudio } from "../lib/audio-actions";
+import { fetchAudio } from "../actions/audio-actions";
 import { Audio } from "../types";
 
 export function useAudio(invitationId: number) {

@@ -30,7 +30,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { login } from "@/src/lib/auth-actions";
+import { login } from "@/src/actions/auth-actions";
 import { useUserStore } from "@/src/stores/user-store";
 
 const LoginSchema = z.object({
@@ -68,7 +68,7 @@ export function LoginForm({
         return;
       }
       toast.success("Login berhasil!");
-      await refresh()
+      await refresh();
       router.push(next);
     } catch (error) {
       toast.error("Terjadi kesalahan jaringan. Coba lagi.");

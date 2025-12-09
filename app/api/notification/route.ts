@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { verifySignature } from "@/src/lib/midtrans";
+import { verifySignature } from "@/src/services/midtrans";
 import { createServiceClient } from "@/src/utils/supabase/service";
 import { addMonths } from "@/src/lib/utils";
 
-const TEMPLATE_ACTIVE_DURATION = process.env.NEXT_PUBLIC_TEMPLATE_ACTIVE_DURATION
+const TEMPLATE_ACTIVE_DURATION = process.env.TEMPLATE_ACTIVE_DURATION
 
 export async function POST(req: Request) {
     const raw = await req.text()
