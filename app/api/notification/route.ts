@@ -35,7 +35,8 @@ export async function POST(req: Request) {
                 .from("invitations")
                 .update({
                     expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString(),
-                    slug: orders.slug
+                    slug: orders.slug,
+                    invitation_url: orders.url_invitation
                 })
                 .eq("id", orders.invitation_id)
             return NextResponse.json({ ok: true, message: "Status settlement sukses" }, { status: 200 });
