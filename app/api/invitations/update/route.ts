@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
         const { data: invitations, error: fetchError } = await supabase
             .from("invitations")
-            .select("*")
+            .select("user_id, template_type")
             .eq("id", invitation_id)
             .maybeSingle();
 

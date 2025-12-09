@@ -41,7 +41,8 @@ export async function POST(req: Request) {
         const { data: invitations, error: invitError } = await supabase
             .from("invitations")
             .select("*")
-            .eq("user_id", user.id);
+            .eq("user_id", user.id)
+            .limit(1);
 
         if (invitError) {
             return NextResponse.json(
