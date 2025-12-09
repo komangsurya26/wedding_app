@@ -34,7 +34,8 @@ export async function POST(req: Request) {
             await supabase
                 .from("invitations")
                 .update({
-                    expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString()
+                    expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString(),
+                    slug: orders.slug
                 })
                 .eq("id", orders.invitation_id)
             return NextResponse.json({ ok: true, message: "Status settlement sukses" }, { status: 200 });
@@ -46,7 +47,8 @@ export async function POST(req: Request) {
             template_id: orders.template_id,
             invitation_name: orders.title_invitation,
             invitation_url: orders.url_invitation,
-            expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString()
+            expires_at: addMonths(new Date(), Number(TEMPLATE_ACTIVE_DURATION)).toISOString(),
+            slug: orders.slug
         }
         await supabase
             .from("invitations")
