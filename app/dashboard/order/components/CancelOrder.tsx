@@ -25,7 +25,9 @@ export function CancelOrder({
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ order_ref }),
+                body: JSON.stringify({
+                  order_ref,
+                }),
               }
             );
             const { data } = await res.json();
@@ -44,7 +46,12 @@ export function CancelOrder({
     });
   };
   return (
-    <Button size="sm" variant="destructive" onClick={cancelOrder} className="cursor-pointer">
+    <Button
+      size="sm"
+      variant="destructive"
+      onClick={cancelOrder}
+      className="cursor-pointer"
+    >
       {loading ? "Cancel.." : "Cancel"}
     </Button>
   );

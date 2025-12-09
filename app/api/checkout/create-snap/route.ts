@@ -1,6 +1,6 @@
 import { TEMPLATE_LIST } from "@/src/lib/template-data";
 import { PaymentSchema } from "@/src/schemas/checkout.schema";
-import { MidtransCustomerProps, MidtransItemProps, PaymentProps } from "@/src/types";
+import { MidtransCustomerProps, MidtransItemProps } from "@/src/types";
 import { createClient } from "@/src/utils/supabase/server";
 import Midtrans from "midtrans-client";
 import { NextResponse } from "next/server";
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ ok: false, error: "Invalid payload", details: parsed.error.message }, { status: 400 });
         }
 
-        const { template_id, invitation_id, title_invitation, url_invitation } = parsed.data;
+        const { template_id, invitation_id, title_invitation, url_invitation, slug } = parsed.data;
 
         // Membuat order ID unik
         const orderRef = uuid();
@@ -43,6 +43,22 @@ export async function POST(req: Request) {
         const template = TEMPLATE_LIST.find(t => t.id === template_id);
         if (!template) {
             return NextResponse.json({ ok: false, error: "Template not found" }, { status: 404 });
+        }
+
+        // Jika ada invitation id , cek apakah itu milik user
+        if (invitation_id) {
+            const { data: invitations, error: errorInvitation } = await supabase
+                .from("invitations")
+                .select("*")
+                .eq("id", invitation_id)
+                .single();
+
+            if (!invitations || errorInvitation) {
+                return NextResponse.json({ ok: false, error: "Invitation not found" }, { status: 404 });
+            }
+            if (invitations?.user_id !== user.id) {
+                return NextResponse.json({ ok: false, error: "Invitation not found" }, { status: 404 });
+            }
         }
 
         const item: MidtransItemProps = {
@@ -79,6 +95,7 @@ export async function POST(req: Request) {
             amount: item.price,
             url_payment: response.redirect_url,
             status: "WAITING_PAYMENT",
+            slug: slug
         }
         const { error } = await supabase
             .from("orders")
@@ -87,6 +104,8 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ ok: true, data: response });
     } catch (err) {
+        console.log(err);
+
         return NextResponse.json({ ok: false, error: "Internal server error" }, { status: 500 });
     }
 }

@@ -28,12 +28,13 @@ export async function POST(req: Request) {
         }
 
         const { invitation_id, template_id } = parsed.data;
-        
+
         const { data: invitations, error: fetchError } = await supabase
             .from("invitations")
             .select("*")
             .eq("id", invitation_id)
-            .single();
+            .maybeSingle();
+
         if (fetchError) throw fetchError;
 
         if (!invitations) {
@@ -64,6 +65,6 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ ok: true, data });
     } catch (error) {
-        return NextResponse.json({ ok: false, error: String(error) }, { status: 500 });
+        return NextResponse.json({ ok: false, error: "Internal Server Error" }, { status: 500 });
     }
 }

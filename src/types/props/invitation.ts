@@ -79,4 +79,5 @@ export type Invitation = {
     countdown?: Countdown
     audio?: Audio
     expired?: boolean;
+    slug?: string
 };

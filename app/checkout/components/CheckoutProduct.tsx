@@ -56,9 +56,11 @@ export function CheckoutProduct() {
         template_id: templateId ? Number(templateId) : template?.id!,
         invitation_id: invitationId ? Number(invitationId) : null,
         title_invitation: title.trim() ? title.trim() : invitation?.name!,
-        url_invitation: templateId
-          ? `${BASE_URL}${slug}`
-          : invitation?.urlInvitation!,
+        // url_invitation: templateId
+        //   ? `${BASE_URL}${slug}`
+        //   : invitation?.urlInvitation!,
+        url_invitation: "https://example.com",
+        slug: slug ? slug : invitation?.slug!,
       };
 
       const res = await fetch("/api/checkout/create-snap", {

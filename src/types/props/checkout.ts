@@ -11,6 +11,7 @@ export type PaymentProps = {
     invitation_id: number | null;
     url_invitation: string;
     title_invitation: string;
+    slug: string
 };
 
 export type MidtransItemProps = {

@@ -82,6 +82,7 @@ export function useCheckoutValidation({
         setInvitation({
           urlInvitation: foundInvit.urlInvitation,
           name: foundInvit.name,
+          slug: foundInvit.slug
         });
         setValid(true)
 

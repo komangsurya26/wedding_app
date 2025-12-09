@@ -40,6 +40,7 @@ export const useInvitationStore = create<InvitationState>((set) => ({
           : false,
         urlInvitation: item.invitation_url,
         templateId: item.template_id,
+        slug: item.slug
       }));
 
       set({ invitations: data });

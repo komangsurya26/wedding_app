@@ -2,9 +2,10 @@ import z from "zod";
 
 export const PaymentSchema = z.object({
     template_id: z.number(),
-    invitation_id: z.number().optional(),
+    invitation_id: z.number().nullable().optional(),
     title_invitation: z.string().min(1).max(100),  // batasi panjang
     url_invitation: z.url(),    // harus URL valid jika ada
+    slug: z.string().min(1).max(50).regex(/^[a-zA-Z0-9-_]+$/),
 });
 
 export const TrialSchema = z.object({

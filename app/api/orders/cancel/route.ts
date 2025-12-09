@@ -1,4 +1,5 @@
 import { getBase64 } from "@/src/services/midtrans";
+import { createClient } from "@/src/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
 
@@ -10,6 +11,12 @@ const Schema = z.object({
 
 export async function POST(req: NextRequest) {
     try {
+        const supabase = await createClient();
+        const { data: { user }, error: userErr } = await supabase.auth.getUser();
+        if (userErr || !user) {
+            return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+        }
+
         const body = await req.json();
 
         const parsed = Schema.safeParse(body);
@@ -20,6 +27,20 @@ export async function POST(req: NextRequest) {
             );
         }
         const { order_ref } = parsed.data;
+
+
+        // cek apakah order ref milik user
+        const { data: orders, error: fetchError } = await supabase
+            .from("orders")
+            .select("*")
+            .eq("order_ref", order_ref)
+            .maybeSingle();
+
+        if (fetchError) throw fetchError;
+
+        if (!orders || orders.user_id !== user.id) {
+            return NextResponse.json({ ok: false, error: "Order not found" }, { status: 404 });
+        }
 
         const auth = getBase64()
 
@@ -37,6 +58,8 @@ export async function POST(req: NextRequest) {
         const data = await midtransRes.json();
         return NextResponse.json({ ok: true, data });
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json(
             { ok: false, error: "Internal Server Error" },
             { status: 500 }
