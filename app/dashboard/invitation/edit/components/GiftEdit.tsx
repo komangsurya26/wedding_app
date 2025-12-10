@@ -7,12 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Form } from "@/components/ui/form";
-import {
-  GiftsArraySchema,
-  GiftsArraySchemaType,
-} from "@/src/schemas/gift.schema";
-import { createGift } from "@/src/actions/gift-actions";
-import { useGift } from "@/src/hooks/use-gift";
+import { GiftsArraySchema, GiftsArraySchemaType } from "@/schemas/gift.schema";
+import { createGift } from "@/actions/gift-actions";
+import { useGift } from "@/hooks/use-gift";
 import { Skeleton } from "@/components/ui/skeleton";
 import GiftRow from "./GIftRow";
 
@@ -129,7 +126,7 @@ export function GiftEdit({
 
             <DialogFooter>
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? "Menyimpan..." : "Save"}
+                {formState.isSubmitting ? "Menyimpan..." : "Simpan Kado"}
               </Button>
             </DialogFooter>
           </div>

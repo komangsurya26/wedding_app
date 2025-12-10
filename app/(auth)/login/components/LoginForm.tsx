@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,8 +30,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { login } from "@/src/actions/auth-actions";
-import { useUserStore } from "@/src/stores/user-store";
+import { login } from "@/actions/auth-actions";
+import { useUserStore } from "@/stores/user-store";
 
 const LoginSchema = z.object({
   email: z.email({

@@ -24,15 +24,15 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
+import { TEMPLATE_LIST } from "@/lib/template-data";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { toast } from "sonner";
-import { Invitation } from "@/src/types";
+import { Invitation } from "@/types";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useInvitationStore } from "@/src/stores/invitation-store";
+import { useInvitationStore } from "@/stores/invitation-store";
 
 const templateSchema = z.object({
   template_id: z.string().min(1, "Pilih template"),
@@ -65,7 +65,7 @@ export function ChangeTemplateDialog({
   useEffect(() => {
     if (!open) return;
     setValue("template_id", String(invitation.templateId));
-  }, [open, setValue, invitationId]);
+  }, [open, setValue, invitation.templateId]);
 
   const onSubmit = async (values: TemplateSchemaType) => {
     try {

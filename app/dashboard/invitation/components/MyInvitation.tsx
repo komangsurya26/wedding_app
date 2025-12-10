@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { FallbackInvitation } from "./FallbackInvitation";
 import { Invitation } from "./Invitation";
-import { useInvitationStore } from "@/src/stores/invitation-store";
+import { useInvitationStore } from "@/stores/invitation-store";
 
 export function MyInvitation() {
   const myInvitations = useInvitationStore((state) => state.invitations);

@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
-import { formatIDR, slugify } from "@/src/lib/utils";
-import { useCheckoutValidation } from "@/src/hooks/use-checkout-validation";
+import { formatIDR, slugify } from "@/lib/utils";
+import { useCheckoutValidation } from "@/hooks/use-checkout-validation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FallbackCheckout } from "./FallbackCheckout";
 
@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { PaymentProps, TrialProps } from "@/src/types";
+import { PaymentProps, TrialProps } from "@/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const TEMPLATE_ACTIVE_DURATION =
@@ -56,17 +56,18 @@ export function CheckoutProduct() {
         template_id: templateId ? Number(templateId) : template?.id!,
         invitation_id: invitationId ? Number(invitationId) : null,
         title_invitation: title.trim() ? title.trim() : invitation?.name!,
-        // url_invitation: templateId
-        //   ? `${BASE_URL}${slug}`
-        //   : invitation?.urlInvitation!,
-        url_invitation: "https://example.com",
-        slug: slug ? slug : invitation?.slug!,
+        url_invitation: `${BASE_URL}${slug}`,
+        slug: slug,
       };
 
       const res = await fetch("/api/checkout/create-snap", {
         method: "POST",
         body: JSON.stringify(payload),
       });
+      if (res.status === 409) {
+        toast.error("URL sudah digunakan, silahkan gunakan yang lain");
+        return null;
+      }
       const json = await res.json();
       if (!json.ok) {
         toast.error("Terjadi kesalahan, coba beberapa saat lagi");
@@ -153,37 +154,27 @@ export function CheckoutProduct() {
         {/* URL Undangan */}
         <div className="space-y-2">
           <Label className="text-base font-medium">URL Undangan</Label>
-          {templateId ? (
-            <>
-              <div className="flex items-center gap-2">
-                <Input
-                  value={BASE_URL}
-                  readOnly
-                  className="w-[200px] bg-muted cursor-not-allowed text-muted-foreground"
-                />
-                <Input
-                  placeholder="komang-dan-surya"
-                  value={slug}
-                  onChange={(e) => {
-                    setSlug(slugify(e.target.value));
-                  }}
-                  className="flex-1"
-                />
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Hasil URL:{" "}
-                <span className="font-medium">{`${BASE_URL}${
-                  slug || "komang-dan-surya"
-                }`}</span>
-              </p>
-            </>
-          ) : (
+          <div className="flex items-center gap-2">
             <Input
-              value={invitation?.urlInvitation}
+              value={BASE_URL}
               readOnly
-              className="w-full bg-muted cursor-not-allowed text-muted-foreground"
+              className="w-[200px] bg-muted cursor-not-allowed text-muted-foreground"
             />
-          )}
+            <Input
+              placeholder="komang-dan-surya"
+              value={slug}
+              onChange={(e) => {
+                setSlug(slugify(e.target.value));
+              }}
+              className="flex-1"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Hasil URL:{" "}
+            <span className="font-medium">{`${BASE_URL}${
+              slug || "komang-dan-surya"
+            }`}</span>
+          </p>
         </div>
 
         <Separator />

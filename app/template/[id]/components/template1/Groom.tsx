@@ -1,4 +1,4 @@
-import { Groom as GroomProps } from "@/src/types";
+import { Groom as GroomProps } from "@/types";
 import Image from "next/image";
 import { FaInstagram } from "react-icons/fa";
 
@@ -28,8 +28,8 @@ export function Groom({
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putra {groom?.child_order.toLowerCase()} dari Bapak {groom?.father} dan{" "}
-          <br /> Ibu {groom?.mother}
+          Putra {groom?.child_order.toLowerCase()} dari Bapak {groom?.father}{" "}
+          dan <br /> Ibu {groom?.mother}
         </p>
 
         <a

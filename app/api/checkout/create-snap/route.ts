@@ -1,7 +1,8 @@
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
-import { PaymentSchema } from "@/src/schemas/checkout.schema";
-import { MidtransCustomerProps, MidtransItemProps } from "@/src/types";
-import { createClient } from "@/src/utils/supabase/server";
+import { TEMPLATE_LIST } from "@/lib/template-data";
+import { PaymentSchema } from "@/schemas/checkout.schema";
+import { MidtransCustomerProps, MidtransItemProps } from "@/types";
+import { createClient } from "@/utils/supabase/server";
+import { createServiceClient } from "@/utils/supabase/service";
 import Midtrans from "midtrans-client";
 import { NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
                 .from("invitations")
                 .select("*")
                 .eq("id", invitation_id)
-                .single();
+                .maybeSingle();
 
             if (!invitations || errorInvitation) {
                 return NextResponse.json({ ok: false, error: "Invitation not found" }, { status: 404 });
@@ -60,6 +61,25 @@ export async function POST(req: Request) {
                 return NextResponse.json({ ok: false, error: "Invitation not found" }, { status: 404 });
             }
         }
+
+        // validasi apakah ada slug di invitations
+        if (slug) {
+            const { data: invitationSlug, error: errorInvitationSlug } = await (await createServiceClient())
+                .from("invitations")
+                .select("slug")
+                .eq("slug", slug)
+                .gte("expires_at", new Date().toISOString())
+                .limit(1)
+                .maybeSingle();
+
+            if (errorInvitationSlug) {
+                return NextResponse.json({ ok: false, error: "Error checking slug" }, { status: 500 });
+            }
+            if (invitationSlug) {
+                return NextResponse.json({ ok: false, error: "Slug already exists" }, { status: 409 });
+            }
+        }
+
 
         const item: MidtransItemProps = {
             id: String(template.id),

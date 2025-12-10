@@ -6,15 +6,15 @@ import { useForm } from "react-hook-form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ImageUploadField } from "@/app/dashboard/components/ImageUploadField";
-import { createGroom } from "@/src/actions/groom-actions";
-import { GroomSchema, GroomSchemaType } from "@/src/schemas/groom.schema";
+import { createGroom } from "@/actions/groom-actions";
+import { GroomSchema, GroomSchemaType } from "@/schemas/groom.schema";
 import { toast } from "sonner";
 import { Form } from "@/components/ui/form";
-import { useGroom } from "@/src/hooks/use-groom";
+import { useGroom } from "@/hooks/use-groom";
 import { Skeleton } from "@/components/ui/skeleton";
 import GroomForm from "./GroomForm";
-import { usePhotoGroom, usePhotosLinear } from "@/src/hooks/use-photos";
-import { useImageUploader } from "@/src/hooks/use-image-uploader";
+import { usePhotoGroom, usePhotosLinear } from "@/hooks/use-photos";
+import { useImageUploader } from "@/hooks/use-image-uploader";
 
 export function GroomEdit({
   invitationId,
@@ -116,7 +116,7 @@ export function GroomEdit({
           </div>
           <DialogFooter className="pr-3 pt-3">
             <Button type="submit" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? "Menyimpan..." : "Save"}
+              {form.formState.isSubmitting ? "Menyimpan..." : "Simpan Mempelai"}
             </Button>
           </DialogFooter>
         </div>

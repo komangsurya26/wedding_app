@@ -12,11 +12,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Order } from "@/src/types";
+import { Order } from "@/types";
 import { Separator } from "@/components/ui/separator";
 import { SearchOrder } from "./SearchOrder";
 import { FallbackOrder } from "./FallbackOrder";
-import { formatDate, formatExpired } from "@/src/lib/utils";
+import { formatDate, formatExpired } from "@/lib/utils";
 import { CancelOrder } from "./CancelOrder";
 import { DetailOrder } from "./DetailOrder";
 import { useSearchParams } from "next/navigation";

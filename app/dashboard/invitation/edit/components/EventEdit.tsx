@@ -3,16 +3,16 @@
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
-import { createEvent } from "@/src/actions/event-actions";
+import { createEvent } from "@/actions/event-actions";
 import {
   EventsArraySchema,
   EventArraySchemaType,
-} from "@/src/schemas/event.schema";
+} from "@/schemas/event.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Form } from "@/components/ui/form";
-import { useEvent } from "@/src/hooks/use-event";
+import { useEvent } from "@/hooks/use-event";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "./EventCard";
 
@@ -132,7 +132,7 @@ export function EventEdit({
 
             <DialogFooter>
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? "Menyimpan..." : "Save"}
+                {formState.isSubmitting ? "Menyimpan..." : "Simpan Acara"}
               </Button>
             </DialogFooter>
           </div>

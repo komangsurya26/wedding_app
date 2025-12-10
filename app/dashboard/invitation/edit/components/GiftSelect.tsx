@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { BANKS } from "@/src/lib/bank-datas";
+import { BANKS } from "@/lib/bank-datas";
 
 export function GiftSelect({
   value,

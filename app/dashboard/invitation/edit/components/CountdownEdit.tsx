@@ -12,12 +12,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCountdown } from "@/src/hooks/use-countdown";
-import { createCountdown } from "@/src/actions/countdown-actions";
+import { useCountdown } from "@/hooks/use-countdown";
+import { createCountdown } from "@/actions/countdown-actions";
 import {
   CountdownSchema,
   CountdownSchemaType,
-} from "@/src/schemas/countdown.schema";
+} from "@/schemas/countdown.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -112,7 +112,7 @@ export function CountdownEdit({
             <div />
             <DialogFooter>
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? "Menyimpan..." : "Save"}
+                {formState.isSubmitting ? "Menyimpan..." : "Simpan Countdown"}
               </Button>
             </DialogFooter>
           </div>

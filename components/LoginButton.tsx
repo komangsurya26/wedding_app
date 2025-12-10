@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useUserStore } from "@/src/stores/user-store";
+import { useUserStore } from "@/stores/user-store";
 
 export default function LoginButton() {
   const user = useUserStore((state) => state.user);

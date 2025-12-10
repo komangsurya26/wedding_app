@@ -2,15 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { SquarePen } from "lucide-react";
-import { Invitation } from "@/src/types";
+import { Invitation } from "@/types";
 import { ChangeTemplateDialog } from "./ChangeTemplateDialog";
 import { useState } from "react";
 
-export function ChangeTemplate({
-  invitation,
-}: {
-  invitation: Invitation;
-}) {
+export function ChangeTemplate({ invitation }: { invitation: Invitation }) {
   const [open, setOpen] = useState(false);
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Invitation } from "@/src/types";
+import { Invitation } from "@/types";
 
 import { Footer } from "./template1/Footer";
 import { WeddingGift } from "./template1/WeddingGift";
@@ -17,7 +17,7 @@ import { Hero } from "./template1/Hero";
 import { LoadingPercent } from "./template1/LoadingPercent";
 import { BgYoutube } from "./template1/BgYoutube";
 import CountDownTimer from "./template1/CountDownTimer";
-import { addDay } from "@/src/lib/utils";
+import { addDay } from "@/lib/utils";
 
 export default function Template1({ config }: { config: Invitation }) {
   const [isOpened, setIsOpened] = useState(false);

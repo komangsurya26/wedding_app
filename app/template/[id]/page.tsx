@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { DEFAULT_INVITATIONS } from "@/src/lib/default-invitation";
-import { Invitation } from "@/src/types";
+import { DEFAULT_INVITATIONS } from "@/lib/default-invitation";
+import { Invitation } from "@/types";
 import Template1 from "./components/Template1";
 import Template2 from "./components/Template2";
 

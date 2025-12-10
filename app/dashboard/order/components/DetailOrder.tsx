@@ -9,9 +9,9 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
-import { formatIDR } from "@/src/lib/utils";
-import { Order } from "@/src/types";
+import { TEMPLATE_LIST } from "@/lib/template-data";
+import { formatIDR } from "@/lib/utils";
+import { Order } from "@/types";
 import Link from "next/link";
 import React from "react";
 

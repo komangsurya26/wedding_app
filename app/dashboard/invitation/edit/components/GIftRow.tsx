@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { GiftSelect } from "./GiftSelect";
-import { BANKS } from "@/src/lib/bank-datas";
+import { BANKS } from "@/lib/bank-datas";
 import { Button } from "@/components/ui/button";
 
 export default function GiftRow({

@@ -1,0 +1,40 @@
+import { TemplateType, Template } from "../types";
+
+export const TEMPLATE_LIST: Template[] = [
+    {
+        id: 1,
+        name: "Lume",
+        type: TemplateType.BASIC,
+        img: "",
+        price: 100000,
+        href: "/template/1",
+        description: "Template dengan konsep glass"
+    },
+    {
+        id: 2,
+        name: "Chocolate Dream",
+        type: TemplateType.BASIC,
+        img: "",
+        price: 100000,
+        href: "/template/2",
+        description: "Template dengan konsep glass"
+    },
+    {
+        id: 3,
+        name: "True Potential",
+        type: TemplateType.PREMIUM,
+        img: "",
+        price: 100000,
+        href: "/template/3",
+        description: "Template dengan konsep glass"
+    },
+    {
+        id: 4,
+        name: "True Gold",
+        type: TemplateType.VIP,
+        img: "",
+        price: 100000,
+        href: "/template/3",
+        description: "Template dengan konsep glass"
+    },
+];

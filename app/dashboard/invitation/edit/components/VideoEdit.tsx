@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useVideo } from "@/src/hooks/use-video";
-import { createVideoYoutube } from "@/src/actions/video-actions";
-import { VideoSchema, VideoSchemaType } from "@/src/schemas/video.schema";
+import { useVideo } from "@/hooks/use-video";
+import { createVideoYoutube } from "@/actions/video-actions";
+import { VideoSchema, VideoSchemaType } from "@/schemas/video.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -89,7 +89,7 @@ export function VideoEdit({
             <div />
             <DialogFooter>
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? "Menyimpan..." : "Save"}
+                {formState.isSubmitting ? "Menyimpan..." : "Simpan Video"}
               </Button>
             </DialogFooter>
           </div>

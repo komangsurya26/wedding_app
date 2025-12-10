@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { IoMdTime } from "react-icons/io";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
-import { Attendance, Comment, ConfirmAttendanceProps } from "@/src/types";
+import { Attendance, Comment, ConfirmAttendanceProps } from "@/types";
 
 export function RSVP({
   initialComments = [

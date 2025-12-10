@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MUSICS } from "@/src/lib/musics-datas";
+import { MUSICS } from "@/lib/musics-datas";
 
 export function AudioSelect({
   value,

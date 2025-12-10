@@ -1,7 +1,7 @@
 import React from "react";
 import Template1 from "../template/[id]/components/Template1";
 import Template2 from "../template/[id]/components/Template2";
-import { Invitation } from "@/src/types";
+import { Invitation } from "@/types";
 import { notFound } from "next/navigation";
 
 export default async function SlugPage({

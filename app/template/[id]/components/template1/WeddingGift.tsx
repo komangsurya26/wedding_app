@@ -5,7 +5,7 @@ import Image from "next/image";
 import copy from "copy-to-clipboard";
 
 //types
-import { Gifts } from "@/src/types";
+import { Gifts } from "@/types";
 
 //icons
 import { HiOutlineClipboard } from "react-icons/hi";

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/src/utils/supabase/server";
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
-import { TrialSchema } from "@/src/schemas/checkout.schema";
-import { addDay } from "@/src/lib/utils";
+import { createClient } from "@/utils/supabase/server";
+import { TEMPLATE_LIST } from "@/lib/template-data";
+import { TrialSchema } from "@/schemas/checkout.schema";
+import { addDay } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {

@@ -12,7 +12,7 @@ import { FieldDescription } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SignWithGoogleButton from "../../login/components/SignWithGoogleButton";
 import Link from "next/link";
-import { signup } from "@/src/actions/auth-actions";
+import { signup } from "@/actions/auth-actions";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserStore } from "@/src/stores/user-store";
+import { useUserStore } from "@/stores/user-store";
 
 const RegisterSchema = z
   .object({

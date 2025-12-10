@@ -1,5 +1,5 @@
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
-import { createClient } from "@/src/utils/supabase/server";
+import { TEMPLATE_LIST } from "@/lib/template-data";
+import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 import z from "zod";
 

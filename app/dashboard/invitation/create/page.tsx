@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import { Invitation as InvitationTypes } from "@/src/types";
+import { Invitation as InvitationTypes } from "@/types";
 import { Invitation } from "../components/Invitation";
 import { FallbackInvitation } from "../components/FallbackInvitation";
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
+import { TEMPLATE_LIST } from "@/lib/template-data";
 
 // templates default
 const templates: InvitationTypes[] = TEMPLATE_LIST.map((value) => ({

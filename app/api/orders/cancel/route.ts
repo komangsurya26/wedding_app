@@ -1,5 +1,5 @@
-import { getBase64 } from "@/src/services/midtrans";
-import { createClient } from "@/src/utils/supabase/server";
+import { getBase64 } from "@/services/midtrans";
+import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
 

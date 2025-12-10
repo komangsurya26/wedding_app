@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { InvitationDialog } from "./InvitationDialog";
 import { FallbackInvitationEdit } from "../../components/FallbackInvitationEdit";
-import { useInvitationStore } from "@/src/stores/invitation-store";
+import { useInvitationStore } from "@/stores/invitation-store";
 
 export function InvitationEdit() {
   const searchParams = useSearchParams();

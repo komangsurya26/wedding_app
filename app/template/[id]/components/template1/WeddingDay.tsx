@@ -1,5 +1,5 @@
 import React from "react";
-import { Events } from "@/src/types";
+import { Events } from "@/types";
 
 //icons
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";

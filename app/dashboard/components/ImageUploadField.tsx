@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
-import { useImageUploader } from "@/src/hooks/use-image-uploader";
+import { useImageUploader } from "@/hooks/use-image-uploader";
 
 export function ImageUploadField({
   index,

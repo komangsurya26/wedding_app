@@ -5,7 +5,7 @@ import {
   Edit,
   FileEdit,
   Forward,
-  Image,
+  Image as ImageIcon,
   Map,
   Music,
   Share,
@@ -70,7 +70,7 @@ const features: Feature[] = [
   {
     id: 7,
     title: "Galeri Foto",
-    icon: <Image />,
+    icon: <ImageIcon />,
     description:
       "Pamerkan koleksi foto terbaik kalian dalam galeri elegan yang mudah diakses oleh para tamu.",
   },

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { verifySignature } from "@/src/services/midtrans";
-import { createServiceClient } from "@/src/utils/supabase/service";
-import { addMonths } from "@/src/lib/utils";
+import { verifySignature } from "@/services/midtrans";
+import { createServiceClient } from "@/utils/supabase/service";
+import { addMonths } from "@/lib/utils";
 
 const TEMPLATE_ACTIVE_DURATION = process.env.TEMPLATE_ACTIVE_DURATION
 

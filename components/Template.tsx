@@ -1,4 +1,4 @@
-import { TEMPLATE_LIST } from "@/src/lib/template-data";
+import { TEMPLATE_LIST } from "@/lib/template-data";
 import Image from "next/image";
 import Link from "next/link";
 

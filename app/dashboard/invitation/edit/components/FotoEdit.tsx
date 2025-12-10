@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { createPhotos } from "@/src/actions/photos-actions";
+import { createPhotos } from "@/actions/photos-actions";
 import { Spinner } from "@/components/ui/spinner";
-import { useImageUploader } from "@/src/hooks/use-image-uploader";
-import { usePhotosGrid, usePortraitLandscape } from "@/src/hooks/use-photos";
+import { useImageUploader } from "@/hooks/use-image-uploader";
+import { usePhotosGrid, usePortraitLandscape } from "@/hooks/use-photos";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function FotoEdit({
@@ -141,7 +141,7 @@ export function FotoEdit({
             disabled={loading}
           >
             <div className="flex items-center gap-2">
-              Save Potrait
+              Simpan Potrait
               {loading && <Spinner className="size-4" />}
             </div>
           </Button>
@@ -155,7 +155,7 @@ export function FotoEdit({
             disabled={loading}
           >
             <div className="flex items-center gap-2">
-              Save Landscape
+              Simpan Landscape
               {loading && <Spinner className="size-4" />}
             </div>
           </Button>

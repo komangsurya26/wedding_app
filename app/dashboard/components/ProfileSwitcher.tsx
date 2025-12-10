@@ -15,11 +15,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { signout } from "@/src/actions/auth-actions";
+import { signout } from "@/actions/auth-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useUserStore } from "@/src/stores/user-store";
+import { useUserStore } from "@/stores/user-store";
 import { useEffect } from "react";
 
 export function ProfileSwitcher() {

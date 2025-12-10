@@ -10,10 +10,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useAudio } from "@/src/hooks/use-audio";
-import { createAudio } from "@/src/actions/audio-actions";
-import { MUSICS } from "@/src/lib/musics-datas";
-import { MusicSchema, MusicSchemaType } from "@/src/schemas/music.schema";
+import { useAudio } from "@/hooks/use-audio";
+import { createAudio } from "@/actions/audio-actions";
+import { MUSICS } from "@/lib/musics-datas";
+import { MusicSchema, MusicSchemaType } from "@/schemas/music.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -145,7 +145,7 @@ export function AudioEdit({
             <div />
             <DialogFooter>
               <Button type="submit" disabled={formState.isSubmitting}>
-                {formState.isSubmitting ? "Menyimpan..." : "Save"}
+                {formState.isSubmitting ? "Menyimpan..." : "Simpan Musik"}
               </Button>
             </DialogFooter>
           </div>

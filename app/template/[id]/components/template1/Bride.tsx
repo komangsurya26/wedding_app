@@ -1,4 +1,4 @@
-import { Bride as BrideTypes } from "@/src/types";
+import { Bride as BrideTypes } from "@/types";
 import Image from "next/image";
 import { FaInstagram } from "react-icons/fa";
 
@@ -28,8 +28,8 @@ export function Bride({
         </h2>
 
         <p className="text-sm font-lora leading-normal text-white/80">
-          Putri {bride?.child_order.toLowerCase()} dari Bapak {bride?.father} dan{" "}
-          <br /> Ibu {bride?.mother}
+          Putri {bride?.child_order.toLowerCase()} dari Bapak {bride?.father}{" "}
+          dan <br /> Ibu {bride?.mother}
         </p>
 
         <a

@@ -1,6 +1,6 @@
 "use client";
 
-import { Invitation } from "@/src/types";
+import { Invitation } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
