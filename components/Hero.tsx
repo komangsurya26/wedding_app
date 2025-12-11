@@ -10,7 +10,7 @@ export default function Hero() {
           playsInline
           className="absolute top-0 left-0 right-0 w-full h-full object-cover"
         >
-          <source src="/herovideo.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/dpij7jkkd/video/upload/v1765441771/video/herovideo_qvrpex.mp4" type="video/mp4" />
         </video>
 
         {/* Konten utama di atas video */}
