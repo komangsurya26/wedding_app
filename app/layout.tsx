@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "Undangan Digital",
   ],
   openGraph: {
-    title: "resepsibali | Buat Undangan Website Digital",
+    title: "Resepsi Bali | Buat Undangan Website Digital",
     description:
       "Buat undangan digital elegan dengan Resepsi Bali. Desain eksklusif, fitur RSVP, dan tampilan profesional untuk pernikahan Anda.",
     siteName: "Resepsi Bali",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "resepsibali | Buat Undangan Website Digital",
+    title: "Resepsi Bali | Buat Undangan Website Digital",
     description:
       "Buat undangan digital elegan dengan Resepsi Bali. Desain eksklusif, fitur RSVP, dan tampilan profesional untuk pernikahan Anda.",
     images: ["https://komangsuryasedana.web.id/favicon/og-image.png"],
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon/favicon.ico",
+    icon: "/favicon/favicon-96x96.png",
     apple: "/favicon/apple-touch-icon.png",
   },
   manifest: "/favicon/site.webmanifest",
