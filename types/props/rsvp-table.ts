@@ -1,4 +1,4 @@
-import { Attendance } from "./rsvp";
+export type Attendance = "Hadir" | "Tidak Hadir";
 
 // Single RSVP item for table display
 export interface RSVPItem {
