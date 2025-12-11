@@ -30,8 +30,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { toast } from "sonner";
 import { Invitation } from "@/types";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
 import { useInvitationStore } from "@/stores/invitation-store";
 
 const templateSchema = z.object({
