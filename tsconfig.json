@@ -33,7 +33,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/templates/attendance",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
