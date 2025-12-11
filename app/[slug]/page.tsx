@@ -35,6 +35,7 @@ export default async function SlugPage({
 
   const invitationData: Invitation = {
     ...data,
+    invitationId: data.id,
     groom: data.grooms,
     bride: data.brides,
     photos: {

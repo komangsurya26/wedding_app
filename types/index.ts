@@ -1,4 +1,4 @@
-export * from "./props/rsvp"
+export * from "./props/rsvp-table"
 export * from "./props/invitation"
 export * from "./props/order"
 export * from "./props/template"

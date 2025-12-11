@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TotalVisitors } from "./components/TotalVisitors";
+import { RSVPSection } from "./components/RSVPSection";
 
 export default function DashboardPage() {
   return (
@@ -15,7 +16,7 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Pengunjung
+              Total Pengunjung Websitemu
             </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -116,41 +117,9 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
-        <Card className="col-span-1 lg:col-span-4">
-          <Tabs orientation="vertical" defaultValue="month">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>Total Pengunjung</CardTitle>
 
-                <TabsList>
-                  <TabsTrigger value="month">Bulan ini</TabsTrigger>
-                  <TabsTrigger value="year">Tahun ini</TabsTrigger>
-                </TabsList>
-              </div>
-            </CardHeader>
-
-            <CardContent>
-              <TabsContent value="month">
-                <TotalVisitors type="month" />
-              </TabsContent>
-              <TabsContent value="year">
-                <TotalVisitors type="year" />
-              </TabsContent>
-            </CardContent>
-          </Tabs>
-        </Card>
-
-        <Card className="col-span-1 lg:col-span-3">
-          <CardHeader>
-            <CardTitle>Komentar Terbaru</CardTitle>
-            <CardDescription>
-              Kamu mendapatkan total 200 komentar
-            </CardDescription>
-          </CardHeader>
-          <CardContent>{/* <RecentSales /> */}</CardContent>
-        </Card>
-      </div>
+      {/* RSVP Section */}
+      <RSVPSection />
     </main>
   );
 }

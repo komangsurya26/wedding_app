@@ -1,32 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { IoMdTime } from "react-icons/io";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
-import { Attendance, Comment, ConfirmAttendanceProps } from "@/types";
+import { createRSVP, fetchRSVPsByInvitation, RSVPRecord } from "@/actions/rsvp-actions";
+import { formatDistanceToNow } from "date-fns";
+import { id } from "date-fns/locale";
 
-export function RSVP({
-  initialComments = [
-    {
-      name: "Andi",
-      message: "Selamat menempuh hidup baru! Semoga bahagia selalu.",
-      attendance: "Hadir",
-      timeAgo: "2 jam yang lalu",
-    },
-  ],
-  onSubmit,
-}: ConfirmAttendanceProps) {
+type AttendanceUI = "Hadir" | "Tidak Hadir";
+
+export function RSVP({ invitationId }: { invitationId: number }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [attendance, setAttendance] = useState<Attendance>("Hadir");
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [attendance, setAttendance] = useState<AttendanceUI>("Hadir");
+  const [guestCount, setGuestCount] = useState(1);
+  const [comments, setComments] = useState<RSVPRecord[]>([]);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const maxMessage = 100;
+  const maxMessage = 200;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch existing RSVPs on mount
+  useEffect(() => {
+    async function loadRSVPs() {
+      try {
+        const data = await fetchRSVPsByInvitation(invitationId);
+        setComments(data);
+      } catch (err) {
+        console.error("Failed to load RSVPs:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadRSVPs();
+  }, [invitationId]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     const trimmedName = name.trim();
@@ -39,24 +50,36 @@ export function RSVP({
 
     setSubmitting(true);
 
-    const newComment: Comment = {
-      name: trimmedName,
-      message: trimmedMessage,
-      attendance,
-      timeAgo: "Baru saja",
-    };
+    try {
+      const newRSVP = await createRSVP({
+        invitation_id: invitationId,
+        name: trimmedName,
+        attendance: attendance === "Hadir" ? "yes" : "no",
+        guest_count: attendance === "Hadir" ? guestCount : 0,
+        message: trimmedMessage,
+      });
 
-    // optimistic update
-    setComments((s) => [newComment, ...s]);
-    onSubmit?.(newComment);
+      // Add to list (prepend for newest first)
+      setComments((prev) => [newRSVP, ...prev]);
 
-    // reset form
-    setName("");
-    setMessage("");
-    setAttendance("Hadir");
+      // Reset form
+      setName("");
+      setMessage("");
+      setAttendance("Hadir");
+      setGuestCount(1);
+    } catch (err: any) {
+      setError(err.message || "Gagal mengirim ucapan. Silakan coba lagi.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-    // simulate short delay for UX
-    setTimeout(() => setSubmitting(false), 400);
+  const formatTimeAgo = (date: string) => {
+    try {
+      return formatDistanceToNow(new Date(date), { addSuffix: true, locale: id });
+    } catch {
+      return "Baru saja";
+    }
   };
 
   return (
@@ -119,7 +142,7 @@ export function RSVP({
               </span>
             </div>
 
-            <div className="w-full pt-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div className="w-full pt-4 grid grid-cols-1 md:grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setAttendance("Hadir")}
@@ -153,6 +176,30 @@ export function RSVP({
               </button>
             </div>
 
+            {/* Guest count - only show when attending */}
+            {attendance === "Hadir" && (
+              <div className="flex items-center gap-3">
+                <label className="text-sm text-gray-300">Hadir ber berapa nih:</label>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                    className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center"
+                  >
+                    -
+                  </button>
+                  <span className="w-8 text-center font-semibold">{guestCount}</span>
+                  <button
+                    type="button"
+                    onClick={() => setGuestCount(Math.min(10, guestCount + 1))}
+                    className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={submitting || !name.trim() || !message.trim()}
@@ -175,49 +222,72 @@ export function RSVP({
             aria-label="Daftar Komentar"
             className="space-y-4 overflow-y-auto max-h-[50vh]"
           >
-            {comments.map((c, index) => (
-              <article
-                key={index}
-                className="p-4 rounded-xl bg-white/5 border border-white/10"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex-none aspect-square h-auto min-h-[2rem] sm:min-h-[2.75rem] rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold">
-                    {c.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <h3 className="font-semibold truncate capitalize">
-                        {c.name}
-                      </h3>
-                      <span
-                        className={clsx(
-                          "text-xs py-1 px-2 rounded-lg text-white",
-                          c.attendance === "Hadir"
-                            ? "bg-green-600/40"
-                            : "bg-red-600/40"
-                        )}
-                      >
-                        {c.attendance}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-sm leading-relaxed break-words">
-                      {c.message}
-                    </p>
-
-                    <div className="mt-3 text-xs flex items-center gap-2 text-gray-400">
-                      <IoMdTime className="shrink-0" />
-                      <span>{c.timeAgo}</span>
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10 animate-pulse">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white/10" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-white/10 rounded w-1/3" />
+                      <div className="h-3 bg-white/10 rounded w-full" />
+                      <div className="h-3 bg-white/10 rounded w-2/3" />
                     </div>
                   </div>
                 </div>
-              </article>
-            ))}
+              ))
+            ) : comments.length === 0 ? (
+              <div className="text-center text-gray-400 py-8">
+                <p>Belum ada ucapan. Jadilah yang pertama! 🎉</p>
+              </div>
+            ) : (
+              comments.map((c) => (
+                <article
+                  key={c.id}
+                  className="p-4 rounded-xl bg-white/5 border border-white/10"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-none aspect-square h-auto min-h-[2rem] sm:min-h-[2.75rem] rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold">
+                      {c.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join("")
+                        .toUpperCase()}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <h3 className="font-semibold truncate capitalize">
+                          {c.name}
+                        </h3>
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={clsx(
+                              "text-xs py-1 px-2 rounded-lg text-white",
+                              c.attendance === "yes"
+                                ? "bg-green-600/40"
+                                : "bg-red-600/40"
+                            )}
+                          >
+                            {c.attendance === "yes" ? "Hadir" : "Tidak Hadir"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <p className="mt-2 text-sm leading-relaxed break-words">
+                        {c.message}
+                      </p>
+
+                      <div className="mt-3 text-xs flex items-center gap-2 text-gray-400">
+                        <IoMdTime className="shrink-0" />
+                        <span>{formatTimeAgo(c.created_at)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))
+            )}
           </div>
         </div>
       </div>

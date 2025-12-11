@@ -70,7 +70,7 @@ export default function Template1({ config }: { config: Invitation }) {
               imageLandscapes={config.photos?.photo_landscapes ?? []}
               imagePotraits={config.photos?.photo_portraits ?? []}
             />
-            <RSVP />
+            <RSVP invitationId={Number(config.invitationId) || 0} />
             <WeddingGift gifts={config.gifts ?? []} />
             <Footer images={config.photos?.photo_portraits ?? []} />
           </div>
