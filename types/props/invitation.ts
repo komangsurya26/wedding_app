@@ -62,6 +62,7 @@ export type Audio = {
 }
 
 export type Invitation = {
+    is_demo?: boolean;
     templateId?: number | string;
     invitationId?: number | string;
     urlInvitation?: string

@@ -67,8 +67,8 @@ export function RSVP({ invitationId }: { invitationId: number }) {
       setMessage("");
       setAttendance("Hadir");
       setGuestCount(1);
-    } catch (err: any) {
-      setError(err.message || "Gagal mengirim ucapan. Silakan coba lagi.");
+    } catch (err) {
+      setError("Gagal mengirim ucapan. Silakan coba lagi.");
     } finally {
       setSubmitting(false);
     }

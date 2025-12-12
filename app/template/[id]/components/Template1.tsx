@@ -18,6 +18,7 @@ import { LoadingPercent } from "./template1/LoadingPercent";
 import { BgYoutube } from "./template1/BgYoutube";
 import CountDownTimer from "./template1/CountDownTimer";
 import { addDay } from "@/lib/utils";
+import { RSVPDemo } from "./template1/RSVPDemo";
 
 export default function Template1({ config }: { config: Invitation }) {
   const [isOpened, setIsOpened] = useState(false);
@@ -70,7 +71,7 @@ export default function Template1({ config }: { config: Invitation }) {
               imageLandscapes={config.photos?.photo_landscapes ?? []}
               imagePotraits={config.photos?.photo_portraits ?? []}
             />
-            <RSVP invitationId={Number(config.invitationId) || 0} />
+            {config.is_demo ? <RSVPDemo invitationId={Number(config.invitationId) || 0} /> : <RSVP invitationId={Number(config.invitationId) || 0} />}
             <WeddingGift gifts={config.gifts ?? []} />
             <Footer images={config.photos?.photo_portraits ?? []} />
           </div>

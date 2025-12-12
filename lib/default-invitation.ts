@@ -3,6 +3,7 @@ import { Invitation } from "@/types";
 export const DEFAULT_INVITATIONS: Invitation[] = [
     {
         templateId: 1,
+        is_demo: true,
         video: {
             id_video_youtube: "6FYtKVFik_8"
         },
